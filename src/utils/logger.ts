@@ -1,28 +1,30 @@
 import chalk from 'chalk'
-import { Consola, FancyReporter, FancyReporterOptions } from 'consola'
+import { Consola, FancyReporter, FancyReporterOptions, LogLevel } from 'consola'
+import rc from 'randomcolor'
+
+import { isDev } from '~/constants/env'
 
 import { getShortTime } from './time'
 
 export const registerLogger = () => {
   const logger = new Consola({
     reporters: [new FancyReporter()],
+    level: isDev ? LogLevel.Verbose : LogLevel.Info,
   })
 
   logger.wrapAll()
   ;(global as any).consola = logger
 }
-const coloredNamespaceMap = {} as Record<string, string>
 class NameSpaceReporter extends FancyReporter {
   private color: string
   constructor(public namespace: string, options?: FancyReporterOptions) {
     super(options)
 
-    if (coloredNamespaceMap[namespace]) {
-      this.color = coloredNamespaceMap[namespace]
-    } else {
-      this.color = `#${Math.floor(Math.random() * 16777215).toString(16)}`
-      coloredNamespaceMap[namespace] = this.color
-    }
+    this.color = rc({
+      format: 'hex',
+      seed: namespace,
+      luminosity: 'light',
+    })
   }
   protected formatDate() {
     return ''
@@ -39,6 +41,7 @@ class NameSpaceReporter extends FancyReporter {
 export const createNamespaceLogger = (namespace: string): Consola => {
   const logger = new Consola({
     reporters: [new NameSpaceReporter(namespace)],
+    level: isDev ? LogLevel.Verbose : LogLevel.Info,
   })
 
   return logger
