@@ -1,5 +1,4 @@
-import { LogLevel } from 'consola'
-import { GroupMessage, Platform, createClient } from 'oicq'
+import { Platform, createClient } from 'oicq'
 
 import { botConfig } from '../config'
 import { groupMessageHandler } from './handlers/group'
@@ -11,13 +10,11 @@ const client = createClient(account, {
 })
 
 client.on('system.online', () => console.log('Logged in!'))
-client.on('message', async (e) => {
-  if (e instanceof GroupMessage) {
-    const { group_id } = e
+client.on('message.group', async (e) => {
+  const { group_id } = e
 
-    if (botConfig.groupIds.includes(group_id)) {
-      return await groupMessageHandler(e)
-    }
+  if (botConfig.groupIds.includes(group_id)) {
+    return await groupMessageHandler(e)
   }
 })
 
