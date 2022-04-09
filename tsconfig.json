@@ -4,6 +4,22 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "target": "ES2019",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "incremental": true,
+    "noEmit": true,
+    "outDir": "dist",
+    "declaration": false,
+    "baseUrl": ".",
+    "paths": {
+      "~": [
+        "./src"
+      ],
+      "~/*": [
+        "./src/*"
+      ],
+      "config": [
+        "./config.ts"
+      ]
+    }
   }
 }

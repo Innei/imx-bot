@@ -1,10 +1,7 @@
-import { GroupMessage, GroupMessageEvent } from 'oicq'
-import { handleSingleMessage } from './handle-single-message'
+import { GroupMessageEvent } from 'oicq'
 
-// [
-//   { type: 'at', qq: 926284623, text: '@金色离婚证' },
-//   { type: 'text', text: ' ' }
-// ]
+import { handleMentionMessage } from './handle-mention'
+import { handleSingleMessage } from './handle-single'
 
 export const groupMessageHandler = async (e: GroupMessageEvent) => {
   console.log(e.message)
@@ -15,11 +12,8 @@ export const groupMessageHandler = async (e: GroupMessageEvent) => {
   if (isSingleMessage) {
     return await handleSingleMessage(e, e.message[0])
   }
-  //
 
-  for (const msg of e.message) {
-    if (msg.type === 'text') {
-      const text = msg.text
-    }
+  if (isAtMessage) {
+    return await handleMentionMessage(e, e.message)
   }
 }
