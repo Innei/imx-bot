@@ -6,8 +6,8 @@
     "target": "ES2019",
     "resolveJsonModule": true,
     "incremental": true,
-    "noEmit": true,
     "outDir": "dist",
+    "skipLibCheck": true,
     "declaration": false,
     "baseUrl": ".",
     "paths": {

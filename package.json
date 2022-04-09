@@ -3,10 +3,13 @@
 	"version": "0.1.0",
 	"license": "MIT",
 	"scripts": {
-		"dev": "ts-node-dev ./src/index.ts"
+		"dev": "ts-node-dev ./src/index.ts",
+		"build": "tsc && npx ncc build dist/src/index.js -o build",
+		"prebuild": "rm -rf dist && rm -rf build"
 	},
 	"dependencies": {
 		"@mx-space/api-client": "0.9.0",
+		"@vercel/ncc": "0.33.3",
 		"axios": "0.26.1",
 		"chalk": "^4",
 		"consola": "2.15.3",
