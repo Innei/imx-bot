@@ -7,6 +7,7 @@ const account = botConfig.uid
 
 const client = createClient(account, {
   platform: Platform.iPad,
+  log_level: 'warn',
 })
 
 client.on('system.online', () => console.log('Logged in!'))
