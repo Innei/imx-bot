@@ -1,2 +1,5 @@
 src/data
 config.ts
+
+dist
+build
