@@ -1,28 +1,14 @@
-import { createClient, GroupMessage, Platform } from 'oicq'
-import { botConfig } from '../config'
-import { groupMessageHandler } from './handlers/group'
-const account = botConfig.uid
+import { registerLogger } from './utils/logger'
+import { mxSocket } from './utils/mx-socket'
 
-const client = createClient(account, {
-  platform: Platform.iPad,
-})
+async function bootstrap() {
+  registerLogger()
 
-client.on('system.online', () => console.log('Logged in!'))
-client.on('message', async (e) => {
-  if (e instanceof GroupMessage) {
-    const { group_id } = e
+  mxSocket.connect()
 
-    if (botConfig.groupIds.includes(group_id)) {
-      return await groupMessageHandler(e)
-    }
-  }
-})
-
-client
-  .on('system.login.qrcode', function (e) {
-    process.stdin.once('data', () => {
-      this.login()
-    })
+  import('./client').then(({ client }) => {
+    client.login()
   })
-  .on('system.login.slider', function (e) {})
-  .login()
+}
+
+bootstrap()
