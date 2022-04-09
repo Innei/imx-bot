@@ -6,15 +6,15 @@ import { isDev } from '~/constants/env'
 
 import { getShortTime } from './time'
 
+const logger = new Consola({
+  reporters: [new FancyReporter()],
+  level: isDev ? LogLevel.Verbose : LogLevel.Info,
+})
 export const registerLogger = () => {
-  const logger = new Consola({
-    reporters: [new FancyReporter()],
-    level: isDev ? LogLevel.Verbose : LogLevel.Info,
-  })
-
   logger.wrapAll()
   ;(global as any).consola = logger
 }
+export { logger as consola }
 class NameSpaceReporter extends FancyReporter {
   private color: string
   constructor(public namespace: string, options?: FancyReporterOptions) {

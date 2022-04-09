@@ -6,6 +6,8 @@ import PKG from 'package.json'
 import { allControllers, createClient } from '@mx-space/api-client'
 import { axiosAdaptor } from '@mx-space/api-client/lib/adaptors/axios'
 
+import { consola } from '~/utils/logger'
+
 axiosAdaptor.default.defaults.headers.common[
   'user-agent'
 ] = `imx-bot/${PKG.version}`

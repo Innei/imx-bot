@@ -8,10 +8,12 @@ specifiers:
   '@types/randomcolor': 0.5.6
   '@vercel/ncc': 0.33.3
   axios: 0.26.1
+  camelcase-keys: 7.0.2
   chalk: ^4
   consola: 2.15.3
   oicq: 2.2.1
   randomcolor: 0.6.2
+  remove-markdown: 0.3.0
   socket.io-client: 4.4.1
   ts-node: 10.7.0
   ts-node-dev: 1.1.8
@@ -22,10 +24,12 @@ dependencies:
   '@mx-space/api-client': 0.9.0
   '@vercel/ncc': 0.33.3
   axios: 0.26.1
+  camelcase-keys: 7.0.2
   chalk: 4.1.2
   consola: 2.15.3
   oicq: 2.2.1
   randomcolor: 0.6.2
+  remove-markdown: 0.3.0
   socket.io-client: 4.4.1
 
 devDependencies:
@@ -1961,6 +1965,10 @@ packages:
     resolution: {integrity: sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==}
     engines: {node: '>=8'}
     dev: true
+
+  /remove-markdown/0.3.0:
+    resolution: {integrity: sha1-XktmdJOpNXlyjz1S7MHbnKUF3Jg=}
+    dev: false
 
   /resolve-from/4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
