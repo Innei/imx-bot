@@ -50,6 +50,7 @@ const commandMap = {
   },
   mx_stat: async () => {
     const data = await apiClient.aggregate.getStat()
+
     const {
       callTime,
       posts,
@@ -57,7 +58,7 @@ const commandMap = {
       linkApply,
       recently,
       says,
-      todayIPAccessCount,
+      todayIpAccessCount,
       todayMaxOnline,
       todayOnlineTotal,
       unreadComments,
@@ -72,7 +73,7 @@ const commandMap = {
       '\n' +
       `未读评论 ${unreadComments} 条，友链申请 ${linkApply} 条。` +
       '\n' +
-      `今日访问 ${todayIPAccessCount || 0} 次，最高在线 ${
+      `今日访问 ${todayIpAccessCount || 0} 次，最高在线 ${
         todayMaxOnline || 0
       } 人，总计在线 ${todayOnlineTotal || 0} 人。` +
       '\n' +

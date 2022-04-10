@@ -6,7 +6,7 @@ overrides:
 specifiers:
   '@innei-util/eslint-config-ts': 0.5.1
   '@innei-util/prettier': 0.5.0
-  '@mx-space/api-client': 0.9.0
+  '@mx-space/api-client': 0.9.1
   '@types/cron': 1.7.3
   '@types/lodash': 4.14.181
   '@types/node': 17.0.23
@@ -29,7 +29,7 @@ specifiers:
   typescript: 4.6.3
 
 dependencies:
-  '@mx-space/api-client': 0.9.0
+  '@mx-space/api-client': 0.9.1
   '@types/cron': 1.7.3
   '@types/lodash': 4.14.181
   '@vercel/ncc': 0.33.3
@@ -348,8 +348,8 @@ packages:
       glob-to-regexp: 0.3.0
     dev: true
 
-  /@mx-space/api-client/0.9.0:
-    resolution: {integrity: sha512-ARmqDUKJ22RC2lOtf37PwuxGywOx4L1a77LNvERzs4tmIqnEaljSBCWtdopRCHwL0rHvhzXFnF3gu6srxn04ZQ==}
+  /@mx-space/api-client/0.9.1:
+    resolution: {integrity: sha512-VTEVcwA+m7EIbxMf0dzyzSxGmrrcTR0s0sBflR4srwhNzlegpZJOtPHenOX6+6r+xDFBZ2PesSh0WGMWvciXKw==}
     engines: {pnpm: '>=6'}
     dependencies:
       camelcase-keys: 7.0.2
