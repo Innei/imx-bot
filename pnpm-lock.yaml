@@ -7,6 +7,7 @@ specifiers:
   '@innei-util/eslint-config-ts': 0.5.1
   '@innei-util/prettier': 0.5.0
   '@mx-space/api-client': 0.9.0
+  '@types/cron': 1.7.3
   '@types/lodash': 4.14.181
   '@types/node': 17.0.23
   '@types/randomcolor': 0.5.6
@@ -15,6 +16,7 @@ specifiers:
   camelcase-keys: 7.0.2
   chalk: ^4
   consola: 2.15.3
+  cron: 1.8.2
   esbuild: 0.14.34
   esbuild-node-tsc: 1.8.5
   lodash: 4.17.21
@@ -28,12 +30,14 @@ specifiers:
 
 dependencies:
   '@mx-space/api-client': 0.9.0
+  '@types/cron': 1.7.3
   '@types/lodash': 4.14.181
   '@vercel/ncc': 0.33.3
   axios: 0.26.1
   camelcase-keys: 7.0.2
   chalk: 4.1.2
   consola: 2.15.3
+  cron: 1.8.2
   lodash: 4.17.21
   oicq: 2.2.1
   randomcolor: 0.6.2
@@ -415,6 +419,13 @@ packages:
       - supports-color
     dev: true
 
+  /@types/cron/1.7.3:
+    resolution: {integrity: sha512-iPmUXyIJG1Js+ldPYhOQcYU3kCAQ2FWrSkm1FJPoii2eYSn6wEW6onPukNTT0bfiflexNSRPl6KWmAIqS+36YA==}
+    dependencies:
+      '@types/node': 17.0.23
+      moment: 2.29.2
+    dev: false
+
   /@types/glob/7.2.0:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
@@ -440,7 +451,6 @@ packages:
 
   /@types/node/17.0.23:
     resolution: {integrity: sha512-UxDxWn7dl97rKVeVS61vErvw086aCYhDLyvRQZ5Rk65rZKepaFdm53GeqXaKBuOhED4e9uWq34IC3TdSdJJ2Gw==}
-    dev: true
 
   /@types/parse-author/2.0.1:
     resolution: {integrity: sha512-2RNXvvDY+7ITl/Q3znDpW9DxyAckKgLCXpoiBHN9BeLH1aV7z/W657P2+PK3wVUgGWXtc99ZQy3LkJTGlxLsvA==}
@@ -1099,6 +1109,12 @@ packages:
       p-filter: 2.1.0
       p-map: 3.0.0
     dev: true
+
+  /cron/1.8.2:
+    resolution: {integrity: sha512-Gk2c4y6xKEO8FSAUTklqtfSr7oTq0CiPQeLBG5Fl0qoXpZyMcj1SG59YL+hqq04bu6/IuEA7lMkYDAplQNKkyg==}
+    dependencies:
+      moment-timezone: 0.5.34
+    dev: false
 
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
@@ -2692,6 +2708,16 @@ packages:
       for-in: 1.0.2
       is-extendable: 1.0.1
     dev: true
+
+  /moment-timezone/0.5.34:
+    resolution: {integrity: sha512-3zAEHh2hKUs3EXLESx/wsgw6IQdusOT8Bxm3D9UrHPQR7zlMmzwybC8zHEM1tQ4LJwP7fcxrWr8tuBg05fFCbg==}
+    dependencies:
+      moment: 2.29.2
+    dev: false
+
+  /moment/2.29.2:
+    resolution: {integrity: sha512-UgzG4rvxYpN15jgCmVJwac49h9ly9NurikMWGPdVxm8GZD6XjkKPxDTjQQ43gtGgnV3X0cAyWDdP2Wexoquifg==}
+    dev: false
 
   /ms/2.0.0:
     resolution: {integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=}
