@@ -33,6 +33,7 @@ class NameSpaceReporter extends FancyReporter {
     const prefix = `${chalk.hex(this.color)(this.namespace)}: `
     return `${chalk.yellow(
       getShortTime(new Date()),
+      // @ts-ignore
       // eslint-disable-next-line prefer-rest-params
     )} ${prefix}${super.formatLogObj.apply(this, arguments)}`.trimEnd()
   }

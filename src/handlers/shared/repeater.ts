@@ -13,7 +13,7 @@ export const isMessageRepeater = async (id: string, message: Message) => {
   logger.debug(`check message: ${stringifyMessage}`)
 
   if (idToMessageQueue.has(id)) {
-    const messageQueue = idToMessageQueue.get(id)
+    const messageQueue = idToMessageQueue.get(id)!
 
     const lastestMessageInQueue = messageQueue.at(-1)
     if (lastestMessageInQueue === stringifyMessage) {

@@ -17,7 +17,7 @@ export const handleMentionMessage = async (
     const isCommand = isText && afterMentionMessage.text.trim().startsWith('/')
 
     if (isCommand) {
-      return await handleCommandMessage(event, afterMentionMessage)
+      return await handleCommandMessage(event, afterMentionMessage, true)
     }
   }
 }

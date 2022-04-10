@@ -2,6 +2,7 @@ import { Client } from 'oicq'
 
 import { createNamespaceLogger } from '~/utils/logger'
 
+import { listenMessage } from './message'
 import mxSocket from './socket'
 import { aggregateStore } from './store/aggregate'
 import { userStore } from './store/user'
@@ -21,6 +22,8 @@ export const register = async (client: Client) => {
   socket.connect()
 
   logger.info('plugin loaded!')
+
+  listenMessage()
 
   return {
     socket,

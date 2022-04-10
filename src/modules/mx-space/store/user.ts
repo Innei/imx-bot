@@ -3,7 +3,7 @@ import { UserModel } from '@mx-space/api-client'
 import { apiClient } from '../api-client'
 
 class UserStore {
-  public user: UserModel | null
+  public user: UserModel | null = null
 
   setUser(user: UserModel) {
     this.user = { ...user }

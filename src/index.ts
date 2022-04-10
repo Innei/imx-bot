@@ -1,4 +1,4 @@
-import { register as registerMxSpace } from './plugins/mx-space'
+import { register as registerMxSpace } from './modules/mx-space'
 import { registerLogger } from './utils/logger'
 
 async function bootstrap() {
@@ -6,8 +6,17 @@ async function bootstrap() {
 
   import('./client').then(({ client }) => {
     client.login()
-    registerMxSpace(client)
+    client.use(registerMxSpace)
   })
 }
 
-bootstrap()
+bootstrap().catch((error) => {
+  console.error(error)
+})
+
+process.on('uncaughtException', (err) => {
+  console.error(err)
+})
+process.on('unhandledRejection', (err) => {
+  console.error(err)
+})

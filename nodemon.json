@@ -1,0 +1,11 @@
+{
+  "watch": [
+    "src"
+  ],
+  "ignore": [
+    "src/**/*.test.ts"
+  ],
+  "ext": "ts,mjs,js,json,graphql",
+  "exec": "tsc && TS_NODE_BASEURL=./dist node -r tsconfig-paths/register ./dist/src/index.js",
+  "legacyWatch": true
+}

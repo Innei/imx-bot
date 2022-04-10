@@ -27,11 +27,11 @@ export const handleEvent =
   async (type: MxSocketEventTypes, payload: any, code?: number) => {
     logger.debug(type, payload)
 
-    const user = userStore.user
+    const user = userStore.user!
 
     const {
       url: { webUrl },
-    } = aggregateStore.aggregate
+    } = aggregateStore.aggregate!
 
     const sendToGuild = async (message: Sendable) => {
       const { watchGroupIds } = botConfig.mxSpace
@@ -70,7 +70,12 @@ export const handleEvent =
       case MxSocketEventTypes.NOTE_UPDATE: {
         const isNew = type === MxSocketEventTypes.NOTE_CREATE
         const publishDescription = isNew ? '发布了新生活观察日记' : '更新了日记'
-        const { title, text, nid, mood, weather, images } = payload as NoteModel
+        const { title, text, nid, mood, weather, images, hide, password } =
+          payload as NoteModel
+
+        if (!hide || password) {
+          return
+        }
         const simplePreview = rmd(text).slice(0, 200)
 
         const status = [mood ? `心情: ${mood}` : '']
@@ -122,7 +127,7 @@ export const handleEvent =
       case MxSocketEventTypes.COMMENT_CREATE: {
         const { author, key, text, refType, parent } = payload as CommentModel
         const ref = payload.ref?.id || payload.ref
-        let refModel: PostModel | NoteModel | PageModel
+        let refModel: PostModel | NoteModel | PageModel | null = null
 
         switch (refType) {
           case 'Post': {
