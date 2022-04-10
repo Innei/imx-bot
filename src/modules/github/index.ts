@@ -3,7 +3,9 @@ import createHandler from 'github-webhook-handler'
 import http from 'http'
 import { Client } from 'oicq'
 
-import { WorkflowEvent } from './workflow.event'
+import { IssueEvent } from './types/issue'
+import { PushEvent } from './types/push'
+import { WorkflowEvent } from './types/workflow'
 
 export const register = (client: Client) => {
   // see: https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
@@ -27,17 +29,19 @@ export const register = (client: Client) => {
 
   handler.on('push', async (event) => {
     const {
-      commits: { message, id: commitId },
-      pusher: { name },
+      commits,
+      pusher: { name: pusherName },
       repository,
-    } = event.payload
+    } = event.payload as PushEvent
 
-    if ((name as string).endsWith('bot')) {
+    if ((pusherName as string).endsWith('bot')) {
       return
     }
 
+    const { message, id: commitId } = commits[0]
+
     await sendMessage(
-      `${name} 向 ${repository.name} 提交了一个 Commit. sha ${commitId}\n\n 提交信息：${message}`,
+      `${pusherName} 向 ${repository.name} 提交了一个 Commit. sha ${commitId}\n\n 提交信息：${message}`,
     )
   })
 
@@ -46,9 +50,9 @@ export const register = (client: Client) => {
       return
     }
 
-    const payload = event.payload
+    const payload = event.payload as IssueEvent
 
-    if (payload.sender.endsWith('bot')) {
+    if (payload.sender.login.endsWith('bot')) {
       return
     }
 
