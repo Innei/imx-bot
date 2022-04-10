@@ -20,6 +20,7 @@
 		"chalk": "^4",
 		"consola": "2.15.3",
 		"cron": "1.8.2",
+		"github-webhook-handler": "1.0.0",
 		"lodash": "4.17.21",
 		"oicq": "2.2.1",
 		"randomcolor": "0.6.2",
