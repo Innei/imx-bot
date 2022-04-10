@@ -1,4 +1,4 @@
-import { register } from './plugins/mx-space'
+import { register as registerMxSpace } from './plugins/mx-space'
 import { registerLogger } from './utils/logger'
 
 async function bootstrap() {
@@ -6,7 +6,7 @@ async function bootstrap() {
 
   import('./client').then(({ client }) => {
     client.login()
-    register(client)
+    registerMxSpace(client)
   })
 }
 

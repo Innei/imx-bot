@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from 'axios'
+import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import chalk from 'chalk'
 import { botConfig } from 'config'
 import PKG from 'package.json'
@@ -6,29 +6,72 @@ import PKG from 'package.json'
 import { allControllers, createClient } from '@mx-space/api-client'
 import { axiosAdaptor } from '@mx-space/api-client/lib/adaptors/axios'
 
-import { consola } from '~/utils/logger'
+import { createNamespaceLogger } from '~/utils/logger'
+
+const logger = createNamespaceLogger('mx-space-api')
+
+const prettyStringify = (data: any) => {
+  return JSON.stringify(data, null, 2)
+}
+
+declare module 'axios' {
+  interface AxiosRequestConfig {
+    __requestStartedAt?: number
+    __requestEndedAt?: number
+    __requestDuration?: number
+  }
+}
 
 axiosAdaptor.default.defaults.headers.common[
   'user-agent'
 ] = `imx-bot/${PKG.version}`
 
-axiosAdaptor.default.interceptors.request.use((req) => {
-  consola.debug(`[${chalk.green(req.method)}]: ${req.url}`)
+axiosAdaptor.default.interceptors.request.use((req: AxiosRequestConfig) => {
+  req.__requestStartedAt = performance.now()
+
+  logger.debug(
+    `HTTP Request: [${req.method?.toUpperCase()}] ${req.baseURL || ''}${
+      req.url
+    } 
+params: ${prettyStringify(req.params)}
+data: ${prettyStringify(req.data)}`,
+  )
 
   return req
 })
-
-axiosAdaptor.default.interceptors.response.use(undefined, (err) => {
-  const request = err.config as AxiosRequestConfig
-
-  if (request) {
-    consola.error(
-      `[${chalk.red(request.method)}]: ${request.url}, ${err.message}`,
+axiosAdaptor.default.interceptors.response.use(
+  (res: AxiosResponse) => {
+    const endAt = performance.now()
+    res.config.__requestEndedAt = endAt
+    res.config.__requestDuration =
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      res.config?.__requestStartedAt ?? endAt - res.config!.__requestStartedAt!
+    logger.debug(
+      `HTTP Response ${`${res.config.baseURL || ''}${
+        res.config.url
+      }`} +${res.config.__requestDuration.toFixed(2)}ms: `,
+      res.data,
     )
-  }
-  return Promise.reject(err)
-})
+    return res
+  },
+  (err) => {
+    const res = err.response
 
+    const error = Promise.reject(err)
+    if (!res) {
+      return error
+    }
+    logger.debug(
+      chalk.red(
+        `HTTP Response Failed ${`${res.config.baseURL || ''}${
+          res.config.url
+        }`}`,
+      ),
+    )
+
+    return error
+  },
+)
 const apiClient = createClient(axiosAdaptor)(botConfig.mxSpace?.apiEndpoint, {
   controllers: allControllers,
 })
