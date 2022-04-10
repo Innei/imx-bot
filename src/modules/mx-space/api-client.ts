@@ -1,7 +1,8 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
 import chalk from 'chalk'
 import { botConfig } from 'config'
 import PKG from 'package.json'
+import { performance } from 'perf_hooks'
 
 import { allControllers, createClient } from '@mx-space/api-client'
 import { axiosAdaptor } from '@mx-space/api-client/lib/adaptors/axios'
@@ -26,7 +27,10 @@ axiosAdaptor.default.defaults.headers.common[
   'user-agent'
 ] = `imx-bot/${PKG.version}`
 
-axiosAdaptor.default.interceptors.request.use((req: AxiosRequestConfig) => {
+axiosAdaptor.default.defaults.headers.common['authorization'] =
+  botConfig.mxSpace.token
+
+axiosAdaptor.default.interceptors.request.use((req) => {
   req.__requestStartedAt = performance.now()
 
   logger.debug(

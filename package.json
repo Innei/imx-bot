@@ -3,17 +3,19 @@
 	"version": "0.1.0",
 	"license": "MIT",
 	"scripts": {
-		"dev": "NODE_ENV=development  tsnd --respawn -r tsconfig-paths/register ./src/index.ts",
-		"build": "tsc && npx ncc build dist/src/index.js -o build",
-		"prebuild": "rm -rf dist && rm -rf build"
+		"dev": "NODE_ENV=development nodemon",
+		"build": "esbuild src/index.ts --platform=node --bundle --minify --outfile=build/index.js",
+		"prebuild": "rm -rf build"
 	},
 	"dependencies": {
 		"@mx-space/api-client": "0.9.0",
+		"@types/lodash": "4.14.181",
 		"@vercel/ncc": "0.33.3",
 		"axios": "0.26.1",
 		"camelcase-keys": "7.0.2",
 		"chalk": "^4",
 		"consola": "2.15.3",
+		"lodash": "4.17.21",
 		"oicq": "2.2.1",
 		"randomcolor": "0.6.2",
 		"remove-markdown": "0.3.0",
@@ -24,9 +26,13 @@
 		"@innei-util/prettier": "0.5.0",
 		"@types/node": "17.0.23",
 		"@types/randomcolor": "0.5.6",
-		"ts-node": "10.7.0",
-		"ts-node-dev": "1.1.8",
+		"esbuild": "0.14.34",
+		"esbuild-node-tsc": "1.8.5",
+		"nodemon": "2.0.15",
 		"tsconfig-paths": "3.14.1",
 		"typescript": "4.6.3"
+	},
+	"resolutions": {
+		"axios": "0.26.1"
 	}
 }

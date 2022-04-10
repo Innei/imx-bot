@@ -8,6 +8,12 @@
     "incremental": true,
     "outDir": "dist",
     "skipLibCheck": true,
+    "noImplicitAny": false,
+    "strict": true,
+    "types": [],
+    "lib": [
+      "ES2015"
+    ],
     "declaration": false,
     "baseUrl": ".",
     "paths": {

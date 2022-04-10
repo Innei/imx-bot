@@ -3,7 +3,7 @@ import { AggregateRoot } from '@mx-space/api-client'
 import { apiClient } from '../api-client'
 
 class AggregateStore {
-  public aggregate: AggregateRoot | null
+  public aggregate: AggregateRoot | null = null
 
   setData(data: AggregateRoot) {
     this.aggregate = { ...data }

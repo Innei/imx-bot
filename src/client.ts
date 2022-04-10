@@ -2,6 +2,7 @@ import { Platform, createClient } from 'oicq'
 
 import { botConfig } from '../config'
 import { groupMessageHandler } from './handlers/group'
+import './plugin-manager'
 
 const account = botConfig.uid
 

@@ -1,6 +1,9 @@
 import { GroupMessageEvent, MessageElem } from 'oicq'
 
+import { MessageType, plugins } from '~/plugin-manager'
+
 import { isMessageRepeater } from '../shared/repeater'
+import { handleCommandMessage } from './handld-command'
 
 export const handleSingleMessage = async (
   event: GroupMessageEvent,
@@ -9,6 +12,23 @@ export const handleSingleMessage = async (
   switch (message.type) {
     case 'text': {
       let res = textMap[message.text]
+      const isCommand = message.text.startsWith('/')
+
+      if (isCommand) {
+        const result = await handleCommandMessage(event, message)
+        if (result) {
+          return
+        }
+      }
+
+      const messagePluginHandled = await plugins.message.handle(
+        event,
+        MessageType.single,
+      )
+
+      if (messagePluginHandled) {
+        return await event.reply(messagePluginHandled)
+      }
 
       // 复读机
 
@@ -31,7 +51,6 @@ export const handleSingleMessage = async (
   }
 }
 
-const textMap = {
+const textMap: Record<string, any> = {
   ping: 'pong',
-  cal: () => 1 + 1,
 }
