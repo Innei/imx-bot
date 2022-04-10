@@ -1,5 +1,3 @@
-import { omit } from 'lodash'
-
 import { MessageType, plugins } from '~/plugin-manager'
 
 import { apiClient } from './api-client'
