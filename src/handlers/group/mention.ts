@@ -1,6 +1,6 @@
 import { GroupMessageEvent, MessageElem } from 'oicq'
 
-import { handleCommandMessage } from './handld-command'
+import { handleCommandMessage } from '../shared/command'
 
 // [
 //   { type: 'at', qq: 926284623, text: '@金色离婚证' },

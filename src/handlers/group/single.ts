@@ -2,8 +2,8 @@ import { GroupMessageEvent, MessageElem } from 'oicq'
 
 import { MessageType, plugins } from '~/plugin-manager'
 
+import { handleCommandMessage } from '../shared/command'
 import { isMessageRepeater } from '../shared/repeater'
-import { handleCommandMessage } from './handld-command'
 
 export const handleSingleMessage = async (
   event: GroupMessageEvent,
