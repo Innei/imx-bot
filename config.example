@@ -7,6 +7,15 @@ export const botConfig = {
 
   platform: Platform.iMac,
 
+  probot: {
+     secret: '',
+    port: 7777,
+     watchGroupIds: [
+      615052447,
+      // 615052525
+    ],
+  },
+
   mxSpace: {
     apiEndpoint: 'http://localhost:2333',
     gateway: 'http://localhost:2333/system',
