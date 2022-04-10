@@ -1,4 +1,6 @@
 import { botConfig } from 'config'
+import { CronJob } from 'cron'
+import { sample } from 'lodash'
 import { Client } from 'oicq'
 
 import { createNamespaceLogger } from '~/utils/logger'
@@ -44,7 +46,33 @@ export const register = async (client: Client) => {
     )
   })
 
+  const sayGoodMorning = new CronJob('0 0 6 * * *', async () => {
+    const { hitokoto } = await fetchHitokoto()
+    const greeting = sample(['新的一天也要加油哦', '今天也元气满满哦！'])
+    const tasks = botConfig.mxSpace.watchGroupIds.map((id) =>
+      client.sendGroupMsg(id, `早上好！${greeting}\n\n${hitokoto || ''}`),
+    )
+
+    await Promise.all(tasks)
+  })
+
+  const sayGoodEvening = new CronJob('0 0 22 * * *', async () => {
+    const { hitokoto } = await fetchHitokoto()
+    const tasks = botConfig.mxSpace.watchGroupIds.map((id) =>
+      client.sendGroupMsg(id, `晚安，早点睡哦！\n\n${hitokoto || ''}`),
+    )
+
+    await Promise.all(tasks)
+  })
+
+  sayGoodMorning.start()
+  sayGoodEvening.start()
+
   return {
     socket,
+    job: {
+      sayGoodMorning,
+      sayGoodEvening,
+    },
   }
 }
