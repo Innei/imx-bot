@@ -7,7 +7,7 @@ import './plugin-manager'
 const account = botConfig.uid
 
 const client = createClient(account, {
-  platform: Platform.iPad,
+  platform: botConfig.platform ?? Platform.iPad,
   log_level: 'warn',
 })
 
