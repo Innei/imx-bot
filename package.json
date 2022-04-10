@@ -5,8 +5,9 @@
 	"scripts": {
 		"prepare": "node ./scripts/check-config.js",
 		"dev": "NODE_ENV=development nodemon",
-		"build": "esbuild src/index.ts --platform=node --bundle --minify --outfile=build/index.js",
-		"prod": "NODE_ENV=production node build/index.js",
+		"build": "tsc",
+		"bundle": "esbuild src/index.ts --platform=node --bundle --minify --outfile=build/index.js",
+		"prod": "NODE_ENV=production TS_NODE_BASEURL=./dist node -r tsconfig-paths/register ./dist/src/index.js",
 		"prebuild": "mkdir -p build/data && mv build/data data && rm -rf build && mkdir build && mv data build/data"
 	},
 	"dependencies": {
