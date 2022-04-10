@@ -3,6 +3,7 @@ import { Client } from 'oicq'
 
 import { createNamespaceLogger } from '~/utils/logger'
 
+import { fetchHitokoto } from './api/hitokoto'
 import { listenMessage } from './message'
 import mxSocket from './socket'
 import { aggregateStore } from './store/aggregate'
@@ -35,7 +36,12 @@ export const register = async (client: Client) => {
       return
     }
 
-    client.sendGroupMsg(e.group_id, `欢迎新大佬 ${e.nickname}(${e.user_id})！`)
+    const { hitokoto } = await fetchHitokoto()
+
+    client.sendGroupMsg(
+      e.group_id,
+      `欢迎新大佬 ${e.nickname}(${e.user_id})！\n${hitokoto || ''}`,
+    )
   })
 
   return {

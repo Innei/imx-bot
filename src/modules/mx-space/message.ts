@@ -1,6 +1,7 @@
 import { MessageType, plugins } from '~/plugin-manager'
 
 import { apiClient } from './api-client'
+import { fetchHitokoto } from './api/hitokoto'
 import { aggregateStore } from './store/aggregate'
 
 export const listenMessage = async () => {
@@ -83,5 +84,10 @@ const commandMap = {
   mx_version: async () => {
     const data = await apiClient.proxy.get()
     return JSON.stringify(data, null, 2)
+  },
+
+  hitokoto: async () => {
+    const { hitokoto } = await fetchHitokoto()
+    return hitokoto
   },
 }
