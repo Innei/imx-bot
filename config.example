@@ -1,5 +1,17 @@
 export const botConfig = {
-  groupIds: [615052447],
-  password: '',
-  uid: 0
+  groupIds: [615052447, 615052525],
+
+  password: null,
+  uid: 926284623,
+
+  mxSpace: {
+    apiEndpoint: 'http://localhost:2333',
+    gateway: 'http://localhost:2333/system',
+    token: '0ufpj0gk2cgei9xrkoo0i751o4n0cc4dzdk6z74r',
+
+    watchGroupIds: [
+      615052447,
+      // 615052525
+    ],
+  },
 }

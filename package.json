@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"license": "MIT",
 	"scripts": {
+		"prepare": "node ./scripts/check-config.js",
 		"dev": "NODE_ENV=development nodemon",
 		"build": "esbuild src/index.ts --platform=node --bundle --minify --outfile=build/index.js",
 		"prebuild": "rm -rf build"
