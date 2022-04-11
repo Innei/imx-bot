@@ -70,7 +70,7 @@ const commandMap = {
     return (
       '来自 MxSpace 的状态信息：' +
       '\n\n' +
-      `当前有文章 ${posts}篇，生活记录 ${notes} 篇，评论 ${comments} 条，友链 ${links} 条，说说 ${says} 条，速记 ${recently} 条。` +
+      `当前有文章 ${posts} 篇，生活记录 ${notes} 篇，评论 ${comments} 条，友链 ${links} 条，说说 ${says} 条，速记 ${recently} 条。` +
       '\n' +
       `未读评论 ${unreadComments} 条，友链申请 ${linkApply} 条。` +
       '\n' +
