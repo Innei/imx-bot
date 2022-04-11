@@ -74,11 +74,9 @@ const commandMap = {
       '\n' +
       `未读评论 ${unreadComments} 条，友链申请 ${linkApply} 条。` +
       '\n' +
-      `今日访问 ${todayIpAccessCount || 0} 次，最高在线 ${
-        todayMaxOnline || 0
-      } 人，总计在线 ${todayOnlineTotal || 0} 人。` +
+      `今日访问 ${todayIpAccessCount} 次，最高在线 ${todayMaxOnline} 人，总计在线 ${todayOnlineTotal} 人。` +
       '\n' +
-      `调用次数 ${callTime} 次，总计在线 ${online || 0} 人。`
+      `调用次数 ${callTime} 次，当前在线 ${online} 人。`
     )
   },
   mx_version: async () => {
