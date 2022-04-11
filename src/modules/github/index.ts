@@ -45,7 +45,7 @@ export const register = (client: Client) => {
     const { message, id: commitId } = commits[0]
 
     await sendMessage(
-      `${pusherName} 向 ${repository.name} 提交了一个更改.\n${commitId}\n\n提交信息：\n${message}`,
+      `${pusherName} 向 ${repository.name} 提交了一个更改.\n${commitId}\n\n${message}`,
     )
   })
 
