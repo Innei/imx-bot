@@ -48,7 +48,11 @@ export const register = async (client: Client) => {
 
   const sayGoodMorning = new CronJob('0 0 6 * * *', async () => {
     const { hitokoto } = await fetchHitokoto()
-    const greeting = sample(['新的一天也要加油哦', '今天也元气满满哦！'])
+    const greeting = sample([
+      '新的一天也要加油哦',
+      '今天也要元气满满哦！',
+      '今天也是充满希望的一天',
+    ])
     const tasks = botConfig.mxSpace.watchGroupIds.map((id) =>
       client.sendGroupMsg(id, `早上好！${greeting}\n\n${hitokoto || ''}`),
     )
