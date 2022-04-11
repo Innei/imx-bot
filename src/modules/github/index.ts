@@ -42,7 +42,9 @@ export const register = (client: Client) => {
       return
     }
 
-    const { message, id: commitId } = commits[0]
+    const { message, id: commitId } = Array.isArray(commits)
+      ? commits[0]
+      : commits
 
     await sendMessage(
       `${pusherName} 向 ${repository.name} 提交了一个更改.\n${commitId}\n\n${message}`,
