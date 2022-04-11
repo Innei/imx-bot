@@ -36,18 +36,16 @@ export const register = (client: Client) => {
     } = event.payload as PushEvent
 
     if (
-      (pusherName as string).endsWith('bot') ||
+      (pusherName as string).endsWith('[bot]') ||
       botList.includes(pusherName)
     ) {
       return
     }
 
-    const { message, id: commitId } = Array.isArray(commits)
-      ? commits[0]
-      : commits
+    const { message } = Array.isArray(commits) ? commits[0] : commits
 
     await sendMessage(
-      `${pusherName} 向 ${repository.name} 提交了一个更改.\n${commitId}\n\n${message}`,
+      `${pusherName} 向 ${repository.name} 提交了一个更改\n\nmessage: ${message}`,
     )
   })
 
@@ -58,7 +56,10 @@ export const register = (client: Client) => {
 
     const payload = event.payload as IssueEvent
 
-    if (payload.sender.login.endsWith('bot')) {
+    if (
+      payload.sender.login.endsWith('[bot]') ||
+      botList.includes(payload.sender.login)
+    ) {
       return
     }
 
