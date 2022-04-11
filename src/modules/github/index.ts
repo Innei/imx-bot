@@ -3,6 +3,7 @@ import createHandler from 'github-webhook-handler'
 import http from 'http'
 import { Client } from 'oicq'
 
+import { botList } from './constants/bot'
 import { IssueEvent } from './types/issue'
 import { PushEvent } from './types/push'
 import { WorkflowEvent } from './types/workflow'
@@ -34,7 +35,10 @@ export const register = (client: Client) => {
       repository,
     } = event.payload as PushEvent
 
-    if ((pusherName as string).endsWith('bot')) {
+    if (
+      (pusherName as string).endsWith('bot') ||
+      botList.includes(pusherName)
+    ) {
       return
     }
 
