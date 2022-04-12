@@ -4,6 +4,7 @@ import http from 'http'
 import { Client } from 'oicq'
 
 import { botList } from './constants/bot'
+import { CheckRun } from './types/check-run'
 import { IssueEvent } from './types/issue'
 import { PushEvent } from './types/push'
 import { WorkflowEvent } from './types/workflow'
@@ -85,31 +86,20 @@ export const register = (client: Client) => {
     )
   })
 
-  handler.on('workflow_run', async (event) => {
+  handler.on('check_run', async (event) => {
     const { payload } = event
     const {
-      action,
+      check_run: { conclusion, status, html_url },
+
       repository: { name },
+    } = payload as CheckRun
 
-      workflow: { state },
-      workflow_run,
-    } = payload as WorkflowEvent
-    if (
-      action !== 'completed' ||
-      ['success', 'active', 'pending'].includes(state)
-    ) {
+    if (status !== 'completed') {
       return
     }
-
-    if (
-      workflow_run.head_branch !== 'main' &&
-      workflow_run.head_branch !== 'master'
-    ) {
-      return
+    if (conclusion && ['failure', 'timed_out'].includes(conclusion)) {
+      await sendMessage(`${name} CI 挂了！！！！\n查看原因: ${html_url}`)
     }
-    await sendMessage(
-      `${name} CI 挂了！！！！\n查看原因: ${payload.workflow_run.html_url}`,
-    )
   })
 
   handler.on('ping', async () => {})
