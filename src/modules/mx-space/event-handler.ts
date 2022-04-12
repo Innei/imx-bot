@@ -73,7 +73,7 @@ export const handleEvent =
         const { title, text, nid, mood, weather, images, hide, password } =
           payload as NoteModel
 
-        if (!hide || password) {
+        if (hide || password) {
           return
         }
         const simplePreview = rmd(text).slice(0, 200)
