@@ -11,14 +11,4 @@ async function bootstrap() {
     client.use(registerGithubHook)
   })
 }
-
-bootstrap().catch((error) => {
-  console.error(error)
-})
-
-process.on('uncaughtException', (err) => {
-  console.error(err)
-})
-process.on('unhandledRejection', (err) => {
-  console.error(err)
-})
+bootstrap()
