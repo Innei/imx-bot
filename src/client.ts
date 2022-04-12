@@ -24,6 +24,25 @@ client.on('system.login.qrcode', function (e) {
   process.stdin.once('data', () => {
     this.login()
   })
+
+  process.on('uncaughtException', (err) => {
+    console.error(err)
+    client.sendGroupMsg(
+      botConfig.errorNotify.groupId,
+      `[${err.name || 'ERROR'}] ${err.message}\n${err.stack}`,
+    )
+  })
+  process.on('unhandledRejection', (err) => {
+    console.error(err)
+    if (err instanceof Error) {
+      client.sendGroupMsg(
+        botConfig.errorNotify.groupId,
+        `[${err.name || 'ERROR'}] ${err.message}\n${err.stack}`,
+      )
+    } else if (typeof err === 'string') {
+      client.sendGroupMsg(botConfig.errorNotify.groupId, `[ERROR] ${err}`)
+    }
+  })
 })
 
 export { client }

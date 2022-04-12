@@ -16,6 +16,11 @@ export const botConfig = {
     ],
   },
 
+  errorNotify: {
+    groupId: 615052525
+  },
+
+
   mxSpace: {
     apiEndpoint: 'http://localhost:2333',
     gateway: 'http://localhost:2333/system',
