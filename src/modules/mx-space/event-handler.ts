@@ -150,7 +150,7 @@ export const handleEvent =
           return
         }
 
-        const message = `${author} 在「${refModel.title}」回复了评论: ${text}\n`
+        const message = `${author} 在「${refModel.title}」回复了评论: ${text}`
 
         sendToGuild(message)
         return
