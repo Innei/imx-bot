@@ -55,7 +55,7 @@ export const handleEvent =
           logger.error(`category not found, post id: ${id}`)
           return
         }
-        const simplePreview = rmd(text).slice(0, 200)
+        const simplePreview = getSimplePreview(text)
         const message = `${
           user.name
         } ${publishDescription}: ${title}\n\n${simplePreview}\n\n${
@@ -76,7 +76,7 @@ export const handleEvent =
         if (hide || password) {
           return
         }
-        const simplePreview = rmd(text).slice(0, 200)
+        const simplePreview = getSimplePreview(text)
 
         const status = [mood ? `心情: ${mood}` : '']
           .concat(weather ? `天气: ${weather}` : '')
@@ -176,3 +176,8 @@ export const handleEvent =
       }
     }
   }
+
+const getSimplePreview = (text: string) => {
+  const _text = rmd(text) as string
+  return _text.length > 200 ? `${_text.slice(0, 200)}...` : _text
+}
