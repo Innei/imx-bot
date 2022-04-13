@@ -11,6 +11,7 @@ export const botConfig = {
   githubHook: {
     secret: '',
     port: 7777,
+    mentionId: '1003521738',
     watchGroupIds: [
       615052447,
       // 615052525
