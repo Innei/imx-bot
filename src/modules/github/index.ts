@@ -7,7 +7,6 @@ import { botList } from './constants/bot'
 import { CheckRun } from './types/check-run'
 import { IssueEvent } from './types/issue'
 import { PushEvent } from './types/push'
-import { WorkflowEvent } from './types/workflow'
 
 export const register = (client: Client) => {
   // see: https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
@@ -46,7 +45,7 @@ export const register = (client: Client) => {
     const { message } = Array.isArray(commits) ? commits[0] : commits
 
     await sendMessage(
-      `${pusherName} 向 ${repository.name} 提交了一个更改\n\nmessage: ${message}`,
+      `${pusherName} 向 ${repository.name} 提交了一个更改\n\n${message}`,
     )
   })
 
@@ -89,14 +88,24 @@ export const register = (client: Client) => {
   handler.on('check_run', async (event) => {
     const { payload } = event
     const {
-      check_run: { conclusion, status, html_url },
+      check_run: {
+        conclusion,
+        status,
+        html_url,
+        check_suite: { head_branch },
+      },
 
       repository: { name },
     } = payload as CheckRun
 
+    if (!['master', 'main'].includes(head_branch)) {
+      return
+    }
+
     if (status !== 'completed') {
       return
     }
+
     if (conclusion && ['failure', 'timed_out'].includes(conclusion)) {
       await sendMessage(`${name} CI 挂了！！！！\n查看原因: ${html_url}`)
     }
