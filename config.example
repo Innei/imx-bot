@@ -1,4 +1,5 @@
 import { Platform } from 'oicq'
+
 export const botConfig = {
   groupIds: [615052447, 615052525],
 
@@ -7,10 +8,10 @@ export const botConfig = {
 
   platform: Platform.iMac,
 
-  probot: {
-     secret: '',
+  githubHook: {
+    secret: '',
     port: 7777,
-     watchGroupIds: [
+    watchGroupIds: [
       615052447,
       // 615052525
     ],
@@ -20,11 +21,10 @@ export const botConfig = {
     groupId: 615052525
   },
 
-
   mxSpace: {
-    apiEndpoint: 'http://localhost:2333',
-    gateway: 'http://localhost:2333/system',
-    token: '0ufpj0gk2cgei9xrkoo0i751o4n0cc4dzdk6z74r',
+    apiEndpoint: 'https://api.innei.ren/v2',
+    gateway: 'https://api.innei.ren/system',
+    token: '',
 
     watchGroupIds: [
       615052447,
