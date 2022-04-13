@@ -44,7 +44,7 @@ const commandMap = {
       .map((note) => `${note.title}\n${webUrl}/notes/${note.nid}`)
       .join('\n')
     return (
-      '来自 MxSpace 的 RSS 列表：' +
+      '来自 Mx Space 的 RSS 列表：' +
       '\n' +
       `博文：\n${posts}\n\n生活记录：\n${notes}`
     )
@@ -68,7 +68,7 @@ const commandMap = {
       online,
     } = data
     return (
-      '来自 MxSpace 的状态信息：' +
+      '来自 Mx Space 的状态信息：' +
       '\n\n' +
       `当前有文章 ${posts} 篇，生活记录 ${notes} 篇，评论 ${comments} 条，友链 ${links} 条，说说 ${says} 条，速记 ${recently} 条。` +
       '\n' +

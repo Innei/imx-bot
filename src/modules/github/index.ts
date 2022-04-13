@@ -1,7 +1,7 @@
 import { botConfig } from 'config'
 import createHandler from 'github-webhook-handler'
 import http from 'http'
-import { Client } from 'oicq'
+import { Client, Sendable } from 'oicq'
 
 import { botList } from './constants/bot'
 import { CheckRun } from './types/check-run'
@@ -107,13 +107,22 @@ export const register = (client: Client) => {
     }
 
     if (conclusion && ['failure', 'timed_out'].includes(conclusion)) {
-      await sendMessage(`${name} CI 挂了！！！！\n查看原因: ${html_url}`)
+      await sendMessage([
+        {
+          type: 'at',
+          qq: botConfig.githubHook.mentionId,
+        },
+        {
+          type: 'text',
+          text: `${name} CI 挂了！！！！\n查看原因: ${html_url}`,
+        },
+      ])
     }
   })
 
   handler.on('ping', async () => {})
 
-  async function sendMessage(message: string) {
+  async function sendMessage(message: Sendable) {
     const tasks = botConfig.githubHook.watchGroupIds.map((id) => {
       client.sendGroupMsg(id, message)
     })

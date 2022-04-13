@@ -13,7 +13,7 @@ import { userStore } from './store/user'
 
 const logger = createNamespaceLogger('mx-space')
 export const register = async (client: Client) => {
-  logger.info('plugin loading...')
+  logger.info('module loading...')
   try {
     const [user, aggregateData] = await Promise.all([
       userStore.fetchUser(),
@@ -29,7 +29,7 @@ export const register = async (client: Client) => {
   const socket = mxSocket(client)
   socket.connect()
 
-  logger.info('plugin loaded!')
+  logger.info('module loaded!')
 
   listenMessage()
 
@@ -40,10 +40,11 @@ export const register = async (client: Client) => {
 
     const { hitokoto } = await fetchHitokoto()
 
-    client.sendGroupMsg(
-      e.group_id,
-      `欢迎新大佬 ${e.nickname}(${e.user_id})！\n${hitokoto || ''}`,
-    )
+    client.sendGroupMsg(e.group_id, [
+      { type: 'text', text: `欢迎新大佬 ` },
+      { type: 'at', qq: e.user_id },
+      { type: 'text', text: `(${e.user_id})！\n${hitokoto || ''}` },
+    ])
   })
 
   const sayGoodMorning = new CronJob('0 0 6 * * *', async () => {
