@@ -156,6 +156,13 @@ export const handleEvent =
         return
       }
 
+      case MxSocketEventTypes.PAGE_UPDATED: {
+        const { title, slug } = payload as PageModel
+        const message = `${user.name} 更新了页面「${title}」\n\n前往查看: ${webUrl}/${slug}`
+        await sendToGuild(message)
+        return
+      }
+
       case MxSocketEventTypes.SAY_CREATE: {
         const { author, source, text } = payload as SayModel
 
