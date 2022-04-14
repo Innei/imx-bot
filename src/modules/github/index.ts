@@ -126,15 +126,26 @@ export const register = (client: Client) => {
   handler.on('pull_request', async (payload) => {
     const {
       action,
-      repository: { name },
-      sender: { login },
-      pull_request: { html_url, title, body },
+
+      pull_request: {
+        html_url,
+        title,
+        body,
+        user: { login: userName },
+        base: {
+          repo: { name: repoName },
+        },
+      },
     } = payload as PullRequestPayload
+
+    if (userName.endsWith('[bot]') || botList.includes(userName)) {
+      return
+    }
     if (action !== 'opened') {
       return
     }
     await sendMessage(
-      `${login} 向 ${name} 提交了一个 Pull Request\n\n${title}\n\n${body}\n\n前往处理：${html_url}`,
+      `${userName} 向 ${repoName} 提交了一个 Pull Request\n\n${title}\n\n${body}\n\n前往处理：${html_url}`,
     )
   })
 
