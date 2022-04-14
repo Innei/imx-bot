@@ -6,6 +6,7 @@ import { Client, Sendable } from 'oicq'
 import { botList } from './constants/bot'
 import { CheckRun } from './types/check-run'
 import { IssueEvent } from './types/issue'
+import { PullRequestPayload } from './types/pull-request'
 import { PushEvent } from './types/push'
 
 export const register = (client: Client) => {
@@ -121,6 +122,21 @@ export const register = (client: Client) => {
   })
 
   handler.on('ping', async () => {})
+
+  handler.on('pull_request', async (payload) => {
+    const {
+      action,
+      repository: { name },
+      sender: { login },
+      pull_request: { html_url, title, body },
+    } = payload as PullRequestPayload
+    if (action !== 'opened') {
+      return
+    }
+    await sendMessage(
+      `${login} 向 ${name} 提交了一个 Pull Request\n\n${title}\n\n${body}\n\n前往处理：${html_url}`,
+    )
+  })
 
   async function sendMessage(message: Sendable) {
     const tasks = botConfig.githubHook.watchGroupIds.map((id) => {
