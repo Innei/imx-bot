@@ -31,7 +31,6 @@ export const register = (client: Client) => {
 
   handler.on('push', async (event) => {
     const {
-      commits,
       pusher: { name: pusherName },
       repository,
     } = event.payload as PushEvent
@@ -42,7 +41,7 @@ export const register = (client: Client) => {
     ) {
       return
     }
-
+    const { commits } = event.payload as PushEvent
     const { message } = Array.isArray(commits) ? commits[0] : commits
 
     await sendMessage(
@@ -123,10 +122,14 @@ export const register = (client: Client) => {
 
   handler.on('ping', async () => {})
 
-  handler.on('pull_request', async (payload) => {
-    const {
-      action,
+  handler.on('pull_request', async ({ payload }) => {
+    const { action } = payload as PullRequestPayload
 
+    if (action !== 'opened') {
+      return
+    }
+
+    const {
       pull_request: {
         html_url,
         title,
@@ -139,9 +142,6 @@ export const register = (client: Client) => {
     } = payload as PullRequestPayload
 
     if (userName.endsWith('[bot]') || botList.includes(userName)) {
-      return
-    }
-    if (action !== 'opened') {
       return
     }
     await sendMessage(

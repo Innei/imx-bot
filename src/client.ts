@@ -30,7 +30,7 @@ process.on('uncaughtException', (err) => {
   console.error(err)
   client.sendGroupMsg(
     botConfig.errorNotify.groupId,
-    `[${err.name || 'ERROR'}] ${err.message}\n${err.stack}`,
+    `${formatNow()}\n[${err.name || 'ERROR'}] ${err.message}\n${err.stack}`,
   )
 })
 process.on('unhandledRejection', (err) => {
@@ -38,11 +38,21 @@ process.on('unhandledRejection', (err) => {
   if (err instanceof Error) {
     client.sendGroupMsg(
       botConfig.errorNotify.groupId,
-      `[${err.name || 'ERROR'}] ${err.message}\n${err.stack}`,
+      `${formatNow()}\n[${err.name || 'ERROR'}] ${err.message}\n${err.stack}`,
     )
   } else if (typeof err === 'string') {
-    client.sendGroupMsg(botConfig.errorNotify.groupId, `[ERROR] ${err}`)
+    client.sendGroupMsg(
+      botConfig.errorNotify.groupId,
+      `${formatNow()}\n[ERROR] ${err}`,
+    )
   }
 })
 
 export { client }
+
+function formatNow() {
+  return Intl.DateTimeFormat(undefined, {
+    timeStyle: 'long',
+    dateStyle: 'medium',
+  }).format(new Date())
+}
