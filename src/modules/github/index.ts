@@ -42,7 +42,11 @@ export const register = (client: Client) => {
       return
     }
     const { commits } = event.payload as PushEvent
-    const { message } = Array.isArray(commits) ? commits[0] : commits
+    const { message } = Array.isArray(commits) ? commits[0] || {} : commits
+    // maybe commits is empty array
+    if (typeof message === 'undefined') {
+      return
+    }
 
     await sendMessage(
       `${pusherName} 向 ${repository.name} 提交了一个更改\n\n${message}`,
