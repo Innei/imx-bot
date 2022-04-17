@@ -118,7 +118,7 @@ export const register = (client: Client) => {
         },
         {
           type: 'text',
-          text: `${name} CI 挂了！！！！\n查看原因: ${html_url}`,
+          text: ` ${name} CI 挂了！！！！\n查看原因: ${html_url}`,
         },
       ])
     }
