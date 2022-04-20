@@ -1,8 +1,11 @@
 import { GroupMessageEvent, TextElem } from 'oicq'
 import PKG from 'package.json'
 import { performance } from 'perf_hooks'
+import yargs from 'yargs'
 
 import { MessageType, plugins } from '~/plugin-manager'
+
+import { toolCommand } from './commands/tool'
 
 export const handleCommandMessage = async (
   event: GroupMessageEvent,
@@ -16,12 +19,21 @@ export const handleCommandMessage = async (
 
   const command = message.text.trim().slice(1)
 
-  switch (command) {
+  // replace mac qq auto replace `--` to ch `—`
+  const args = await yargs.parse(command.replaceAll('—', '--'), {})
+  const commandName = args._[0]
+
+  switch (commandName) {
+    case 'tool': {
+      return event.reply(await toolCommand(args), quote)
+    }
     case 'ping':
       return event.reply('pong', quote)
     case 'version':
       return event.reply(
-        `v${PKG.version || process.env.npm_package_version}`,
+        `imx-bot: v${PKG.version || process.env.npm_package_version}` +
+          '\n' +
+          `author: Innei\nframework: oicq-bot`,
         quote,
       )
     case 'uptime': {

@@ -18,13 +18,17 @@ import { createNamespaceLogger } from '~/utils/logger'
 import { apiClient } from './api-client'
 import { aggregateStore } from './store/aggregate'
 import { userStore } from './store/user'
-import { MxSocketEventTypes } from './types/mx-socket-types'
+import {
+  MxSocketEventTypes,
+  MxSystemEventBusEvents,
+} from './types/mx-socket-types'
 import { fetchImageBuffer } from './utils/fetch-image'
+import { getShortDateTime } from '~/utils/time'
 
 const logger = createNamespaceLogger('mx-event')
 export const handleEvent =
   (client: Client) =>
-  async (type: MxSocketEventTypes, payload: any, code?: number) => {
+  async (type: MxSocketEventTypes | MxSystemEventBusEvents, payload: any, code?: number) => {
     logger.debug(type, payload)
 
     const user = userStore.user!
@@ -179,6 +183,13 @@ export const handleEvent =
         const message = `${user.name} 发布一条动态说：\n${content}`
         await sendToGuild(message)
 
+        return
+      }
+
+      case MxSystemEventBusEvents.SystemException: {
+        const { message, stack } = payload as Error
+        const messageWithStack = `来自 Mix Space 的系统异常：${getShortDateTime(new Date)}\n${message}\n\n${stack}`
+        await sendToGuild(messageWithStack)
         return
       }
     }

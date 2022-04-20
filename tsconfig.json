@@ -3,17 +3,13 @@
     "module": "CommonJS",
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "target": "ES2019",
+    "target": "ES2021",
     "resolveJsonModule": true,
     "incremental": true,
     "outDir": "dist",
     "skipLibCheck": true,
     "noImplicitAny": false,
     "strict": true,
-    "types": [],
-    "lib": [
-      "ES2015"
-    ],
     "declaration": false,
     "baseUrl": ".",
     "paths": {
