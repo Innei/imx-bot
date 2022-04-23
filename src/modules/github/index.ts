@@ -138,9 +138,12 @@ export const register = (client: Client) => {
         html_url,
         title,
         body,
+        head: { label: headLabel },
+
         user: { login: userName },
         base: {
           repo: { name: repoName },
+          label: baseLabel,
         },
       },
     } = payload as PullRequestPayload
@@ -149,7 +152,9 @@ export const register = (client: Client) => {
       return
     }
     await sendMessage(
-      `${userName} 向 ${repoName} 提交了一个 Pull Request\n\n${title}\n\n${body}\n\n前往处理：${html_url}`,
+      `${userName} 向 ${repoName} 提交了一个 Pull Request\n\n${title}\n\n` +
+        `${baseLabel} <-- ${headLabel}\n\n` +
+        `${body ? `${body}\n\n` : ''}前往处理：${html_url}`,
     )
   })
 
