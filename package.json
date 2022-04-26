@@ -8,14 +8,14 @@
 		"build": "tsc",
 		"bundle": "esbuild src/index.ts --platform=node --bundle --minify --outfile=build/index.js",
 		"prod": "NODE_ENV=production TS_NODE_BASEURL=./dist node -r tsconfig-paths/register ./dist/src/index.js",
-		"prebuild": "mkdir -p build/data && mv build/data data && rm -rf build && mkdir build && mv data build/data"
+		"prebuild": "mkdir -p build/data && mv build/data data && rm -rf build && mkdir build && mv data build/data",
+		"rebuild-start": "npm run build && pm2 reload ecosystem.config.js --update-env"
 	},
 	"dependencies": {
-		"@mx-space/api-client": "0.9.1",
+		"@mx-space/api-client": "0.9.4",
 		"@types/cron": "1.7.3",
 		"@types/lodash": "4.14.181",
 		"@types/yargs": "17.0.10",
-		"@vercel/ncc": "0.33.3",
 		"axios": "0.26.1",
 		"camelcase-keys": "7.0.2",
 		"chalk": "^4",
@@ -34,8 +34,7 @@
 		"@innei-util/prettier": "0.5.0",
 		"@types/node": "17.0.23",
 		"@types/randomcolor": "0.5.6",
-		"esbuild": "0.14.34",
-		"esbuild-node-tsc": "1.8.5",
+		"esno": "0.14.1",
 		"nodemon": "2.0.15",
 		"tsconfig-paths": "3.14.1",
 		"typescript": "4.6.3"

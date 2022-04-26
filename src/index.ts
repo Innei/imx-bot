@@ -4,11 +4,9 @@ import { registerLogger } from './utils/logger'
 
 async function bootstrap() {
   registerLogger()
-
-  import('./client').then(({ client }) => {
-    client.login()
-    client.use(registerMxSpace)
-    client.use(registerGithubHook)
-  })
+  const { client } = require('./client')
+  client.login()
+  client.use(registerMxSpace)
+  client.use(registerGithubHook)
 }
 bootstrap()

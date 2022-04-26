@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { botConfig } from 'config'
 import { CronJob } from 'cron'
 import { sample } from 'lodash'
@@ -10,17 +11,23 @@ import { listenMessage } from './message'
 import mxSocket from './socket'
 import { aggregateStore } from './store/aggregate'
 import { userStore } from './store/user'
+import { MxContext } from './types'
 
 const logger = createNamespaceLogger('mx-space')
 export const register = async (client: Client) => {
   logger.info('module loading...')
-  try {
+
+  const initData = async () => {
     const [user, aggregateData] = await Promise.all([
       userStore.fetchUser(),
       aggregateStore.fetch(),
     ])
     userStore.setUser(user)
     aggregateStore.setData(aggregateData)
+  }
+
+  try {
+    await initData()
   } catch (err) {
     consola.error(err)
     process.exit(-1)
@@ -31,7 +38,15 @@ export const register = async (client: Client) => {
 
   logger.info('module loaded!')
 
-  listenMessage()
+  const ctx: MxContext = {
+    socket,
+    client,
+    aggregationData: aggregateStore.aggregate!,
+
+    refreshData: initData,
+  }
+
+  listenMessage(ctx)
 
   client.on('notice.group.increase', async (e) => {
     if (!botConfig.mxSpace.watchGroupIds.includes(e.group_id)) {

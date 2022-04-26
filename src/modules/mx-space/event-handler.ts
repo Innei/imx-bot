@@ -14,6 +14,7 @@ import {
 } from '@mx-space/api-client'
 
 import { createNamespaceLogger } from '~/utils/logger'
+import { getShortDateTime } from '~/utils/time'
 
 import { apiClient } from './api-client'
 import { aggregateStore } from './store/aggregate'
@@ -23,12 +24,15 @@ import {
   MxSystemEventBusEvents,
 } from './types/mx-socket-types'
 import { fetchImageBuffer } from './utils/fetch-image'
-import { getShortDateTime } from '~/utils/time'
 
 const logger = createNamespaceLogger('mx-event')
 export const handleEvent =
   (client: Client) =>
-  async (type: MxSocketEventTypes | MxSystemEventBusEvents, payload: any, code?: number) => {
+  async (
+    type: MxSocketEventTypes | MxSystemEventBusEvents,
+    payload: any,
+    code?: number,
+  ) => {
     logger.debug(type, payload)
 
     const user = userStore.user!
@@ -129,23 +133,22 @@ export const handleEvent =
       }
 
       case MxSocketEventTypes.COMMENT_CREATE: {
-        const { author, key, text, refType, parent } = payload as CommentModel
-        const ref = payload.ref?.id || payload.ref
+        const { author, text, refType } = payload as CommentModel
+        const refId = payload.ref?.id || payload.ref?._id || payload.ref
         let refModel: PostModel | NoteModel | PageModel | null = null
 
         switch (refType) {
           case 'Post': {
-            refModel = await apiClient.post.getPost(ref)
+            refModel = await apiClient.post.getPost(refId)
             break
           }
           case 'Note': {
-            refModel = await apiClient.note
-              .getNoteById(ref)
-              .then((data) => data.data)
+            refModel = await apiClient.note.getNoteById(refId as string)
+
             break
           }
           case 'Page': {
-            refModel = await apiClient.page.getById(ref)
+            refModel = await apiClient.page.getById(refId)
             break
           }
         }
@@ -188,7 +191,9 @@ export const handleEvent =
 
       case MxSystemEventBusEvents.SystemException: {
         const { message, stack } = payload as Error
-        const messageWithStack = `来自 Mix Space 的系统异常：${getShortDateTime(new Date)}\n${message}\n\n${stack}`
+        const messageWithStack = `来自 Mix Space 的系统异常：${getShortDateTime(
+          new Date(),
+        )}\n${message}\n\n${stack}`
         await sendToGuild(messageWithStack)
         return
       }
