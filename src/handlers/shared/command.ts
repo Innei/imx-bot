@@ -20,7 +20,7 @@ export const handleCommandMessage = async (
   const command = message.text.trim().slice(1)
 
   // replace mac qq auto replace `--` to ch `—`
-  const args = await yargs.parse(command.replace(/-/g, '--'), {})
+  const args = await yargs.parse(command.replace(/—/g, '--'), {})
   const commandName = args._[0]
 
   switch (commandName) {
