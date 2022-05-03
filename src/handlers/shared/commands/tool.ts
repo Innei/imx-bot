@@ -63,14 +63,7 @@ export const toolCommand = async (args: any): Promise<Sendable> => {
   }
 
   if (args.md5) {
-    const toMd5Str = args.md5
-
-    if (typeof toMd5Str !== 'string') {
-      return {
-        type: 'text',
-        text: `md5 参数必须为字符串`,
-      }
-    }
+    const toMd5Str = args.md5.toString()
 
     if (toMd5Str.length > 10e6) {
       return {
@@ -81,7 +74,7 @@ export const toolCommand = async (args: any): Promise<Sendable> => {
 
     return {
       type: 'text',
-      text: `md5 结果: ${require('crypto')
+      text: `${toMd5Str}\n\nmd5 结果: ${require('crypto')
         .createHash('md5')
         .update(toMd5Str)
         .digest('hex')}`,
