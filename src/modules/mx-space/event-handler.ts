@@ -14,7 +14,7 @@ import {
 } from '@mx-space/api-client'
 
 import { createNamespaceLogger } from '~/utils/logger'
-import { getShortDateTime } from '~/utils/time'
+import { getShortDateTime, relativeTimeFromNow } from '~/utils/time'
 
 import { apiClient } from './api-client'
 import { aggregateStore } from './store/aggregate'
@@ -133,7 +133,7 @@ export const handleEvent =
       }
 
       case MxSocketEventTypes.COMMENT_CREATE: {
-        const { author, text, refType } = payload as CommentModel
+        const { author, text, refType, parent, key } = payload as CommentModel
         const refId = payload.ref?.id || payload.ref?._id || payload.ref
         let refModel: PostModel | NoteModel | PageModel | null = null
 
@@ -156,8 +156,35 @@ export const handleEvent =
         if (!refModel) {
           return
         }
+        const isMaster = author === user.name || author === user.username
+        let message: string
+        if (isMaster && !parent) {
+          message = `${author} 在「${
+            refModel.title
+          }」发表之后的 ${relativeTimeFromNow(refModel.created)}又说: ${text}`
+        } else {
+          message = `${author} 在「${refModel.title}」回复了评论: ${text}`
+        }
 
-        const message = `${author} 在「${refModel.title}」回复了评论: ${text}`
+        const uri = (() => {
+          switch (refType) {
+            case 'Post': {
+              return `/posts/${(refModel as PostModel).category.slug}/${
+                (refModel as PostModel).slug
+              }`
+            }
+            case 'Note': {
+              return `/notes/${(refModel as NoteModel).nid}`
+            }
+            case 'Page': {
+              return `/pages/${(refModel as PageModel).slug}`
+            }
+          }
+        })()
+
+        if (uri) {
+          message += `\n\n查看评论: ${webUrl}${uri}#comments-${key}`
+        }
 
         sendToGuild(message)
         return
