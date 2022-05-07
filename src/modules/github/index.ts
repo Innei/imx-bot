@@ -165,4 +165,19 @@ export const register = (client: Client) => {
 
     await Promise.all(tasks)
   }
+
+  client.on('message.group', async (ev) => {
+    if (botConfig.githubHook.watchGroupIds.includes(ev.group_id)) {
+      const { message } = ev
+      if (message.length === 1 && message[0].type === 'text') {
+        const firstLine = message[0].text.split('\r')[0]
+
+        const banRegexp = [/^.*? 向 .*? 提交了一个更改$/]
+
+        if (banRegexp.some((regexp) => regexp.test(firstLine))) {
+          await ev.recall()
+        }
+      }
+    }
+  })
 }
