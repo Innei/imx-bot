@@ -168,6 +168,13 @@ export const register = (client: Client) => {
 
   client.on('message.group', async (ev) => {
     if (botConfig.githubHook.watchGroupIds.includes(ev.group_id)) {
+      if (
+        ev.sender.user_id === client.uin ||
+        (await client.getGroupInfo(ev.group_id)).owner_id === ev.sender.user_id
+      ) {
+        return
+      }
+
       const { message } = ev
       if (message.length === 1 && message[0].type === 'text') {
         const firstLine = message[0].text.split('\r')[0]
