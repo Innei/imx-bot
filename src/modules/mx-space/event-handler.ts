@@ -177,7 +177,7 @@ export const handleEvent =
               return `/notes/${(refModel as NoteModel).nid}`
             }
             case 'Page': {
-              return `/pages/${(refModel as PageModel).slug}`
+              return `/${(refModel as PageModel).slug}`
             }
           }
         })()
