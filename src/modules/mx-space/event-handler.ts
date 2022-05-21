@@ -74,8 +74,7 @@ export const handleEvent =
         return
       }
 
-      case MxSocketEventTypes.NOTE_CREATE:
-      case MxSocketEventTypes.NOTE_UPDATE: {
+      case MxSocketEventTypes.NOTE_CREATE: { // case MxSocketEventTypes.NOTE_UPDATE: {
         const isNew = type === MxSocketEventTypes.NOTE_CREATE
         const publishDescription = isNew ? '发布了新生活观察日记' : '更新了日记'
         const { title, text, nid, mood, weather, images, hide, password } =
