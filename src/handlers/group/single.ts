@@ -9,6 +9,15 @@ export const handleSingleMessage = async (
   event: GroupMessageEvent,
   message: MessageElem,
 ) => {
+  // 复读机
+
+  const isRepeater = await isMessageRepeater(event.group_id.toString(), event)
+  if (isRepeater === true) {
+    return event.reply(message)
+  } else if (isRepeater === 'break') {
+    return event.reply('打断复读！！！！')
+  }
+
   switch (message.type) {
     case 'text': {
       let res = textMap[message.text]
@@ -28,16 +37,6 @@ export const handleSingleMessage = async (
 
       if (messagePluginHandled) {
         return await event.reply(messagePluginHandled)
-      }
-
-      // 复读机
-
-      const isRepeater = await isMessageRepeater(
-        event.group_id.toString(),
-        event,
-      )
-      if (isRepeater) {
-        return event.reply(message.text)
       }
 
       if (typeof res === 'function') {
