@@ -31,31 +31,31 @@ axiosAdaptor.default.defaults.headers.common['authorization'] =
   botConfig.mxSpace.token
 
 axiosAdaptor.default.interceptors.request.use((req) => {
-  req.__requestStartedAt = performance.now()
+  // req.__requestStartedAt = performance.now()
 
-  logger.debug(
-    `HTTP Request: [${req.method?.toUpperCase()}] ${req.baseURL || ''}${
-      req.url
-    } 
-params: ${prettyStringify(req.params)}
-data: ${prettyStringify(req.data)}`,
-  )
+  //   logger.debug(
+  //     `HTTP Request: [${req.method?.toUpperCase()}] ${req.baseURL || ''}${
+  //       req.url
+  //     }
+  // params: ${prettyStringify(req.params)}
+  // data: ${prettyStringify(req.data)}`,
+  //   )
 
   return req
 })
 axiosAdaptor.default.interceptors.response.use(
   (res: AxiosResponse) => {
-    const endAt = performance.now()
-    res.config.__requestEndedAt = endAt
-    res.config.__requestDuration =
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      res.config?.__requestStartedAt ?? endAt - res.config!.__requestStartedAt!
-    logger.debug(
-      `HTTP Response ${`${res.config.baseURL || ''}${
-        res.config.url
-      }`} +${res.config.__requestDuration.toFixed(2)}ms: `,
-      res.data,
-    )
+    // const endAt = performance.now()
+    // res.config.__requestEndedAt = endAt
+    // res.config.__requestDuration =
+    //   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    //   res.config?.__requestStartedAt ?? endAt - res.config!.__requestStartedAt!
+    // logger.debug(
+    //   `HTTP Response ${`${res.config.baseURL || ''}${
+    //     res.config.url
+    //   }`} +${res.config.__requestDuration.toFixed(2)}ms: `,
+    //   res.data,
+    // )
     return res
   },
   (err) => {
@@ -65,7 +65,7 @@ axiosAdaptor.default.interceptors.response.use(
     if (!res) {
       return error
     }
-    logger.debug(
+    logger.error(
       chalk.red(
         `HTTP Response Failed ${`${res.config.baseURL || ''}${
           res.config.url
