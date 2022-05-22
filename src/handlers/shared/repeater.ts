@@ -2,7 +2,7 @@ import { Message } from 'oicq'
 
 import { createNamespaceLogger } from '~/utils/logger'
 
-const idToMessageQueue = new Map<string, Buffer[]>()
+const idToMessageQueue = new Map<string, string[]>()
 
 const count = 3
 
@@ -14,18 +14,16 @@ export const isMessageRepeater = async (id: string, message: Message) => {
 
   logger.debug(`check message: ${stringifyMessage}`)
 
-  const serializeMessage = message.serialize()
-
   if (idToMessageQueue.has(id)) {
     const messageQueue = idToMessageQueue.get(id)!
 
-    const lastestMessageInQueue = messageQueue.at(-1) || Buffer.alloc(0)
+    const lastestMessageInQueue = messageQueue.at(-1)
 
-    if (Buffer.compare(lastestMessageInQueue, serializeMessage)) {
-      messageQueue.push(serializeMessage)
+    if (lastestMessageInQueue === stringifyMessage) {
+      messageQueue.push(stringifyMessage)
     } else {
       messageQueue.length = 0
-      messageQueue.push(serializeMessage)
+      messageQueue.push(stringifyMessage)
     }
 
     if (messageQueue.length == count) {
@@ -42,7 +40,7 @@ export const isMessageRepeater = async (id: string, message: Message) => {
 
     idToMessageQueue.set(id, [...messageQueue])
   } else {
-    idToMessageQueue.set(id, [serializeMessage])
+    idToMessageQueue.set(id, [stringifyMessage])
   }
 
   return false
