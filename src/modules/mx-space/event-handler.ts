@@ -74,7 +74,8 @@ export const handleEvent =
         return
       }
 
-      case MxSocketEventTypes.NOTE_CREATE: { // case MxSocketEventTypes.NOTE_UPDATE: {
+      case MxSocketEventTypes.NOTE_CREATE: {
+        // case MxSocketEventTypes.NOTE_UPDATE: {
         const isNew = type === MxSocketEventTypes.NOTE_CREATE
         const publishDescription = isNew ? '发布了新生活观察日记' : '更新了日记'
         const { title, text, nid, mood, weather, images, hide, password } =
@@ -162,7 +163,7 @@ export const handleEvent =
             refModel.title
           }」发表之后的 ${relativeTimeFromNow(refModel.created)}又说: ${text}`
         } else {
-          message = `${author} 在「${refModel.title}」回复了评论: ${text}`
+          message = `${author} 在「${refModel.title}」发表了评论: ${text}`
         }
 
         const uri = (() => {
