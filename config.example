@@ -11,15 +11,26 @@ export const botConfig = {
   githubHook: {
     secret: '',
     port: 7777,
-    mentionId: '1003521738',
+    mentionId: 1003521738,
     watchGroupIds: [
-      615052447,
+      615052525,
+      // 615052525
+    ],
+  },
+
+    bilibili: {
+    live: {
+      id: 1434499,
+      atAll: true,
+    },
+    watchGroupIds: [
+      615052525,
       // 615052525
     ],
   },
 
   errorNotify: {
-    groupId: 615052525
+    groupId: 615052525,
   },
 
   mxSpace: {
@@ -28,7 +39,7 @@ export const botConfig = {
     token: '',
 
     watchGroupIds: [
-      615052447,
+      615052525,
       // 615052525
     ],
   },
