@@ -42,15 +42,28 @@ export const register = (client: Client) => {
       return
     }
     const { commits } = event.payload as PushEvent
-    const { message } = Array.isArray(commits) ? commits[0] || {} : commits
-    // maybe commits is empty array
-    if (typeof message === 'undefined') {
-      return
-    }
 
-    await sendMessage(
-      `${pusherName} 向 ${repository.name} 提交了一个更改\n\n${message}`,
-    )
+    if (Array.isArray(commits)) {
+      await Promise.all(
+        commits.map((commit) => {
+          return commit.message
+            ? sendMessage(
+                `${pusherName} 向 ${repository.name} 提交了一个更改\n\n${commit.message}`,
+              )
+            : Promise.resolve()
+        }),
+      )
+    } else {
+      const { message } = commits
+
+      if (typeof message === 'undefined') {
+        return
+      }
+
+      await sendMessage(
+        `${pusherName} 向 ${repository.name} 提交了一个更改\n\n${message}`,
+      )
+    }
   })
 
   handler.on('issues', async (event) => {
