@@ -133,7 +133,7 @@ export const handleEvent =
       }
 
       case MxSocketEventTypes.COMMENT_CREATE: {
-        const { author, text, refType, parent, key } = payload as CommentModel
+        const { author, text, refType, parent, id } = payload as CommentModel
         const refId = payload.ref?.id || payload.ref?._id || payload.ref
         let refModel: PostModel | NoteModel | PageModel | null = null
 
@@ -183,7 +183,7 @@ export const handleEvent =
         })()
 
         if (uri) {
-          message += `\n\n查看评论: ${webUrl}${uri}#comments-${key}`
+          message += `\n\n查看评论: ${webUrl}${uri}#comments-${id}`
         }
 
         sendToGuild(message)
