@@ -48,7 +48,7 @@ export const register = (client: Client) => {
         commits.map((commit) => {
           return commit.message
             ? sendMessage(
-                `${pusherName} 向 ${repository.name} 提交了一个更改\n\n${commit.message}`,
+                `${pusherName} 向 ${repository.full_name} 提交了一个更改\n\n${commit.message}`,
               )
             : Promise.resolve()
         }),
@@ -61,7 +61,7 @@ export const register = (client: Client) => {
       }
 
       await sendMessage(
-        `${pusherName} 向 ${repository.name} 提交了一个更改\n\n${message}`,
+        `${pusherName} 向 ${repository.full_name} 提交了一个更改\n\n${message}`,
       )
     }
   })
@@ -91,7 +91,7 @@ export const register = (client: Client) => {
     const { payload } = event
     const {
       action,
-      repository: { name },
+      repository: { full_name: name },
       release: { tag_name },
     } = payload
     if (action !== 'released') {
@@ -112,7 +112,7 @@ export const register = (client: Client) => {
         check_suite: { head_branch },
       },
 
-      repository: { name },
+      repository: { full_name: name },
     } = payload as CheckRun
 
     if (!['master', 'main'].includes(head_branch)) {
@@ -155,7 +155,7 @@ export const register = (client: Client) => {
 
         user: { login: userName },
         base: {
-          repo: { name: repoName },
+          repo: { full_name: repoName },
           label: baseLabel,
         },
       },
