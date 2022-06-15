@@ -6,6 +6,7 @@ import { Client } from 'oicq'
 
 import { createNamespaceLogger } from '~/utils/logger'
 
+import { healthCheck } from '../health-check'
 import { fetchHitokoto } from './api/hitokoto'
 import { listenMessage } from './message'
 import mxSocket from './socket'
@@ -87,6 +88,12 @@ export const register = async (client: Client) => {
 
   sayGoodMorning.start()
   sayGoodEvening.start()
+
+  healthCheck.registerHealthCheck(() => {
+    return `Mx Socket connected: ${
+      socket.connected ? 'connected' : 'disconnected'
+    }`
+  })
 
   return {
     socket,
