@@ -13,6 +13,7 @@ import {
   SayModel,
 } from '@mx-space/api-client'
 
+import { isDev } from '~/constants/env'
 import { createNamespaceLogger } from '~/utils/logger'
 import { getShortDateTime, relativeTimeFromNow } from '~/utils/time'
 
@@ -223,6 +224,11 @@ export const handleEvent =
         )}\n${message}\n\n${stack}`
         await sendToGuild(messageWithStack)
         return
+      }
+      default: {
+        if (isDev) {
+          console.log(payload)
+        }
       }
     }
   }

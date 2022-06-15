@@ -2,6 +2,7 @@ import { GroupMessageEvent, TextElem } from 'oicq'
 import PKG from 'package.json'
 import { performance } from 'perf_hooks'
 import yargs from 'yargs'
+import { deflate } from 'zlib'
 
 import { MessageType, plugins } from '~/plugin-manager'
 
