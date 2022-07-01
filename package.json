@@ -13,32 +13,32 @@
 		"rebuild-start": "git pull && npm run build && pm2 reload ecosystem.config.js --update-env"
 	},
 	"dependencies": {
-		"@mx-space/api-client": "0.10.4",
+		"@mx-space/api-client": "0.10.12",
 		"@types/cron": "2.0.0",
 		"@types/lodash": "4.14.182",
 		"@types/yargs": "17.0.10",
 		"axios": "0.27.2",
-		"camelcase-keys": "7.0.2",
+		"camelcase-keys": "8.0.1",
 		"chalk": "^5.0.1",
 		"consola": "2.15.3",
 		"cron": "2.0.0",
 		"github-webhook-handler": "1.0.0",
 		"lodash": "4.17.21",
-		"oicq": "2.2.3",
+		"oicq": "2.3.1",
 		"randomcolor": "0.6.2",
 		"remove-markdown": "0.5.0",
 		"socket.io-client": "4.5.1",
 		"yargs": "17.5.1"
 	},
 	"devDependencies": {
-		"@innei-util/eslint-config-ts": "0.8.2",
-		"@innei-util/prettier": "0.8.2",
+		"@innei/eslint-config-ts": "latest",
+		"@innei/prettier": "latest",
 		"@types/node": "17.0.35",
 		"@types/randomcolor": "0.5.6",
-		"esno": "0.14.1",
-		"nodemon": "2.0.16",
+		"esno": "0.16.3",
+		"nodemon": "2.0.18",
 		"tsconfig-paths": "4.0.0",
-		"typescript": "4.6.4"
+		"typescript": "4.7.4"
 	},
 	"resolutions": {
 		"axios": "0.26.1"
