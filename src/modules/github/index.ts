@@ -1,13 +1,13 @@
 import { botConfig } from 'config'
 import createHandler from 'github-webhook-handler'
 import http from 'http'
-import { Client, Sendable } from 'oicq'
+import type { Client, Sendable } from 'oicq'
 
 import { botList } from './constants/bot'
-import { CheckRun } from './types/check-run'
-import { IssueEvent } from './types/issue'
-import { PullRequestPayload } from './types/pull-request'
-import { PushEvent } from './types/push'
+import type { CheckRun } from './types/check-run'
+import type { IssueEvent } from './types/issue'
+import type { PullRequestPayload } from './types/pull-request'
+import type { PushEvent } from './types/push'
 
 export const register = (client: Client) => {
   // see: https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
@@ -33,6 +33,7 @@ export const register = (client: Client) => {
     const {
       pusher: { name: pusherName },
       repository,
+      ref,
     } = event.payload as PushEvent
 
     if (
@@ -43,14 +44,26 @@ export const register = (client: Client) => {
     }
     const { commits } = event.payload as PushEvent
 
+    const isPushToMain =
+      ref === 'refs/heads/main' || ref === 'refs/heads/master'
     if (Array.isArray(commits)) {
       await Promise.all(
         commits.map((commit) => {
           return commit.message
             ? sendMessage(
-                `${pusherName} 向 ${repository.full_name} 提交了一个更改\n\n${commit.message}`,
+                `${pusherName}${
+                  commit.author?.name && commit.author?.name !== pusherName
+                    ? `& ${commit.author?.name}`
+                    : ''
+                } 向 ${repository.full_name} ${
+                  !isPushToMain
+                    ? `的 ${ref.replace('refs/heads/', '')} 分支`
+                    : ''
+                }提交了一个更改\n\n${commit.message}${
+                  isPushToMain ? '' : `查看提交更改内容: ${commit.url}`
+                }`,
               )
-            : Promise.resolve()
+            : Promise.resolve(null)
         }),
       )
     } else {
