@@ -60,7 +60,7 @@ export const register = (client: Client) => {
                     ? `的 ${ref.replace('refs/heads/', '')} 分支`
                     : ''
                 }提交了一个更改\n\n${commit.message}${
-                  isPushToMain ? '' : `查看提交更改内容: ${commit.url}`
+                  isPushToMain ? '' : `\n\n查看提交更改内容: ${commit.url}`
                 }`,
               )
             : Promise.resolve(null)
