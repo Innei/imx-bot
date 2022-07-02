@@ -54,7 +54,8 @@ export const handleEvent =
 
     switch (type) {
       case MxSocketEventTypes.POST_CREATE:
-      case MxSocketEventTypes.POST_UPDATE: {
+      // case MxSocketEventTypes.POST_UPDATE:
+        {
         const isNew = type === MxSocketEventTypes.POST_CREATE
         const publishDescription = isNew ? '发布了新文章' : '更新了文章'
         const { title, text, category, id, slug, summary } =
