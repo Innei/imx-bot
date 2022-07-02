@@ -53,7 +53,7 @@ export const register = (client: Client) => {
             ? sendMessage(
                 `${pusherName}${
                   commit.author?.name && commit.author?.name !== pusherName
-                    ? `& ${commit.author?.name}`
+                    ? ` & ${commit.author?.name}`
                     : ''
                 } 向 ${repository.full_name} ${
                   !isPushToMain
