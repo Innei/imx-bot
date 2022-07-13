@@ -47,25 +47,40 @@ export const register = (client: Client) => {
     const isPushToMain =
       ref === 'refs/heads/main' || ref === 'refs/heads/master'
     if (Array.isArray(commits)) {
-      await Promise.all(
-        commits.map((commit) => {
-          return commit.message
-            ? sendMessage(
-                `${pusherName}${
-                  commit.author?.name && commit.author?.name !== pusherName
-                    ? ` & ${commit.author?.name}`
-                    : ''
-                } 向 ${repository.full_name} ${
-                  !isPushToMain
-                    ? `的 ${ref.replace('refs/heads/', '')} 分支`
-                    : ''
-                }提交了一个更改\n\n${commit.message}${
-                  isPushToMain ? '' : `\n\n查看提交更改内容: ${commit.url}`
-                }`,
-              )
-            : Promise.resolve(null)
-        }),
-      )
+      const commitMessages = [] as string[]
+      const commitAuthors = [] as string[]
+
+      commits.forEach((commit) => {
+        if (commit.message) {
+          commitMessages.push(commit.message)
+        }
+
+        if (commit.author?.name) {
+          commitAuthors.push(commit.author.name)
+        }
+      })
+      if (commits.length == 1) {
+        const commit = commits[0]
+        await sendMessage(
+          `${pusherName}${
+            commit.author?.name && commit.author?.name !== pusherName
+              ? ` & ${commit.author?.name}`
+              : ''
+          } 向 ${repository.full_name} ${
+            !isPushToMain ? `的 ${ref.replace('refs/heads/', '')} 分支` : ''
+          }提交了一个更改\n\n${commit.message}${
+            isPushToMain ? '' : `\n\n查看提交更改内容: ${commit.url}`
+          }`,
+        )
+      } else {
+        const isUniquePusher = new Set(commitAuthors).size === 1
+        await sendMessage(
+          `${
+            isUniquePusher ? commitAuthors[0] : `${commitAuthors[0]} 等多人`
+          } 向 ${repository.full_name} 提交了多个更改\n\n` +
+            commitMessages.join('\n'),
+        )
+      }
     } else {
       const { message } = commits
 
