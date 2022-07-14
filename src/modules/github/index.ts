@@ -34,6 +34,7 @@ export const register = (client: Client) => {
       pusher: { name: pusherName },
       repository,
       ref,
+      commits,
     } = event.payload as PushEvent
 
     if (
@@ -42,22 +43,20 @@ export const register = (client: Client) => {
     ) {
       return
     }
-    const { commits } = event.payload as PushEvent
 
     const isPushToMain =
       ref === 'refs/heads/main' || ref === 'refs/heads/master'
     if (Array.isArray(commits)) {
+      if (!commits.length) {
+        return
+      }
       const commitMessages = [] as string[]
       const commitAuthors = [] as string[]
 
       commits.forEach((commit) => {
-        if (commit.message) {
-          commitMessages.push(commit.message)
-        }
+        commitMessages.push(commit.message)
 
-        if (commit.author?.name) {
-          commitAuthors.push(commit.author.name)
-        }
+        commitAuthors.push(commit.author.name)
       })
       if (commits.length == 1) {
         const commit = commits[0]
@@ -77,8 +76,9 @@ export const register = (client: Client) => {
         await sendMessage(
           `${
             isUniquePusher ? commitAuthors[0] : `${commitAuthors[0]} 等多人`
-          } 向 ${repository.full_name} 提交了多个更改\n\n` +
-            commitMessages.join('\n'),
+          } 向 ${repository.full_name} 提交了多个更改\n\n${commitMessages.join(
+            '\n',
+          )}`,
         )
       }
     } else {
