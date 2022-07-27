@@ -13,8 +13,8 @@ specifiers:
   '@types/randomcolor': 0.5.6
   '@types/yargs': 17.0.10
   axios: 0.26.1
-  camelcase-keys: 8.0.1
-  chalk: ^5.0.1
+  camelcase-keys: ^7
+  chalk: ^4
   consola: 2.15.3
   cron: 2.0.0
   github-webhook-handler: 1.0.0
@@ -35,8 +35,8 @@ dependencies:
   '@types/lodash': 4.14.182
   '@types/yargs': 17.0.10
   axios: 0.26.1
-  camelcase-keys: 8.0.1
-  chalk: 5.0.1
+  camelcase-keys: 7.0.2
+  chalk: 4.1.2
   consola: 2.15.3
   cron: 2.0.0
   github-webhook-handler: 1.0.0
@@ -867,24 +867,9 @@ packages:
       type-fest: 1.4.0
     dev: false
 
-  /camelcase-keys/8.0.1:
-    resolution: {integrity: sha512-QIhTRYtbiDVHYMwNVWdhfJHnKYDpTfjNbU7Jn2X1U3yUSuxmjuFxVOPQMtbuStzIZHT71y4ZYCj7e9XuaGbthg==}
-    engines: {node: '>=14.16'}
-    dependencies:
-      camelcase: 7.0.0
-      map-obj: 4.3.0
-      quick-lru: 6.1.1
-      type-fest: 2.15.1
-    dev: false
-
   /camelcase/6.3.0:
     resolution: {integrity: sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==}
     engines: {node: '>=10'}
-
-  /camelcase/7.0.0:
-    resolution: {integrity: sha512-JToIvOmz6nhGsUhAYScbo2d6Py5wojjNfoxoc2mEVLUdJ70gJK2gnd+ABY1Tc3sVMyK7QDPtN0T/XdlCQWITyQ==}
-    engines: {node: '>=14.16'}
-    dev: false
 
   /caniuse-lite/1.0.30001361:
     resolution: {integrity: sha512-ybhCrjNtkFji1/Wto6SSJKkWk6kZgVQsDq5QI83SafsF6FXv2JB4df9eEdH6g8sdGgqTXrFLjAxqBGgYoU3azQ==}
@@ -905,12 +890,6 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
-    dev: true
-
-  /chalk/5.0.1:
-    resolution: {integrity: sha512-Fo07WOYGqMfCWHOzSXOt2CxDbC6skS/jO9ynEcmpANMoPrD+W1r1K6Vx7iNm+AQmETU1Xr2t+n8nzkV9t6xh3w==}
-    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
-    dev: false
 
   /chokidar/3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
@@ -1914,7 +1893,6 @@ packages:
   /has-flag/4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
-    dev: true
 
   /has-property-descriptors/1.0.0:
     resolution: {integrity: sha512-62DVLZGoiEBDHQyqG4w9xCuZ7eJEwNmJRWw2VY84Oedb7WFcA27fiEVe8oUQx9hAUJ4ekurquucTGwsyO1XGdQ==}
@@ -2635,11 +2613,6 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /quick-lru/6.1.1:
-    resolution: {integrity: sha512-S27GBT+F0NTRiehtbrgaSE1idUAJ5bX8dPAQTdylEyNlrdcH5X4Lz7Edz3DYzecbsCluD5zO8ZNEe04z3D3u6Q==}
-    engines: {node: '>=12'}
-    dev: false
-
   /randomcolor/0.6.2:
     resolution: {integrity: sha512-Mn6TbyYpFgwFuQ8KJKqf3bqqY9O1y37/0jgSK/61PUxV4QfIMv0+K2ioq8DfOjkBslcjwSzRfIDEXfzA9aCx7A==}
     dev: false
@@ -2945,7 +2918,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       has-flag: 4.0.0
-    dev: true
 
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
@@ -3037,11 +3009,6 @@ packages:
   /type-fest/1.4.0:
     resolution: {integrity: sha512-yGSza74xk0UG8k+pLh5oeoYirvIiWo5t0/o3zHHAO2tRDiZcxWP7fywNlXhqb6/r6sWvwi+RsyQMWhVLe4BVuA==}
     engines: {node: '>=10'}
-    dev: false
-
-  /type-fest/2.15.1:
-    resolution: {integrity: sha512-LYSjcIz3NmoQksXq/3/B7Nfad+T8mkaI628agAAnHCpXPTBRMK2ygt3eABpzII8CbZZM8dLdVQ4Gr8ousjFjMw==}
-    engines: {node: '>=12.20'}
     dev: false
 
   /typedarray-to-buffer/3.1.5:
