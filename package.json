@@ -8,12 +8,11 @@
 		"build": "tsc",
 		"bundle": "esbuild src/index.ts --platform=node --bundle --minify --outfile=build/index.js",
 		"prod": "NODE_ENV=production TS_NODE_BASEURL=./dist node -r tsconfig-paths/register ./dist/src/index.js",
-		"prebuild": "mkdir -p build/data && mv build/data data && rm -rf build && mkdir build && mv data build/data",
 		"d": "npm run rebuild-start",
 		"rebuild-start": "git pull && npm run build && pm2 reload ecosystem.config.js --update-env"
 	},
 	"dependencies": {
-		"@mx-space/api-client": "0.10.12",
+		"@mx-space/api-client": "0.10.14",
 		"@types/cron": "2.0.0",
 		"@types/lodash": "4.14.182",
 		"@types/yargs": "17.0.10",
@@ -41,6 +40,6 @@
 		"typescript": "4.7.4"
 	},
 	"resolutions": {
-		"axios": "0.26.1"
+		"axios": "0.27.2"
 	}
 }
