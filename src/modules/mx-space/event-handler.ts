@@ -1,17 +1,17 @@
 import { botConfig } from 'config'
-import { Client, Sendable } from 'oicq'
+import type { Client, Sendable } from 'oicq'
 import rmd from 'remove-markdown'
 
-import {
+import type {
   CommentModel,
   LinkModel,
-  LinkState,
   NoteModel,
   PageModel,
   PostModel,
   RecentlyModel,
   SayModel,
 } from '@mx-space/api-client'
+import { LinkState } from '@mx-space/api-client'
 
 import { isDev } from '~/constants/env'
 import { createNamespaceLogger } from '~/utils/logger'
@@ -53,9 +53,8 @@ export const handleEvent =
     }
 
     switch (type) {
-      case MxSocketEventTypes.POST_CREATE:
-      // case MxSocketEventTypes.POST_UPDATE:
-        {
+      case MxSocketEventTypes.POST_CREATE: {
+        // case MxSocketEventTypes.POST_UPDATE:
         const isNew = type === MxSocketEventTypes.POST_CREATE
         const publishDescription = isNew ? '发布了新文章' : '更新了文章'
         const { title, text, category, id, slug, summary } =
@@ -135,7 +134,26 @@ export const handleEvent =
       }
 
       case MxSocketEventTypes.COMMENT_CREATE: {
-        const { author, text, refType, parent, id } = payload as CommentModel
+        const { author, text, refType, parent, id, isWhispers } =
+          payload as CommentModel
+        if (isWhispers) {
+          return
+        }
+
+        const parentIsWhispers = (() => {
+          const walk = (parent) => {
+            return (
+              (parent && typeof parent !== 'string' && parent.isWhispers) ||
+              walk(parent.parent)
+            )
+          }
+
+          return walk(parent)
+        })()
+        if (parentIsWhispers) {
+          return
+        }
+
         const refId = payload.ref?.id || payload.ref?._id || payload.ref
         let refModel: PostModel | NoteModel | PageModel | null = null
 
