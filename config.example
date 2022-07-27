@@ -3,7 +3,7 @@ import { Platform } from 'oicq'
 export const botConfig = {
   groupIds: [615052447, 615052525],
 
-  password: null,
+  password: '',
   uid: 926284623,
 
   platform: Platform.iMac,
