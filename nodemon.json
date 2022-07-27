@@ -7,6 +7,6 @@
     "src/**/*.test.ts"
   ],
   "ext": "ts,mjs,js,json,graphql",
-  "exec": "esno src/index.ts",
+  "exec": "tsx src/index.ts",
   "legacyWatch": true
 }

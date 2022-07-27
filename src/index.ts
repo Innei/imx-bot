@@ -6,8 +6,8 @@ import { registerLogger } from './utils/logger'
 
 async function bootstrap() {
   registerLogger()
-  const { client } = require('./client')
-  // const { client } = await import('./client')
+  
+  const { client } = await import('./client')
   client.login()
   // TODO factory
   client.use(registerHealthCheck)
