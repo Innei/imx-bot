@@ -1,5 +1,6 @@
 import chalk from 'chalk'
-import { Consola, FancyReporter, FancyReporterOptions, LogLevel } from 'consola'
+import type { FancyReporterOptions} from 'consola';
+import { Consola, FancyReporter, LogLevel } from 'consola'
 import rc from 'randomcolor'
 
 import { isDev } from '~/constants/env'
