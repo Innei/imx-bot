@@ -3,8 +3,7 @@ import { botConfig } from 'config'
 import { CronJob } from 'cron'
 import { Client } from 'oicq'
 
-import { Playurl_info } from './types/live'
-import { BLRoom, RoomInfo } from './types/room'
+import { BLRoom } from './types/room'
 import { BLUser } from './types/user'
 
 const headers = {
