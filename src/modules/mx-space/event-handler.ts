@@ -137,15 +137,16 @@ export const handleEvent =
         const { author, text, refType, parent, id, isWhispers } =
           payload as CommentModel
         if (isWhispers) {
+          await sendToGuild(`嘘，有人说了一句悄悄话。`)
           return
         }
 
         const parentIsWhispers = (() => {
-          const walk = (parent) => {
-            return (
-              (parent && typeof parent !== 'string' && parent.isWhispers) ||
-              walk(parent.parent)
-            )
+          const walk: (parent: any) => boolean = (parent) => {
+            if (!parent || typeof parent == 'string') {
+              return false
+            }
+            return parent.isWhispers || walk(parent?.parent)
           }
 
           return walk(parent)
