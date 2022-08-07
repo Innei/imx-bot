@@ -54,7 +54,7 @@ export const register = (client: Client) => {
       const commitAuthors = [] as string[]
 
       commits.forEach((commit) => {
-        commitMessages.push(commit.message)
+        commitMessages.push(commit.message.split('\n')[0])
 
         commitAuthors.push(commit.author.name)
       })
