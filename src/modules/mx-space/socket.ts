@@ -1,8 +1,8 @@
 import camelcaseKeys from 'camelcase-keys'
-import { Client } from 'oicq'
+import type { Client } from 'oicq'
 import { io } from 'socket.io-client'
 
-import { MxSocketEventTypes } from '~/modules/mx-space/types/mx-socket-types'
+import type { MxSocketEventTypes } from '~/modules/mx-space/types/mx-socket-types'
 
 import { botConfig } from '../../../config'
 import { createNamespaceLogger } from '../../utils/logger'
