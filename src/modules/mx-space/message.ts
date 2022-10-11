@@ -1,34 +1,34 @@
 import rmd from 'remove-markdown'
 
-import type { NoteModel, RequestError } from '@mx-space/api-client'
+import type { NoteModel } from '@mx-space/api-client'
 
 import { MessageType, plugins } from '~/plugin-manager'
 
 import { apiClient } from './api-client'
 import { fetchHitokoto } from './api/hitokoto'
-import { MxContext } from './types'
+import type { MxContext } from './types'
 
 export const listenMessage = async (ctx: MxContext) => {
   plugins.message.register(
     MessageType.command,
     async (event, message, prevMessage) => {
-      switch (message.type) {
-        case 'text': {
-          const fullCommand = message.text.slice(1)
-          const commandSplit = fullCommand.split(' ')
-          const commandName = commandSplit[0]
-          const afterArgs = commandSplit.slice(1)
-          const caller = commandMap[commandName]
-          const {
-            aggregationData: {
-              seo: { title },
-            },
-          } = ctx
-          const prefix = `来自${title ? `「${title}」` : ' Mix Space '}的 `
-          if (caller) {
-            return prefix + (await caller(ctx, afterArgs))
-          }
-        }
+      if (!('commandName' in message)) {
+        return prevMessage
+      }
+
+      const fullCommand = message.text.slice(1)
+      const commandSplit = fullCommand.split(' ')
+      const commandName = message.commandName || ''
+      const afterArgs = commandSplit.slice(1)
+      const caller = commandMap[commandName]
+      const {
+        aggregationData: {
+          seo: { title },
+        },
+      } = ctx
+      const prefix = `来自${title ? `「${title}」` : ' Mix Space '}的 `
+      if (caller) {
+        return prefix + (await caller(ctx, afterArgs))
       }
 
       return prevMessage

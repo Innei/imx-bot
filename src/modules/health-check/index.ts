@@ -20,20 +20,15 @@ class HealthCheckStatic {
     await plugins.message.register(
       MessageType.command,
       async (event, message, prevMessage) => {
-        switch (message.type) {
-          case 'text': {
-            const fullCommand = message.text.slice(1)
-            const commandSplit = fullCommand.split(' ')
-            const commandName = commandSplit[0]
-
-            if (commandName === 'health') {
-              return await this.call().then((result) => {
-                return result.join('\n')
-              })
-            }
-          }
+        if (!('commandName' in message)) {
+          return prevMessage
         }
 
+        if (message.commandName === 'health') {
+          return await this.call().then((result) => {
+            return result.join('\n')
+          })
+        }
         return prevMessage
       },
     )
