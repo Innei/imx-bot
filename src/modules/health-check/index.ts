@@ -1,4 +1,4 @@
-import { Client } from 'oicq'
+import type { Client } from 'oicq'
 
 import { MessageType, plugins } from '~/plugin-manager'
 
