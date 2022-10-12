@@ -72,44 +72,46 @@ class NovelAiStatic {
         const count = paramsObject.get('count') || 1
 
         if (count == 1) event.reply('在画了在画了...', true)
-        for (let i = 0; i < Math.max(count ? +count || 1 : 1, 5); i++) {
-          if (count > 1) {
-            this.hasLongTask = true
-            event.reply(`开始炼金，第 ${i + 1} 张/共 ${count} 张`)
-          }
+        try {
+          for (let i = 0; i < Math.max(count ? +count || 1 : 1, 5); i++) {
+            if (count > 1) {
+              this.hasLongTask = true
+              event.reply(`开始炼金，第 ${i + 1} 张/共 ${count} 张`)
+            }
 
-          const bufferOrText = await getApiImage({
-            tagText,
-            shape: command2Shape[message.commandName] || 'Portrait',
-            seed: paramsObject.get('seed') || undefined,
-            scale: paramsObject.get('scale') || undefined,
-          })
+            const bufferOrText = await getApiImage({
+              tagText,
+              shape: command2Shape[message.commandName] || 'Portrait',
+              seed: paramsObject.get('seed') || undefined,
+              scale: paramsObject.get('scale') || undefined,
+            })
 
-          if (typeof bufferOrText == 'string') {
-            this.hasLongTask = false
-            return bufferOrText || '出错了'
-          }
+            if (typeof bufferOrText == 'string') {
+              this.hasLongTask = false
+              return bufferOrText || '出错了'
+            }
 
-          if (this.enabled) {
-            await event.reply(
-              [
-                {
-                  type: 'image',
-                  file: Buffer.from(bufferOrText.buffer),
-                },
-                {
-                  type: 'text',
-                  text: `\ntags: ${bufferOrText.tags}\n\nseed: ${
-                    bufferOrText.seed
-                  }, scale: ${paramsObject.get('scale') || `11.0`}`,
-                },
-              ],
-              true,
-            )
+            if (this.enabled) {
+              await event.reply(
+                [
+                  {
+                    type: 'image',
+                    file: Buffer.from(bufferOrText.buffer),
+                  },
+                  {
+                    type: 'text',
+                    text: `\ntags: ${bufferOrText.tags}\n\nseed: ${
+                      bufferOrText.seed
+                    }, scale: ${paramsObject.get('scale') || `11.0`}`,
+                  },
+                ],
+                true,
+              )
+            }
           }
+        } finally {
+          this.hasLongTask = false
         }
-
-        this.hasLongTask = false
 
         return prevMessage
       },
