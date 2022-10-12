@@ -80,7 +80,9 @@ class NovelAiStatic {
             },
             {
               type: 'text',
-              text: `tags: ${bufferOrText.tags}\n\nseed: ${bufferOrText.seed}`,
+              text: `tags: ${bufferOrText.tags}\n\nseed: ${
+                bufferOrText.seed
+              }, scale: ${paramsObject.get('scale') || `11.0`}`,
             },
           ],
           true,
