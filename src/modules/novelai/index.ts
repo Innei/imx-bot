@@ -90,21 +90,23 @@ class NovelAiStatic {
             return bufferOrText || '出错了'
           }
 
-          await event.reply(
-            [
-              {
-                type: 'image',
-                file: Buffer.from(bufferOrText.buffer),
-              },
-              {
-                type: 'text',
-                text: `\ntags: ${bufferOrText.tags}\n\nseed: ${
-                  bufferOrText.seed
-                }, scale: ${paramsObject.get('scale') || `11.0`}`,
-              },
-            ],
-            true,
-          )
+          if (this.enabled) {
+            await event.reply(
+              [
+                {
+                  type: 'image',
+                  file: Buffer.from(bufferOrText.buffer),
+                },
+                {
+                  type: 'text',
+                  text: `\ntags: ${bufferOrText.tags}\n\nseed: ${
+                    bufferOrText.seed
+                  }, scale: ${paramsObject.get('scale') || `11.0`}`,
+                },
+              ],
+              true,
+            )
+          }
         }
 
         this.hasLongTask = false
