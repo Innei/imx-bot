@@ -30,6 +30,14 @@ client
   })
   .login(botConfig.password)
 
+client.on('system.login.device', () => {
+  client.logger.mark('输入密保手机收到的短信验证码后按下回车键继续。')
+  client.sendSmsCode()
+  process.stdin.once('data', (input) => {
+    client.submitSmsCode(input.toString())
+  })
+})
+
 process.on('uncaughtException', (err) => {
   console.error(err)
   client.sendGroupMsg(
