@@ -1,4 +1,4 @@
-import { Sendable } from 'oicq'
+import type { Sendable } from 'oicq'
 
 import { getIpInfo } from '~/utils/helper'
 import { createNamespaceLogger } from '~/utils/logger'

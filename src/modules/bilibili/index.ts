@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { botConfig } from 'config'
 import { CronJob } from 'cron'
-import { Client } from 'oicq'
+import type { Client } from 'oicq'
 
-import { BLRoom } from './types/room'
-import { BLUser } from './types/user'
+import type { BLRoom } from './types/room'
+import type { BLUser } from './types/user'
 
 const headers = {
   referer: `https://link.bilibili.com/p/center/index?visit_id=22ast2mb9zhc`,

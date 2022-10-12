@@ -13,15 +13,10 @@
     "declaration": false,
     "baseUrl": ".",
     "paths": {
-      "~": [
-        "./src"
-      ],
-      "~/*": [
-        "./src/*"
-      ],
-      "config": [
-        "./config.ts"
-      ]
+      "~": ["./src"],
+      "~/*": ["./src/*"],
+      "config": ["./config.ts"]
     }
-  }
+  },
+  "exclude": ["./config.example.ts"]
 }

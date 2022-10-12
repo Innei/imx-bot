@@ -1,4 +1,4 @@
-import { UserModel } from '@mx-space/api-client'
+import type { UserModel } from '@mx-space/api-client'
 
 import { apiClient } from '../api-client'
 

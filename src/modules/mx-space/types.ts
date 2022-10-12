@@ -1,7 +1,7 @@
-import { Client } from 'oicq'
-import { Socket } from 'socket.io-client'
+import type { Client } from 'oicq'
+import type { Socket } from 'socket.io-client'
 
-import { AggregateRoot } from '@mx-space/api-client'
+import type { AggregateRoot } from '@mx-space/api-client'
 
 export type MxContext = {
   socket: Socket

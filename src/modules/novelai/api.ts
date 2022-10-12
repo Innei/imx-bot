@@ -1,8 +1,9 @@
 import axios from 'axios'
+import { botConfig } from 'config'
 
 const endpoint = 'http://91.217.139.190:5010/got_image'
 
-const token = 'public_token'
+const token = botConfig.novelai.token
 
 interface NovelAIParams {
   tagText: string

@@ -6,7 +6,7 @@ import { registerLogger } from './utils/logger'
 
 async function bootstrap() {
   registerLogger()
-  
+
   const { client } = await import('./client')
   client.login()
   // TODO factory

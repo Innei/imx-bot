@@ -1,4 +1,4 @@
-import { GroupMessageEvent } from 'oicq'
+import type { GroupMessageEvent } from 'oicq'
 
 import { handleMentionMessage } from './mention'
 import { handleSingleMessage } from './single'

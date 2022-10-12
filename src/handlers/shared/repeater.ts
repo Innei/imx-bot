@@ -1,4 +1,4 @@
-import { Message } from 'oicq'
+import type { Message } from 'oicq'
 
 import { createNamespaceLogger } from '~/utils/logger'
 
