@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { botConfig } from 'config'
 
+import { novelAiLogger } from './logger'
+
 const endpoint = 'http://91.217.139.190:5010/got_image'
 
 const token = botConfig.novelai.token
@@ -8,11 +10,20 @@ const token = botConfig.novelai.token
 interface NovelAIParams {
   tagText: string
   shape: 'Portrait' | 'Landscape' | 'Square'
-  scale: number
-  seed?: number
+  scale: number | string
+  seed?: number | string
 }
-export const getApiImage = async (params: Partial<NovelAIParams>) => {
-  const { seed = -1, tagText = '', scale = 22, shape = 'Portrait' } = params
+export const getApiImage = async (
+  params: Partial<NovelAIParams>,
+): Promise<
+  | string
+  | {
+      buffer: ArrayBuffer
+      seed: string | undefined
+      tags: string
+    }
+> => {
+  const { seed, tagText, scale, shape = 'Portrait' } = params
 
   if (!tagText) {
     return 'Tag 为空'
@@ -31,9 +42,16 @@ export const getApiImage = async (params: Partial<NovelAIParams>) => {
     delete nextParams.seed
   }
 
+  for (const key in nextParams) {
+    if (typeof nextParams[key] === 'undefined') {
+      delete nextParams[key]
+    }
+  }
+
+  const search = new URLSearchParams(Object.entries(nextParams)).toString()
+
   return await axios
-    .get(endpoint, {
-      params: nextParams,
+    .get(`${endpoint}?${search}`, {
       timeout: 60 * 1000,
       headers: {
         'user-agent':
@@ -42,9 +60,17 @@ export const getApiImage = async (params: Partial<NovelAIParams>) => {
       responseType: 'arraybuffer',
     })
     .then((res) => {
-      return res.data as ArrayBuffer
+      novelAiLogger.debug(
+        `get image from novelai: ${res.status}, seed: ${res.headers['seed']}`,
+      )
+      return {
+        buffer: res.data as ArrayBuffer,
+        seed: res.headers['seed'],
+        tags: jointTag,
+      }
     })
-    .catch(() => {
+    .catch((er: any) => {
+      novelAiLogger.debug(er.message)
       return '生成失败'
     })
 }
