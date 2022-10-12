@@ -2,7 +2,7 @@
 import { botConfig } from 'config'
 import { CronJob } from 'cron'
 import { sample } from 'lodash'
-import { Client } from 'oicq'
+import type { Client } from 'oicq'
 
 import { createNamespaceLogger } from '~/utils/logger'
 
@@ -12,7 +12,7 @@ import { listenMessage } from './message'
 import mxSocket from './socket'
 import { aggregateStore } from './store/aggregate'
 import { userStore } from './store/user'
-import { MxContext } from './types'
+import type { MxContext } from './types'
 
 const logger = createNamespaceLogger('mx-space')
 export const register = async (client: Client) => {

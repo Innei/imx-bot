@@ -18,7 +18,7 @@ export const botConfig = {
     ],
   },
 
-    bilibili: {
+  bilibili: {
     live: {
       id: 1434499,
       atAll: true,
@@ -42,5 +42,8 @@ export const botConfig = {
       615052525,
       // 615052525
     ],
+  },
+  novelai: {
+    token: '',
   },
 }

@@ -1,4 +1,4 @@
-import { GroupMessageEvent, MessageElem } from 'oicq'
+import type { GroupMessageEvent, MessageElem } from 'oicq'
 
 import { handleCommandMessage } from '../shared/command'
 

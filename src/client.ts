@@ -2,6 +2,7 @@ import { Platform, createClient } from 'oicq'
 
 import { botConfig } from '../config'
 import { groupMessageHandler } from './handlers/group'
+
 import './plugin-manager'
 
 const account = botConfig.uid
@@ -20,10 +21,14 @@ client.on('message.group', async (e) => {
   }
 })
 
-client.on("system.login.slider", function (e) {
-  console.log("输入ticket：")
-  process.stdin.once("data", ticket => this.submitSlider(String(ticket).trim()))
-}).login(botConfig.password)
+client
+  .on('system.login.slider', function (e) {
+    console.log('输入ticket：')
+    process.stdin.once('data', (ticket) =>
+      this.submitSlider(String(ticket).trim()),
+    )
+  })
+  .login(botConfig.password)
 
 process.on('uncaughtException', (err) => {
   console.error(err)

@@ -1,8 +1,7 @@
-import { AxiosResponse } from 'axios'
+import type { AxiosResponse } from 'axios'
 import chalk from 'chalk'
 import { botConfig } from 'config'
 import PKG from 'package.json'
-import { performance } from 'perf_hooks'
 
 import { allControllers, createClient } from '@mx-space/api-client'
 import { axiosAdaptor } from '@mx-space/api-client/lib/adaptors/axios'

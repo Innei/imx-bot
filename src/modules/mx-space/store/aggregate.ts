@@ -1,4 +1,4 @@
-import { AggregateRoot } from '@mx-space/api-client'
+import type { AggregateRoot } from '@mx-space/api-client'
 
 import { apiClient } from '../api-client'
 
