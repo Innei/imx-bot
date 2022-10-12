@@ -75,7 +75,7 @@ class NovelAiStatic {
         for (let i = 0; i < Math.max(count ? +count || 1 : 1, 5); i++) {
           if (count > 1) {
             this.hasLongTask = true
-            event.reply(`开始炼金，第 ${i} 张/共 ${count} 张`)
+            event.reply(`开始炼金，第 ${i + 1} 张/共 ${count} 张`)
           }
 
           const bufferOrText = await getApiImage({
