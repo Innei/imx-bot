@@ -5,6 +5,7 @@ export const botConfig = {
 
   password: '',
   uid: 926284623,
+  ownerId: 1003521738,
 
   platform: Platform.iMac,
 
