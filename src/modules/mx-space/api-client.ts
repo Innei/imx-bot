@@ -10,9 +10,9 @@ import { createNamespaceLogger } from '~/utils/logger'
 
 const logger = createNamespaceLogger('mx-space-api')
 
-const prettyStringify = (data: any) => {
-  return JSON.stringify(data, null, 2)
-}
+// const prettyStringify = (data: any) => {
+//   return JSON.stringify(data, null, 2)
+// }
 
 declare module 'axios' {
   interface AxiosRequestConfig {
@@ -21,13 +21,6 @@ declare module 'axios' {
     __requestDuration?: number
   }
 }
-
-axiosAdaptor.default.defaults.headers.common[
-  'user-agent'
-] = `imx-bot/${PKG.version}`
-
-axiosAdaptor.default.defaults.headers.common['authorization'] =
-  botConfig.mxSpace.token
 
 axiosAdaptor.default.interceptors.request.use((req) => {
   // req.__requestStartedAt = performance.now()
@@ -39,6 +32,13 @@ axiosAdaptor.default.interceptors.request.use((req) => {
   // params: ${prettyStringify(req.params)}
   // data: ${prettyStringify(req.data)}`,
   //   )
+
+  req.headers = {
+    ...req.headers,
+    'user-agent': `imx-bot/${PKG.version}`,
+    authorization: botConfig.mxSpace.token,
+    'x-request-id': Math.random().toString(36).slice(2),
+  } as any
 
   return req
 })

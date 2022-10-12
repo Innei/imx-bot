@@ -24,8 +24,8 @@ export const handleSingleMessage = async (
       const isCommand = message.text.startsWith('/')
 
       if (isCommand) {
-        const result = await handleCommandMessage(event, message)
-        if (result) {
+        const isReplied = await handleCommandMessage(event, message)
+        if (isReplied) {
           return
         }
       }
