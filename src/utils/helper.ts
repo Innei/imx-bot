@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { isIPv4, isIPv6 } from 'net'
 
-import { simpleCamelcaseKeys as camelcaseKeys } from '@mx-space/api-client'
+import { camelcaseKeys } from '@mx-space/api-client'
 
 export const getIpInfo = async (ip: string) => {
   const isV4 = isIPv4(ip)
@@ -12,7 +12,7 @@ export const getIpInfo = async (ip: string) => {
 
   if (isV4) {
     const { data } = await axios.get(`https://api.i-meto.com/ip/v1/qqwry/${ip}`)
-    return camelcaseKeys(data) as IpType
+    return camelcaseKeys(data, { deep: true }) as IpType
   } else {
     const { data } = (await axios.get(`http://ip-api.com/json/${ip}`)) as any
 

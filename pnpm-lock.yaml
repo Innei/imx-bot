@@ -6,7 +6,7 @@ overrides:
 specifiers:
   '@innei/eslint-config-ts': 0.9.5
   '@innei/prettier': 0.9.5
-  '@mx-space/api-client': 1.0.0-alpha.2
+  '@mx-space/api-client': 0.10.14
   '@types/cron': 2.0.0
   '@types/lodash': 4.14.182
   '@types/node': 17.0.35
@@ -30,7 +30,7 @@ specifiers:
   yargs: 17.6.0
 
 dependencies:
-  '@mx-space/api-client': 1.0.0-alpha.2
+  '@mx-space/api-client': 0.10.14
   '@types/cron': 2.0.0
   '@types/lodash': 4.14.182
   '@types/yargs': 17.0.10
@@ -419,9 +419,11 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@mx-space/api-client/1.0.0-alpha.2:
-    resolution: {integrity: sha512-p83lI6+/DeFo7Ul5mK1Ic1eVnFEaQ/bqYK3E63zECNjtdlIVR3YSUaxxERLpZuxElFcx6NPKezSXcP611fikBg==}
+  /@mx-space/api-client/0.10.14:
+    resolution: {integrity: sha512-d+lHktXtPdQS4k97aY1cbwhfvvdl5u1uY3dQhkXnXwFMn7OoU5k4id8py/u+rgEXvlP2VBx1hoTiaAnBrYHcSQ==}
     engines: {pnpm: '>=6'}
+    dependencies:
+      camelcase-keys: 7.0.2
     dev: false
 
   /@nodelib/fs.scandir/2.1.5:
