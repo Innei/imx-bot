@@ -31,11 +31,12 @@ export const getApiImage = async (
   }
   const tagSet = new Set(tagText.split(',').map((t) => t.trim()))
 
-  for (const disallowedTag of disallowedTags) {
-    tagSet.delete(disallowedTag)
-  }
-
-  const jointTag = [...tagSet.values()].join(',')
+  const jointTag = [...tagSet.values()]
+    .join(',')
+    .replace(
+      new RegExp(`(${disallowedTags.map((tag) => `${tag}|`).join('')})`, 'ig'),
+      '',
+    )
   const nextParams: any = {
     token,
     tags: jointTag,
