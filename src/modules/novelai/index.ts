@@ -173,25 +173,29 @@ class NovelAiStatic {
           return abort()
         }
 
+        const gEvent = event as GroupMessageEvent
+        const isOwner = gEvent.sender.user_id === botConfig.ownerId
+        const command = message.commandName.replaceAll('-', '_')
+        if (command === 'ai_sfw_toggle') {
+          if (isOwner) {
+            this.enabled = !this.enabled
+            return `AI 绘图：已${this.enabled ? '开启' : '关闭'}`
+          }
+          return prevMessage
+        }
+
         if (!this.enabled) {
           return prevMessage
         }
 
-        const gEvent = event as GroupMessageEvent
-        const isOwner = gEvent.sender.user_id === botConfig.ownerId
-        switch ((message as TextElem).commandName?.replaceAll('-', '_')) {
+        switch (command) {
           case 'ai_sfw_l':
           case 'ai_sfw_p':
           case 'ai_sfw_s':
           case 'draw':
             await this.draw(message, event, abort)
             return
-          case 'ai_sfw_toggle':
-            if (isOwner) {
-              this.enabled = !this.enabled
-              return `AI 绘图：已${this.enabled ? '开启' : '关闭'}`
-            }
-            return prevMessage
+
           case 'ai_sfw_status':
           case 'ai_status':
             return this.sendStatus()
