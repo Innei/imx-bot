@@ -6,7 +6,7 @@ const idToMessageQueue = new Map<string, string[]>()
 
 const count = 3
 
-const breakRepeatCount = 3
+const breakRepeatCount = 12
 
 const logger = createNamespaceLogger('repeater')
 export const isMessageRepeater = async (id: string, message: Message) => {

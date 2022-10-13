@@ -54,6 +54,9 @@ export const handleCommandMessage = async (
   }
 
   const result = await plugins.message.handle(event, MessageType.command)
+  if (result === 'handled') {
+    return result
+  }
   if (result) {
     return event.reply(result, quote)
   }

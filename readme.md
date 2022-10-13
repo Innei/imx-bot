@@ -9,6 +9,7 @@
 - 错误通知
 - 工具 (IP Query, Base64, MD5)
 - 复读机
+- 第三方 NovelAI 绘图
 
 ## 示例
 

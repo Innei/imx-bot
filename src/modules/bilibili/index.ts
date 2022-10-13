@@ -3,13 +3,14 @@ import { botConfig } from 'config'
 import { CronJob } from 'cron'
 import type { Client } from 'oicq'
 
+import { userAgent } from '~/constants/env'
+
 import type { BLRoom } from './types/room'
 import type { BLUser } from './types/user'
 
 const headers = {
   referer: `https://link.bilibili.com/p/center/index?visit_id=22ast2mb9zhc`,
-  'User-Agent':
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36',
+  'User-Agent': userAgent,
 }
 
 export const register = (client: Client) => {

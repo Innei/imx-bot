@@ -1,11 +1,11 @@
 import type { AxiosResponse } from 'axios'
 import chalk from 'chalk'
 import { botConfig } from 'config'
-import PKG from 'package.json'
 
 import { allControllers, createClient } from '@mx-space/api-client'
 import { axiosAdaptor } from '@mx-space/api-client/lib/adaptors/axios'
 
+import { userAgent } from '~/constants/env'
 import { createNamespaceLogger } from '~/utils/logger'
 
 const logger = createNamespaceLogger('mx-space-api')
@@ -35,7 +35,7 @@ axiosAdaptor.default.interceptors.request.use((req) => {
 
   req.headers = {
     ...req.headers,
-    'user-agent': `imx-bot/${PKG.version}`,
+    'user-agent': userAgent,
     authorization: botConfig.mxSpace.token,
     'x-request-id': Math.random().toString(36).slice(2),
   } as any
