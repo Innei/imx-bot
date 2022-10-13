@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { botConfig } from 'config'
 
+import { userAgent } from '~/constants/env'
+
 import { disallowedTags } from './ban'
 import { novelAiLogger } from './logger'
 
@@ -61,8 +63,7 @@ export const getApiImage = async (
     .get(`${endpoint}?${search}`, {
       timeout: 60 * 1000,
       headers: {
-        'user-agent':
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36',
+        'user-agent': userAgent,
       },
       responseType: 'arraybuffer',
     })

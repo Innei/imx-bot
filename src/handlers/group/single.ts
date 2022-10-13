@@ -25,7 +25,7 @@ export const handleSingleMessage = async (
 
       if (isCommand) {
         const isReplied = await handleCommandMessage(event, message)
-        if (isReplied) {
+        if (isReplied || isReplied === 'handled') {
           return
         }
       }

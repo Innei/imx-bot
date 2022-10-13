@@ -23,15 +23,15 @@ class NovelAiStatic {
   async setup() {
     plugins.message.register(
       MessageType.command,
-      async (event, message, prevMessage) => {
+      async (event, message, prevMessage, abort) => {
         if (!('commandName' in message)) {
-          return prevMessage
+          return abort()
         }
 
         const allowedCommandNames = ['ai_sfw_l', 'ai_sfw_p', 'ai_sfw_s']
 
         if (!message.commandName) {
-          return prevMessage
+          return abort()
         }
 
         const gEvent = event as GroupMessageEvent
@@ -57,7 +57,7 @@ class NovelAiStatic {
 
         const args = message.commandArgs
         if (!args) {
-          return prevMessage
+          return abort()
         }
 
         if (this.hasLongTask) {
@@ -68,7 +68,8 @@ class NovelAiStatic {
         // seed=68846426&scale=22&count=10
 
         const [tagText, params = ''] = args.split('\n')
-        const paramsObject = new URLSearchParams(params)
+        const [realTagText, paramsPostfix = ''] = tagText.split('&')
+        const paramsObject = new URLSearchParams(params || paramsPostfix)
         const count = paramsObject.get('count') || 1
 
         if (count == 1) event.reply('在画了在画了...', true)
@@ -80,7 +81,7 @@ class NovelAiStatic {
             }
 
             const bufferOrText = await getApiImage({
-              tagText,
+              tagText: realTagText,
               shape: command2Shape[message.commandName] || 'Portrait',
               seed: paramsObject.get('seed') || undefined,
               scale: paramsObject.get('scale') || undefined,
@@ -113,7 +114,7 @@ class NovelAiStatic {
           this.hasLongTask = false
         }
 
-        return prevMessage
+        return abort()
       },
     )
   }
