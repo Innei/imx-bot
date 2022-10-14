@@ -24,7 +24,7 @@ export const groupMessageHandler = async (e: GroupMessageEvent) => {
   }
 
   if (isCommandMessage) {
-    return await handleCommandMessage(e, e.message[0])
+    return await handleCommandMessage(e, e.message[0] as TextElem)
   }
 }
 
