@@ -31,7 +31,7 @@ class NovelAiStatic {
    */
   private hasLongTask = false
 
-  private formulaFilePath = path.join(__dirname, 'formula.txt')
+  private formulaFilePath = path.join(String(process.cwd()), 'formula.txt')
 
   // 配方格式： 备注|配方
   // 如： favor|8k wallpaper,loli,genshin
@@ -69,10 +69,17 @@ class NovelAiStatic {
       .toString()
       .replace('[图片] tags:', '')
       .split('seed: ')[0]
+    const remark = message.commandArgs
 
-    await appendFile(this.formulaFilePath, `formula|${`${tagsText}\n`}`, {
-      encoding: 'utf-8',
-    })
+    await appendFile(
+      this.formulaFilePath,
+      `${remark || 'formula'}|${`${tagsText}\n`}`,
+      {
+        encoding: 'utf-8',
+      },
+    )
+
+    await event.reply('保存成功', true)
 
     abort()
   }
@@ -302,8 +309,11 @@ class NovelAiStatic {
                 event as GroupMessageEvent,
                 abort,
               )
+            } else {
+              event.reply('你不是我的主人，无法使用此命令', true)
+              return abort()
             }
-            return prevMessage
+
           case 'ai_image2image': {
             return this.image2image(message, event, abort)
           }
