@@ -23,6 +23,11 @@ export const handleCommandMessage = async (
   const args = await yargs.parse(command.replace(/—/g, '--'), {})
   const commandName = args._[0]
 
+  message.commandName = String(commandName)
+  message.commandParsedArgs = args
+
+  message.commandArgs = command.split(' ')[1]
+
   switch (commandName) {
     case 'tool': {
       return event.reply(await toolCommand(args), quote)
@@ -59,5 +64,13 @@ export const handleCommandMessage = async (
   }
   if (result) {
     return event.reply(result, quote)
+  }
+}
+
+declare module 'oicq' {
+  interface TextElem {
+    commandName?: string
+    commandArgs?: string
+    commandParsedArgs?: any
   }
 }

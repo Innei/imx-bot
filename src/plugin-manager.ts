@@ -56,26 +56,8 @@ class MessageHandler {
       const message = (() => {
         switch (type) {
           case MessageType.single:
+          case MessageType.command:
             return (event as any).message[0]
-          case MessageType.command: {
-            // @ts-ignore
-            const message: MessageElem = event.message[0]
-
-            switch (message.type) {
-              case 'text': {
-                const fullCommand = message.text.slice(1)
-                const commandSplit = fullCommand.split(' ')
-                const [commandName, ...rest] = commandSplit
-
-                const args = rest.join(' ')
-
-                message.commandName = commandName
-                message.commandArgs = args
-              }
-            }
-
-            return message
-          }
         }
       })()
 
@@ -102,13 +84,6 @@ class MessageHandler {
     } else {
       this.messageHandlerMap.set(type, [handler])
     }
-  }
-}
-
-declare module 'oicq' {
-  interface TextElem {
-    commandName?: string
-    commandArgs?: string
   }
 }
 

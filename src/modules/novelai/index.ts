@@ -93,11 +93,17 @@ class NovelAiStatic {
     if (Number.isNaN(formulaIndex)) {
       return '无效的配方编号'
     }
+
+    const afterIndex =
+      message.commandArgs?.slice(String(formulaIndex).length) || ''
+    const postfixAiArgs = afterIndex.replace(/^&/, '')
     const matrix = await this.readFormula()
 
     const formula = matrix[formulaIndex - 1]
 
-    const [, nextLineArgs = ''] = message.commandArgs?.split('\n') || []
+    const [, nextLineArgs = postfixAiArgs] =
+      message.commandArgs?.split('\n') || []
+
     if (formula) {
       event.reply(`使用配方：${formula.toString()}`)
       return await this.draw(
@@ -132,7 +138,6 @@ class NovelAiStatic {
 
     // /ai_sfw_l masterpiece,best quality,extremely detailed CG unity 8k wallpaper, (((loli))), looking at viewer, white short hair, solo, white knee high, white socks, dynamic_angle, white jk, (cute), ((kindergarten)), red eyes, (hoodie), ((:3)),(lift by self),(underwear),((cute)),sea,genshin impact,shark
     // seed=68846426&scale=22&count=10
-
     const [tagText, params = ''] = args.split('\n')
     const [realTagText, paramsPostfix = ''] = tagText.split('&')
     const paramsObject = new URLSearchParams(params || paramsPostfix)
@@ -314,6 +319,7 @@ class NovelAiStatic {
               return abort()
             }
 
+          case 'ai_img2img':
           case 'ai_image2image': {
             return this.image2image(message, event, abort)
           }
