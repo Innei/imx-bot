@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import axios from 'axios'
 import { botConfig } from 'config'
 import { appendFile, readFile } from 'fs/promises'
+import imageSize from 'image-size'
 import { sample } from 'lodash'
 import type {
   Client,
@@ -11,6 +13,7 @@ import type {
   TextElem,
 } from 'oicq'
 import path from 'path'
+import { promisify } from 'util'
 
 import { isDev, userAgent } from '~/constants/env'
 import { MessageType, plugins } from '~/plugin-manager'
@@ -120,7 +123,7 @@ class NovelAiStatic {
   }
 
   private getDrawMessage() {
-    return sample(['在画了在画了...', '少女鉴赏中...'])!
+    return sample(['在画了在画了...', '少女鉴赏中...', '吟唱中...'])!
   }
   private async draw(
     message: TextElem,
@@ -235,12 +238,17 @@ class NovelAiStatic {
     const paramsObject = new URLSearchParams(params || paramsPostfix)
 
     event.reply(this.getDrawMessage(), true)
+    const result = imageSize(buffer)
+    console.log(result)
+    const hwRadio = result.height! / result.width!
+    const shape =
+      hwRadio > 1 ? 'Portrait' : hwRadio == 1 ? 'Square' : 'Landscape'
 
     const resultImage = await getImage2Image({
       image: buffer,
       tagText: realTagText,
       noise: paramsObject.get('noise') || undefined,
-      shape: command2Shape[message.commandName!] || 'Portrait',
+      shape: command2Shape[message.commandName!] || shape || 'Portrait',
       strength: paramsObject.get('strength') || undefined,
     })
 

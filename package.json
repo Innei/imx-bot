@@ -22,6 +22,7 @@
     "consola": "2.15.3",
     "cron": "2.1.0",
     "github-webhook-handler": "1.0.0",
+    "image-size": "1.0.2",
     "lodash": "4.17.21",
     "oicq": "2.3.1",
     "randomcolor": "0.6.2",
