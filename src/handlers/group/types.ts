@@ -12,8 +12,9 @@ declare module 'oicq' {
     commandName?: string
     commandArgs?: string
     commandParsedArgs?: any
-
     commandMessage?: TextElem
+
+    shouldQuote?: boolean
   }
 
   interface TextElem {
