@@ -3,6 +3,7 @@ import { botConfig } from 'config'
 import { URLSearchParams } from 'url'
 
 import { userAgent } from '~/constants/env'
+import { AsyncQueue } from '~/utils/queue'
 
 import { disallowedTags } from './ban'
 import { novelAiLogger } from './logger'
@@ -10,6 +11,8 @@ import { novelAiLogger } from './logger'
 const endpoint = 'http://91.217.139.190:5010'
 
 const token = botConfig.novelai.token
+
+const requestQueue = new AsyncQueue(1)
 
 interface NovelAIParams {
   tagText: string
@@ -60,28 +63,30 @@ export const getApiImage = async (
 
   const search = new URLSearchParams(Object.entries(nextParams)).toString()
 
-  return await axios
-    .get(`${endpoint}/got_image?${search}`, {
-      timeout: 60 * 1000,
-      headers: {
-        'user-agent': userAgent,
-      },
-      responseType: 'arraybuffer',
-    })
-    .then((res) => {
-      novelAiLogger.debug(
-        `get image from novelai: ${res.status}, seed: ${res.headers['seed']}`,
-      )
-      return {
-        buffer: res.data as ArrayBuffer,
-        seed: res.headers['seed'],
-        tags: jointTag,
-      }
-    })
-    .catch((er: any) => {
-      novelAiLogger.debug(er.message)
-      return '生成失败'
-    })
+  return await requestQueue.enqueue(() =>
+    axios
+      .get(`${endpoint}/got_image?${search}`, {
+        timeout: 60 * 1000,
+        headers: {
+          'user-agent': userAgent,
+        },
+        responseType: 'arraybuffer',
+      })
+      .then((res) => {
+        novelAiLogger.debug(
+          `get image from novelAI: ${res.status}, seed: ${res.headers['seed']}`,
+        )
+        return {
+          buffer: res.data as ArrayBuffer,
+          seed: res.headers['seed'],
+          tags: jointTag,
+        }
+      })
+      .catch((er: any) => {
+        novelAiLogger.debug(er.message)
+        return '生成失败'
+      }),
+  )
 }
 
 export interface Image2ImageParams {
@@ -128,27 +133,29 @@ export const getImage2Image = async (
 
   const search = new URLSearchParams(Object.entries(nextParams)).toString()
 
-  return axios
-    .post(`${endpoint}/got_image2image?${search}`, image.toString('base64'), {
-      timeout: 60 * 1000,
-      headers: {
-        'user-agent': userAgent,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      responseType: 'arraybuffer',
-    })
-    .then((res) => {
-      novelAiLogger.debug(
-        `get image from novelai: ${res.status}, seed: ${res.headers['seed']}`,
-      )
-      return {
-        buffer: res.data as ArrayBuffer,
-        seed: res.headers['seed'],
-        tags: jointTag,
-      }
-    })
-    .catch((er: any) => {
-      novelAiLogger.debug(er.message)
-      return '生成失败'
-    })
+  return requestQueue.enqueue(() =>
+    axios
+      .post(`${endpoint}/got_image2image?${search}`, image.toString('base64'), {
+        timeout: 60 * 1000,
+        headers: {
+          'user-agent': userAgent,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        responseType: 'arraybuffer',
+      })
+      .then((res) => {
+        novelAiLogger.debug(
+          `get image from novelAI: ${res.status}, seed: ${res.headers['seed']}`,
+        )
+        return {
+          buffer: res.data as ArrayBuffer,
+          seed: res.headers['seed'],
+          tags: jointTag,
+        }
+      })
+      .catch((er: any) => {
+        novelAiLogger.debug(er.message)
+        return '生成失败'
+      }),
+  )
 }
