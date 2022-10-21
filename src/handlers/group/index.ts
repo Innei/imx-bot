@@ -5,7 +5,13 @@ import { handleMentionMessage } from './mention'
 import { handleSingleMessage } from './single'
 
 export const groupMessageHandler = async (e: GroupMessageEvent) => {
-  consola.debug(e.message)
+  // const coTask = new Co()
+  // coTask.use(groupSingleTextMessageAction)
+  // coTask.start(e)
+
+  // consola.debug(e.message)
+
+  // return
 
   const isSingleMessage = e.message.length === 1
   const isAtMessage = e.message[0].type === 'at'

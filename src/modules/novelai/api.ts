@@ -3,6 +3,7 @@ import { botConfig } from 'config'
 import { URLSearchParams } from 'url'
 
 import { userAgent } from '~/constants/env'
+import { sleep } from '~/utils/helper'
 import { AsyncQueue } from '~/utils/queue'
 
 import { disallowedTags } from './ban'
@@ -12,7 +13,7 @@ const endpoint = 'http://91.217.139.190:5010'
 
 const token = botConfig.novelai.token
 
-const requestQueue = new AsyncQueue(1)
+export const aiRequestQueue = new AsyncQueue(1)
 
 interface NovelAIParams {
   tagText: string
@@ -63,8 +64,8 @@ export const getApiImage = async (
 
   const search = new URLSearchParams(Object.entries(nextParams)).toString()
 
-  return await requestQueue.enqueue(() =>
-    axios
+  const request = aiRequestQueue.enqueue(() => {
+    return axios
       .get(`${endpoint}/got_image?${search}`, {
         timeout: 60 * 1000,
         headers: {
@@ -85,8 +86,12 @@ export const getApiImage = async (
       .catch((er: any) => {
         novelAiLogger.debug(er.message)
         return '生成失败'
-      }),
-  )
+      })
+  })
+
+  // 等待 10 秒
+  aiRequestQueue.enqueue(() => sleep(10 * 1000))
+  return request
 }
 
 export interface Image2ImageParams {
@@ -133,7 +138,7 @@ export const getImage2Image = async (
 
   const search = new URLSearchParams(Object.entries(nextParams)).toString()
 
-  return requestQueue.enqueue(() =>
+  return aiRequestQueue.enqueue(() =>
     axios
       .post(`${endpoint}/got_image2image?${search}`, image.toString('base64'), {
         timeout: 60 * 1000,
