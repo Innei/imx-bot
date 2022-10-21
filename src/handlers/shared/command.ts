@@ -66,11 +66,3 @@ export const handleCommandMessage = async (
     return event.reply(result, quote)
   }
 }
-
-declare module 'oicq' {
-  interface TextElem {
-    commandName?: string
-    commandArgs?: string
-    commandParsedArgs?: any
-  }
-}

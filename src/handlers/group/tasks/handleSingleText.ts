@@ -1,55 +1,32 @@
+import { isMessageRepeater } from '~/handlers/shared/repeater'
+import { praseCommandMessage } from '~/utils/message'
+
 import type { GroupCoRoutine } from '../types'
 
-// export const handleSingleText = async (event: GroupMessageEvent) => {
-//   const message = event.message[0]
-//   switch (message.type) {
-//     case 'text': {
-//       let res = textMap[message.text]
-//       const isCommand = message.text.startsWith('/')
-
-//       if (isCommand) {
-//         const isReplied = await handleCommandMessage(event, message)
-//         if (isReplied || isReplied === 'handled') {
-//           return
-//         }
-//       }
-
-//       const messagePluginHandled = await plugins.message.handle(
-//         event,
-//         MessageType.single,
-//       )
-
-//       if (messagePluginHandled) {
-//         return await event.reply(messagePluginHandled)
-//       }
-
-//       if (typeof res === 'function') {
-//         res = await res()
-//       }
-
-//       if (typeof res != 'undefined') {
-//         return event.reply(res.toString())
-//       }
-//     }
-//   }
-
-//   // TODO
-//   // // 复读机
-
-//   // const isRepeater = await isMessageRepeater(event.group_id.toString(), event)
-//   // if (isRepeater === true) {
-//   //   return event.reply(message)
-//   // } else if (isRepeater === 'break') {
-//   //   return event.reply('打断复读！！！！')
-//   // }
-
-//   // const textMap: Record<string, any> = {
-//   //   ping: 'pong',
-//   // }
-// }
-
-export const groupSingleTextMessageAction: GroupCoRoutine = function (event) {
+export const groupSingleTextMessageAction: GroupCoRoutine = async function (
+  event,
+) {
   if (event.message.length === 1 && event.message[0].type === 'text') {
+    const text = event.message[0].text.trim()
+
+    const isCommand = text.startsWith('/')
+    if (isCommand) {
+      const { commandArgs, commandName, commandParsedArgs } =
+        await praseCommandMessage(text, event.message[0])
+
+      event.commandName = commandName
+      event.commandArgs = commandArgs
+      event.commandParsedArgs = commandParsedArgs
+      event.commandMessage = event.message[0]
+      this.next()
+      return
+    }
+    const isRepeater = await isMessageRepeater(event.group_id.toString(), event)
+    if (isRepeater === true) {
+      return event.reply(text)
+    } else if (isRepeater === 'break') {
+      return event.reply('打断复读！！！！')
+    }
     this.abort()
   }
   this.next()

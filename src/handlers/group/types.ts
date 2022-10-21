@@ -6,3 +6,19 @@ export type GroupCoRoutine = (
   this: CoCallerAction,
   message: GroupMessageEvent,
 ) => void
+
+declare module 'oicq' {
+  export interface GroupMessageEvent {
+    commandName?: string
+    commandArgs?: string
+    commandParsedArgs?: any
+
+    commandMessage?: TextElem
+  }
+
+  interface TextElem {
+    commandName?: string
+    commandArgs?: string
+    commandParsedArgs?: any
+  }
+}
