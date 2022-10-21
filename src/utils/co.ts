@@ -1,12 +1,12 @@
 export interface CoCallerAction {
   abort: () => void
-  next: () => void
+  next: () => Promise<void> | void
 }
 
 type Caller<
   Args extends any[] = any[],
   Ctx extends Record<string, any> = {},
-> = (this: CoCallerAction & Ctx, ...args: Args) => void
+> = (this: CoCallerAction & Ctx, ...args: Args) => void | Promise<void>
 
 class CoAbortError extends Error {
   get [Symbol.toStringTag]() {
@@ -38,20 +38,20 @@ class Runner<
     this.nextSibling = runner
   }
 
-  public run(args: Args) {
+  public async run(args: Args) {
     const callerAction: CoCallerAction = {
       abort() {
         throw new CoAbortError()
       },
-      next: () => {
+      next: async () => {
         if (this.nextSibling) {
-          this.nextSibling.run(args)
+          await this.nextSibling.run(args)
         }
       },
     }
 
     try {
-      this.caller.call(Object.assign({}, callerAction, this.ctx), ...args)
+      await this.caller.call(Object.assign({}, callerAction, this.ctx), ...args)
     } catch (err) {
       if (err instanceof CoAbortError) {
         return
@@ -90,10 +90,10 @@ export class Co<
     }
   }
 
-  start(...args: Args) {
+  async start(...args: Args) {
     const runner = this.queue[0]
     if (runner) {
-      runner.run(args)
+      await runner.run(args)
       return
     }
   }

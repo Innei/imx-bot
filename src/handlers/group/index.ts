@@ -1,17 +1,19 @@
 import type { GroupMessageEvent, MessageElem, TextElem } from 'oicq'
 
+import { Co } from '~/utils/co'
+
 import { handleCommandMessage } from '../shared/command'
 import { handleMentionMessage } from './mention'
 import { handleSingleMessage } from './single'
+import { groupSingleTextMessageAction } from './tasks/handleSingleText'
 
 export const groupMessageHandler = async (e: GroupMessageEvent) => {
-  // const coTask = new Co()
-  // coTask.use(groupSingleTextMessageAction)
-  // coTask.start(e)
-
   // consola.debug(e.message)
+  const coTask = new Co()
+  coTask.use(groupSingleTextMessageAction)
+  coTask.start(e)
 
-  // return
+  return
 
   const isSingleMessage = e.message.length === 1
   const isAtMessage = e.message[0].type === 'at'
