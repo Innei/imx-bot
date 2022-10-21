@@ -12,7 +12,7 @@ import type {
 } from 'oicq'
 import path from 'path'
 
-import { isDev, userAgent } from '~/constants/env'
+import { userAgent } from '~/constants/env'
 import { MessageType, plugins } from '~/plugin-manager'
 
 import { getApiImage, getImage2Image } from './api'
@@ -24,7 +24,7 @@ const command2Shape: Record<string, 'Portrait' | 'Landscape' | 'Square'> = {
 }
 
 class NovelAiStatic {
-  private enabled = isDev
+  private enabled = true
 
   /**
    * 炼金任务
@@ -333,6 +333,7 @@ class NovelAiStatic {
                 .join('\n')
             })
           case 'ai_sfw_formula':
+          case 'ai_use':
             return this.useFormula(message, event as GroupMessageEvent, abort)
           // case ''
           case 'ai_help':
