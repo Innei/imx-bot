@@ -6,18 +6,22 @@ import type { GroupCoRoutine } from '../types'
 export const groupSingleTextMessageAction: GroupCoRoutine = async function (
   event,
 ) {
-  if (event.message.length === 1 && event.message[0].type === 'text') {
-    const text = event.message[0].text.trim()
+  const messages = event.message
+  if (messages.length !== 1) {
+    this.next()
+    return
+  }
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const message = messages[0]!
+  if (message.type === 'text') {
+    const text = message.text.trim()
 
     const isCommand = text.startsWith('/')
     if (isCommand) {
-      const { commandArgs, commandName, commandParsedArgs } =
-        await praseCommandMessage(text, event.message[0])
+      const result = await praseCommandMessage(text, message)
+      Object.assign(event, result)
+      event.commandMessage = message
 
-      event.commandName = commandName
-      event.commandArgs = commandArgs
-      event.commandParsedArgs = commandParsedArgs
-      event.commandMessage = event.message[0]
       this.next()
       return
     }

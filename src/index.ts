@@ -11,10 +11,12 @@ async function bootstrap() {
   const { client } = await import('./client')
   client.login()
   // TODO factory
-  client.use(registerHealthCheck)
-  client.use(registerMxSpace)
-  client.use(registerGithubHook)
-  client.use(registerBilibili)
-  client.use(registerAi)
+  ;[
+    registerHealthCheck,
+    registerMxSpace,
+    registerGithubHook,
+    registerBilibili,
+    registerAi,
+  ].forEach((register) => register(client))
 }
 bootstrap()
