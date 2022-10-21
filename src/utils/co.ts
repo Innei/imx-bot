@@ -1,4 +1,4 @@
-interface CallerAction {
+export interface CoCallerAction {
   abort: () => void
   next: () => void
 }
@@ -6,7 +6,7 @@ interface CallerAction {
 type Caller<
   Args extends any[] = any[],
   Ctx extends Record<string, any> = {},
-> = (this: CallerAction & Ctx, ...args: Args) => void
+> = (this: CoCallerAction & Ctx, ...args: Args) => void
 
 class CoAbortError extends Error {
   get [Symbol.toStringTag]() {
@@ -39,7 +39,7 @@ class Runner<
   }
 
   public run(args: Args) {
-    const callerAction: CallerAction = {
+    const callerAction: CoCallerAction = {
       abort() {
         throw new CoAbortError()
       },

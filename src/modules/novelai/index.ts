@@ -15,7 +15,7 @@ import path from 'path'
 import { userAgent } from '~/constants/env'
 import { MessageType, plugins } from '~/plugin-manager'
 
-import { getApiImage, getImage2Image } from './api'
+import { aiRequestQueue, getApiImage, getImage2Image } from './api'
 
 const command2Shape: Record<string, 'Portrait' | 'Landscape' | 'Square'> = {
   ai_sfw_l: 'Landscape',
@@ -120,6 +120,9 @@ class NovelAiStatic {
   }
 
   private getDrawMessage() {
+    if (aiRequestQueue.waitingcount > 0) {
+      return `AI 绘图：排队中，前方还有 ${aiRequestQueue.waitingcount} 个请求`
+    }
     return sample(['在画了在画了...', '少女鉴赏中...'])!
   }
   private async draw(
