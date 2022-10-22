@@ -1,4 +1,4 @@
-import type { GroupMessageEvent } from 'oicq'
+import type { GroupMessageEvent, MessageElem } from 'oicq'
 
 import type { CoCallerAction } from '~/utils/co'
 
@@ -21,5 +21,6 @@ declare module 'oicq' {
     commandName?: string
     commandArgs?: string
     commandParsedArgs?: any
+    messageElems?: MessageElem[]
   }
 }

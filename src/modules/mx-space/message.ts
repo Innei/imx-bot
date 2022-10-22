@@ -2,38 +2,29 @@ import rmd from 'remove-markdown'
 
 import type { NoteModel } from '@mx-space/api-client'
 
-import { MessageType, plugins } from '~/plugin-manager'
+import { commandRegistry } from '~/registries/command'
 
 import { apiClient } from './api-client'
 import { fetchHitokoto } from './api/hitokoto'
 import type { MxContext } from './types'
 
 export const listenMessage = async (ctx: MxContext) => {
-  plugins.message.register(
-    MessageType.command,
-    async (event, message, prevMessage) => {
-      if (!('commandName' in message)) {
-        return prevMessage
-      }
-
-      const fullCommand = message.text.slice(1)
-      const commandSplit = fullCommand.split(' ')
-      const commandName = message.commandName || ''
+  commandRegistry.registerWildcard(async (event) => {
+    const commandName = event.commandName!
+    const caller = commandMap[commandName]
+    if (caller) {
+      const commandSplit = event.commandMessage!.text.split(' ')
       const afterArgs = commandSplit.slice(1)
-      const caller = commandMap[commandName]
       const {
         aggregationData: {
           seo: { title },
         },
       } = ctx
       const prefix = `来自${title ? `「${title}」` : ' Mix Space '}的 `
-      if (caller) {
-        return prefix + (await caller(ctx, afterArgs))
-      }
 
-      return prevMessage
-    },
-  )
+      return prefix + (await caller(ctx, afterArgs))
+    }
+  })
 }
 
 const commandMap: Record<
