@@ -1,6 +1,6 @@
 import type { Client } from 'oicq'
 
-import { MessageType, plugins } from '~/plugin-manager'
+import { commandRegistry } from '~/registries/command'
 
 class HealthCheckStatic {
   checkFnList = [() => 'UP!'] as Array<() => string | Promise<string>>
@@ -17,21 +17,11 @@ class HealthCheckStatic {
   }
 
   async setup() {
-    await plugins.message.register(
-      MessageType.command,
-      async (event, message, prevMessage) => {
-        if (!('commandName' in message)) {
-          return prevMessage
-        }
-
-        if (message.commandName === 'health') {
-          return await this.call().then((result) => {
-            return result.join('\n')
-          })
-        }
-        return prevMessage
-      },
-    )
+    commandRegistry.register('health', async () => {
+      return (await this.call().then((result) => {
+        return result.join('\n')
+      })) as string
+    })
   }
 }
 

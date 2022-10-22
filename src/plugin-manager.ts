@@ -32,50 +32,8 @@ type Handler<T extends MessageType = MessageType> = (
   abort: () => void,
 ) => MessageHandlerResult | Promise<MessageHandlerResult>
 
-class Abort extends Error {}
-
 class MessageHandler {
   private messageHandlerMap = new Map<string, Handler[]>()
-  async handle(
-    event: MessageEvent,
-    type: MessageType,
-  ): Promise<Sendable | 'handled' | undefined> {
-    const handlers = this.messageHandlerMap.get(type)
-
-    if (!handlers) {
-      return
-    }
-    const abort = () => {
-      throw new Abort()
-    }
-
-    const result: Promise<any> = handlers.reduce(async (acc: any, handler) => {
-      if (acc == 'handled') {
-        return acc
-      }
-      const message = (() => {
-        switch (type) {
-          case MessageType.single:
-          case MessageType.command:
-            return (event as any).message[0]
-        }
-      })()
-
-      return (
-        (await handler(event, message || (event as any).message, acc, abort)) ||
-        acc
-      )
-    }, '')
-
-    return (
-      (await result.catch((err) => {
-        if (err instanceof Abort) {
-          return 'handled'
-        }
-        throw err
-      })) || ''
-    )
-  }
 
   async register(type: MessageType, handler: Handler<MessageType>) {
     const handlers = this.messageHandlerMap.get(type)
