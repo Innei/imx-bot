@@ -10,7 +10,7 @@ export const praseCommandMessage = async (
   const commandName = args._[0]
 
   const result = {
-    commandName: String(commandName),
+    commandName: String(commandName).slice(1).replaceAll('-', '_'),
     commandParsedArgs: args,
     commandArgs: messageText.split(' ')[1],
   }

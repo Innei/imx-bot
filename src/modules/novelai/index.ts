@@ -13,7 +13,8 @@ import type {
 import path from 'path'
 
 import { userAgent } from '~/constants/env'
-import { MessageType, plugins } from '~/plugin-manager'
+import { commandRegistry } from '~/registries/command'
+import { CoAbortError } from '~/utils/co'
 
 import { aiRequestQueue, getApiImage, getImage2Image } from './api'
 
@@ -273,86 +274,81 @@ class NovelAiStatic {
   }
 
   async setup() {
-    plugins.message.register(
-      MessageType.command,
-      async (event, message, prevMessage, abort) => {
-        if (!('commandName' in message)) {
-          return abort()
+    commandRegistry.register(
+      'ai_sfw_toggle',
+      async (event): Promise<string> => {
+        const isOwner = event.sender.user_id === botConfig.ownerId
+        if (isOwner) {
+          this.enabled = !this.enabled
+          return `AI 绘图：已${this.enabled ? '开启' : '关闭'}`
         }
 
-        if (!message.commandName) {
-          return abort()
-        }
-
-        const gEvent = event as GroupMessageEvent
-        const isOwner = gEvent.sender.user_id === botConfig.ownerId
-        const command = message.commandName.replaceAll('-', '_')
-        if (command === 'ai_sfw_toggle') {
-          if (isOwner) {
-            this.enabled = !this.enabled
-            return `AI 绘图：已${this.enabled ? '开启' : '关闭'}`
-          }
-          return prevMessage
-        }
-
-        if (!this.enabled) {
-          return prevMessage
-        }
-
-        switch (command) {
-          case 'ai_sfw_l':
-          case 'ai_sfw_p':
-          case 'ai_sfw_s':
-          case 'draw':
-            await this.draw(message, event, abort)
-            return
-
-          case 'ai_sfw_status':
-          case 'ai_status':
-            return this.sendStatus()
-          case 'ai_save':
-            if (isOwner) {
-              return this.saveFormula(
-                message,
-                event as GroupMessageEvent,
-                abort,
-              )
-            } else {
-              event.reply('你不是我的主人，无法使用此命令', true)
-              return abort()
-            }
-
-          case 'ai_img2img':
-          case 'ai_image2image': {
-            return this.image2image(message, event, abort)
-          }
-          case 'ai_formula':
-            return this.readFormula().then((arr) => {
-              return arr
-                .map(
-                  ([comment, formula], index) =>
-                    `${index + 1}, ${comment}：${formula}`,
-                )
-                .join('\n')
-            })
-          case 'ai_sfw_formula':
-          case 'ai_use':
-            return this.useFormula(message, event as GroupMessageEvent, abort)
-          // case ''
-          case 'ai_help':
-            return (
-              `AI 绘图：${this.enabled ? '开启' : '关闭'}\n\n` +
-              `ai_sfw_l: 横屏\nai_sfw_p: 竖屏\nai_sfw_s: 正方形\nai_sfw_toggle: 开关\nai_sfw_status: 状态\nai_help: 帮助\n\n参数：\nseed: 随机种子\nscale: CFG 倍数\ncount: 生成数量\n\n例子：\n/ai_sfw_l masterpiece,best quality,extremely detailed CG unity 8k wallpaper` +
-              `\n/ai_sfw_l masterpiece,best quality,extremely detailed CG unity 8k wallpaper&seed=68846426&scale=22&count=10\n` +
-              `使用配方： /ai_sfw_formula {{index}}\n\n` +
-              `保存配方： /ai_save \n\n` +
-              `查看配方： /ai_formula`
-            )
-          default:
-            return prevMessage
-        }
+        return '你不是我的主人，暂无权限操作'
       },
     )
+
+    commandRegistry.registerWildcard(async (event) => {
+      const command = event.commandName
+
+      // console.log('----------', command)
+
+      if (!this.enabled) {
+        return
+      }
+      const message = event.commandMessage!
+      const isOwner = event.sender.user_id === botConfig.ownerId
+      const abort = () => {
+        throw new CoAbortError()
+      }
+      switch (command) {
+        case 'ai_sfw_l':
+        case 'ai_sfw_p':
+        case 'ai_sfw_s':
+        case 'draw':
+          await this.draw(message, event, abort)
+          return
+
+        case 'ai_sfw_status':
+        case 'ai_status':
+          return this.sendStatus()
+        case 'ai_save':
+          if (isOwner) {
+            return this.saveFormula(message, event as GroupMessageEvent, abort)
+          } else {
+            event.reply('你不是我的主人，无法使用此命令', true)
+            return abort()
+          }
+
+        case 'ai_img2img':
+        case 'ai_image2image': {
+          return this.image2image(message, event, abort)
+        }
+        case 'ai_formula':
+          return this.readFormula().then((arr) => {
+            return arr
+              .map(
+                ([comment, formula], index) =>
+                  `${index + 1}, ${comment}：${formula}`,
+              )
+              .join('\n')
+          })
+        case 'ai_sfw_formula':
+        case 'ai_use':
+          return this.useFormula(message, event as GroupMessageEvent, abort)
+        // case ''
+        case 'ai_help':
+          return (
+            `AI 绘图：${this.enabled ? '开启' : '关闭'}\n\n` +
+            `ai_sfw_l: 横屏\nai_sfw_p: 竖屏\nai_sfw_s: 正方形\nai_sfw_toggle: 开关\nai_sfw_status: 状态\nai_help: 帮助\n\n参数：\nseed: 随机种子\nscale: CFG 倍数\ncount: 生成数量\n\n例子：\n/ai_sfw_l masterpiece,best quality,extremely detailed CG unity 8k wallpaper` +
+            `\n/ai_sfw_l masterpiece,best quality,extremely detailed CG unity 8k wallpaper&seed=68846426&scale=22&count=10\n` +
+            `使用配方： /ai_sfw_formula {{index}}\n\n` +
+            `保存配方： /ai_save \n\n` +
+            `查看配方： /ai_formula`
+          )
+        default:
+          return
+      }
+    })
   }
 }
 

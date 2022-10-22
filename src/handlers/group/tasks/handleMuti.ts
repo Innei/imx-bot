@@ -6,6 +6,10 @@ import type { GroupCoRoutine } from '../types'
 
 export const multiMessageElemRoutine: GroupCoRoutine = async function (event) {
   const { message } = event
+
+  event.message.forEach((elem) => {
+    ;(elem as any).messageElems = event.message
+  })
   if (message.length <= 1) {
     return this.next()
   }

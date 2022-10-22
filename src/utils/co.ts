@@ -8,7 +8,7 @@ type Caller<
   Ctx extends Record<string, any> = {},
 > = (this: CoCallerAction & Ctx, ...args: Args) => void | Promise<void>
 
-class CoAbortError extends Error {
+export class CoAbortError extends Error {
   get [Symbol.toStringTag]() {
     return 'CoAbortError'
   }
