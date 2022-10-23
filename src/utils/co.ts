@@ -2,7 +2,6 @@ export interface CoCallerAction {
   abort: () => void
   next: () => Promise<void> | void
 }
-
 type Caller<
   Args extends any[] = any[],
   Ctx extends Record<string, any> = {},
@@ -77,6 +76,7 @@ export class Co<
         new Runner({
           nextSibling: null,
           caller: actions[i],
+          ctx: this.ctx,
         }),
       )
     }
