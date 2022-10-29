@@ -1,6 +1,6 @@
 import type { GroupMessageEvent, MessageElem } from 'oicq'
 
-import type { CoCallerAction } from '~/utils/co'
+import type { CoCallerAction } from '@innei/next-async'
 
 export type GroupCoRoutine = (
   this: CoCallerAction,

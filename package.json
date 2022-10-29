@@ -12,6 +12,7 @@
     "rebuild-start": "git pull && npm run build && pm2 reload ecosystem.config.js --update-env"
   },
   "dependencies": {
+    "@innei/next-async": "0.2.2",
     "@mx-space/api-client": "0.10.14",
     "@types/cron": "2.0.0",
     "@types/lodash": "4.14.182",
