@@ -17,6 +17,7 @@ class CommandRegistry<Event> {
 
   private readonly wildcardCommandHandlerList = [] as ((
     event: Event,
+    abort: () => void,
   ) => Promise<Sendable | void>)[]
 
   register(command: string, handler: (event: Event) => CommandReturnValue) {
@@ -30,7 +31,9 @@ class CommandRegistry<Event> {
     }
   }
 
-  registerWildcard(handler: (event: Event) => Promise<Sendable | void>) {
+  registerWildcard(
+    handler: (event: Event, abort: () => void) => Promise<Sendable | void>,
+  ) {
     this.wildcardCommandHandlerList.push(handler)
 
     return () => {
@@ -46,7 +49,7 @@ class CommandRegistry<Event> {
   }
 
   get handlerList() {
-    return this.wildcardCommandHandlerList
+    return [...this.wildcardCommandHandlerList]
   }
 
   removeCommand(command: string) {

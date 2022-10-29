@@ -72,8 +72,8 @@ export const commandMessageRoutine: GroupCoRoutine = async function (event) {
   }
 
   const wildcardHandlerList = commandRegistry.handlerList
-  for (const handler of wildcardHandlerList) {
-    const result = await handler(event)
+  for await (const handler of wildcardHandlerList) {
+    const result = await handler(event, this.abort)
     const isSendable = checkIsSendable(result)
 
     if (isSendable && result) {

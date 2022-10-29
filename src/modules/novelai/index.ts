@@ -14,7 +14,6 @@ import path from 'path'
 
 import { userAgent } from '~/constants/env'
 import { commandRegistry } from '~/registries/command'
-import { CoAbortError } from '~/utils/co'
 
 import { aiRequestQueue, getApiImage, getImage2Image } from './api'
 
@@ -287,19 +286,15 @@ class NovelAiStatic {
       },
     )
 
-    commandRegistry.registerWildcard(async (event) => {
+    commandRegistry.registerWildcard(async (event, abort) => {
       const command = event.commandName
-
-      // console.log('----------', command)
 
       if (!this.enabled) {
         return
       }
       const message = event.commandMessage!
       const isOwner = event.sender.user_id === botConfig.ownerId
-      const abort = () => {
-        throw new CoAbortError()
-      }
+
       switch (command) {
         case 'ai_sfw_l':
         case 'ai_sfw_p':
