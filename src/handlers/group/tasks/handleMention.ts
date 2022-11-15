@@ -1,3 +1,5 @@
+import { botConfig } from 'config'
+
 import { praseCommandMessage } from '~/utils/message'
 
 import type { GroupCoRoutine } from '../types'
@@ -11,7 +13,7 @@ export const mentionRoutine: GroupCoRoutine = async function (event) {
   const messages = event.message
 
   const mentionMessageIndex = messages.findIndex((message) => {
-    return message.type === 'at'
+    return message.type === 'at' && message.qq === botConfig.uid
   })
 
   const isMentionMessage = mentionMessageIndex !== -1
