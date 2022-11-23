@@ -5,7 +5,7 @@ overrides:
 
 specifiers:
   '@innei/eslint-config-ts': 0.9.5
-  '@innei/next-async': 0.2.2
+  '@innei/next-async': 0.2.3
   '@innei/prettier': 0.9.5
   '@mx-space/api-client': 0.10.14
   '@types/cron': 2.0.0
@@ -31,7 +31,7 @@ specifiers:
   yargs: 17.6.0
 
 dependencies:
-  '@innei/next-async': 0.2.2
+  '@innei/next-async': 0.2.3
   '@mx-space/api-client': 0.10.14
   '@types/cron': 2.0.0
   '@types/lodash': 4.14.182
@@ -373,8 +373,8 @@ packages:
       - supports-color
     dev: true
 
-  /@innei/next-async/0.2.2:
-    resolution: {integrity: sha512-jignnSHlk8cg3mPQmJIojAVaMHEew1r+ffAu8yqHBo8QaCW8JCuEt2aY5xlESOZpDSPqXX9A9Jk7uocnU6jXlA==}
+  /@innei/next-async/0.2.3:
+    resolution: {integrity: sha512-9Xn38sPORx8knSpjjOEPot0S2BszKRK6V8sqShmBIeOspKhQIypa7BCwy+2+rZnPLk1XrodVUl5mCqBmHwBDTg==}
     engines: {pnpm: '>=7'}
     dev: false
 
