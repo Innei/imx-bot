@@ -47,4 +47,7 @@ export const botConfig = {
   novelai: {
     token: '',
   },
+  chatgpt: {
+    token: '',
+  }
 }

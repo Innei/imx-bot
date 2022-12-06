@@ -16,6 +16,7 @@ specifiers:
   axios: 0.27.2
   camelcase-keys: ^7
   chalk: ^4
+  chatgpt-lib: ^0.2.1
   consola: 2.15.3
   cron: 2.1.0
   github-webhook-handler: 1.0.0
@@ -39,6 +40,7 @@ dependencies:
   axios: 0.27.2
   camelcase-keys: 7.0.2
   chalk: 4.1.2
+  chatgpt-lib: 0.2.1
   consola: 2.15.3
   cron: 2.1.0
   github-webhook-handler: 1.0.0
@@ -877,6 +879,15 @@ packages:
     dependencies:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
+
+  /chatgpt-lib/0.2.1:
+    resolution: {integrity: sha512-fdG8oq78WW2ZWjCshhMPknHTwb/ZC/KUQcp0SftFmtX2LcPekC55ueUbR+oDkTopXVeUvVdbK9fkzPskmMZe4w==}
+    dependencies:
+      axios: 0.27.2
+      uuid: 9.0.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
 
   /chokidar/3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
@@ -2804,6 +2815,11 @@ packages:
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=}
+    dev: false
+
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
     dev: false
 
   /which-boxed-primitive/1.0.2:

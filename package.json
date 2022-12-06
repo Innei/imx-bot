@@ -20,6 +20,7 @@
     "axios": "1.1.2",
     "camelcase-keys": "^7",
     "chalk": "^4",
+    "chatgpt-lib": "^0.2.1",
     "consola": "2.15.3",
     "cron": "2.1.0",
     "github-webhook-handler": "1.0.0",
