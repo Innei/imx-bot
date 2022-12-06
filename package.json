@@ -9,10 +9,12 @@
     "bundle": "esbuild src/index.ts --platform=node --bundle --minify --outfile=build/index.js",
     "prod": "NODE_ENV=production TS_NODE_BASEURL=./dist node -r tsconfig-paths/register ./dist/src/index.js",
     "d": "npm run rebuild-start",
-    "rebuild-start": "git pull && npm run build && pm2 reload ecosystem.config.js --update-env"
+    "rebuild-start": "git pull && npm run build && pm2 reload ecosystem.config.js --update-env",
+    "postinstall": "npx patch-package --patch-dir ./patches"
   },
   "dependencies": {
     "@innei/next-async": "0.2.3",
+    "patch-package": "6.5.0",
     "@mx-space/api-client": "0.10.14",
     "@types/cron": "2.0.0",
     "@types/lodash": "4.14.182",
