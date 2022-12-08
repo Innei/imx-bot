@@ -8,7 +8,7 @@ async function bootstrap() {
   const { client } = await import('./client')
   client.login()
 
-  registerModules()
+  await registerModules()
   await hook.runAsyncWaterfall(client)
 }
 bootstrap()
