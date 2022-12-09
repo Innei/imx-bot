@@ -16,7 +16,7 @@ specifiers:
   axios: 0.27.2
   camelcase-keys: ^7
   chalk: ^4
-  chatgpt-lib: ^0.2.1
+  chatgpt-lib: ^0.3.0
   consola: 2.15.3
   cron: 2.1.0
   github-webhook-handler: 1.0.0
@@ -41,7 +41,7 @@ dependencies:
   axios: 0.27.2
   camelcase-keys: 7.0.2
   chalk: 4.1.2
-  chatgpt-lib: 0.2.1
+  chatgpt-lib: 0.3.0
   consola: 2.15.3
   cron: 2.1.0
   github-webhook-handler: 1.0.0
@@ -709,6 +709,11 @@ packages:
       uri-js: 4.4.1
     dev: true
 
+  /ansi-regex/4.1.1:
+    resolution: {integrity: sha512-ILlv4k/3f6vfQ4OoP2AGvirOktlQ98ZEL1k9FaQjxa3L1abBgbuTDAdPOpvbGncC0BTVQrl+OM8xZGK6tWXt7g==}
+    engines: {node: '>=6'}
+    dev: false
+
   /ansi-regex/5.0.1:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
     engines: {node: '>=8'}
@@ -883,10 +888,11 @@ packages:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
-  /chatgpt-lib/0.2.1:
-    resolution: {integrity: sha512-fdG8oq78WW2ZWjCshhMPknHTwb/ZC/KUQcp0SftFmtX2LcPekC55ueUbR+oDkTopXVeUvVdbK9fkzPskmMZe4w==}
+  /chatgpt-lib/0.3.0:
+    resolution: {integrity: sha512-HFUAnZjoSFCZ+SXHHiYvR2LQdH7u5XGQ4ntO2nov2qqtUwRdPJxz7i5tNfCbvg4QQp7BOKE4srH1R7q9hJCRAg==}
     dependencies:
       axios: 0.27.2
+      prompt-sync: 4.2.0
       uuid: 9.0.0
     transitivePeerDependencies:
       - debug
@@ -2485,6 +2491,12 @@ packages:
       - supports-color
     dev: false
 
+  /prompt-sync/4.2.0:
+    resolution: {integrity: sha512-BuEzzc5zptP5LsgV5MZETjDaKSWfchl5U9Luiu8SKp7iZWD5tZalOxvNcZRwv+d2phNFr8xlbxmFNcRKfJOzJw==}
+    dependencies:
+      strip-ansi: 5.2.0
+    dev: false
+
   /pstree.remy/1.1.8:
     resolution: {integrity: sha512-77DZwxQmxKnu3aR542U+X8FypNzbfJ+C5XQDk3uWjWxn6151aIMGthWYRXTqT1E5oJvg+ljaa2OJi+VfvCOQ8w==}
     dev: true
@@ -2772,6 +2784,13 @@ packages:
     resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
     dependencies:
       safe-buffer: 5.2.1
+    dev: false
+
+  /strip-ansi/5.2.0:
+    resolution: {integrity: sha512-DuRs1gKbBqsMKIZlrffwlug8MHkcnpjs5VPmL1PAh+mA30U0DTotfDZ0d2UUsXpPmPmMMJ6W773MaA3J+lbiWA==}
+    engines: {node: '>=6'}
+    dependencies:
+      ansi-regex: 4.1.1
     dev: false
 
   /strip-ansi/6.0.1:
