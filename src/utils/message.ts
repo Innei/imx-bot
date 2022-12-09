@@ -23,3 +23,10 @@ export const praseCommandMessage = async (
   }
   return result
 }
+
+export function checkIsSendable(obj: any) {
+  if (!obj) {
+    return false
+  }
+  return typeof obj === 'string' || (typeof obj === 'object' && 'type' in obj)
+}

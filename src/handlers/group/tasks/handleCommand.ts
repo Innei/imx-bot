@@ -4,6 +4,7 @@ import { isDev } from '~/constants/env'
 import { toolCommand } from '~/handlers/shared/commands/tool'
 import { commandRegistry } from '~/registries/command'
 import { createNamespaceLogger } from '~/utils/logger'
+import { checkIsSendable } from '~/utils/message'
 
 import type { GroupCoRoutine } from '../types'
 
@@ -85,12 +86,5 @@ export const commandMessageRoutine: GroupCoRoutine = async function (event) {
   }
 
   // 没有匹配到命令也终止
-  this.abort()
-}
-
-function checkIsSendable(obj: any) {
-  if (!obj) {
-    return false
-  }
-  return typeof obj === 'string' || (typeof obj === 'object' && 'type' in obj)
+  // this.abort()
 }
