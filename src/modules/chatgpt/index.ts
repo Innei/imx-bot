@@ -3,6 +3,7 @@ import { botConfig } from 'config'
 import type { GroupMessageEvent } from 'oicq'
 
 import { commandRegistry } from '~/registries/command'
+import { mentionRegistry } from '~/registries/mention'
 
 export const register = () => {
   const chatbot = new cgpt.ChatGPT({
@@ -32,5 +33,10 @@ export const register = () => {
     }
 
     handle(event)
+  })
+
+  mentionRegistry.register(async (event, abort) => {
+    await handle(event)
+    abort()
   })
 }

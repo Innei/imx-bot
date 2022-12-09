@@ -1,5 +1,6 @@
 import { botConfig } from 'config'
 
+import { mentionRegistry } from '~/registries/mention'
 import { praseCommandMessage } from '~/utils/message'
 
 import type { GroupCoRoutine } from '../types'
@@ -38,7 +39,11 @@ export const mentionRoutine: GroupCoRoutine = async function (event) {
       event.commandMessage = afterMentionMessageElem
       event.shouldQuote = true
 
-      return this.next()
+      await this.next()
+
+      mentionRegistry.runWaterfall(event)
+      this.abort()
+      return
     }
   } else {
     event.reply('没事别艾特我！！')
