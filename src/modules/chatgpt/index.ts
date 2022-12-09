@@ -21,5 +21,16 @@ export const register = () => {
     event.reply(reply, true)
   }
   commandRegistry.register('ask', handle)
-  commandRegistry.register('chat', handle)
+  commandRegistry.register('chat', (event: GroupMessageEvent) => {
+    if (event.message.length === 1 && event.message[0].type === 'text') {
+      const isReset = event.message[0].text.trim() === 'reset'
+      if (isReset) {
+        chatbot.resetThread()
+        event.reply('已重置对话')
+        return
+      }
+    }
+
+    handle(event)
+  })
 }
