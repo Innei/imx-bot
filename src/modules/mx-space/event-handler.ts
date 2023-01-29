@@ -40,6 +40,7 @@ export const handleEvent =
 
     const {
       url: { webUrl },
+      seo: { title: siteTitle },
     } = aggregateStore.aggregate!
 
     const sendToGuild = async (message: Sendable) => {
@@ -69,7 +70,7 @@ export const handleEvent =
           user.name
         } ${publishDescription}: ${title}\n\n${simplePreview}\n\n${
           summary ? `${summary}\n\n` : ''
-        }前往阅读: ${webUrl}/posts/${category.slug}/${slug}`
+        }前往阅读：${webUrl}/posts/${category.slug}/${slug}`
         await sendToGuild(message)
 
         return
@@ -93,7 +94,7 @@ export const handleEvent =
           .join('\t')
         const message = `${user.name} ${publishDescription}: ${title}\n${
           status ? `${status}\n` : '\n'
-        }${simplePreview}\n\n前往阅读: ${webUrl}/notes/${nid}`
+        }${simplePreview}\n\n前往阅读：${webUrl}/notes/${nid}`
         await sendToGuild(message)
 
         if (Array.isArray(images) && images.length > 0) {
@@ -137,7 +138,7 @@ export const handleEvent =
         const { author, text, refType, parent, id, isWhispers } =
           payload as CommentModel
         if (isWhispers) {
-          await sendToGuild(`嘘，有人说了一句悄悄话。`)
+          await sendToGuild(`「${siteTitle}」嘘，有人说了一句悄悄话。`)
           return
         }
 
@@ -182,9 +183,9 @@ export const handleEvent =
         if (isMaster && !parent) {
           message = `${author} 在「${
             refModel.title
-          }」发表之后的 ${relativeTimeFromNow(refModel.created)}又说: ${text}`
+          }」发表之后的 ${relativeTimeFromNow(refModel.created)}又说：${text}`
         } else {
-          message = `${author} 在「${refModel.title}」发表了评论: ${text}`
+          message = `${author} 在「${refModel.title}」发表了评论：${text}`
         }
 
         const uri = (() => {
@@ -204,7 +205,7 @@ export const handleEvent =
         })()
 
         if (uri) {
-          message += `\n\n查看评论: ${webUrl}${uri}#comments-${id}`
+          message += `\n\n查看评论：${webUrl}${uri}#comments-${id}`
         }
 
         sendToGuild(message)
@@ -213,7 +214,7 @@ export const handleEvent =
 
       case MxSocketEventTypes.PAGE_UPDATED: {
         const { title, slug } = payload as PageModel
-        const message = `${user.name} 更新了页面「${title}」\n\n前往查看: ${webUrl}/${slug}`
+        const message = `${user.name} 更新了页面「${title}」\n\n前往查看：${webUrl}/${slug}`
         await sendToGuild(message)
         return
       }
