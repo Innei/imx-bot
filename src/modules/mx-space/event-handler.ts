@@ -93,7 +93,7 @@ export const handleEvent =
           .filter(Boolean)
           .join('\t')
         const message = `${user.name} ${publishDescription}: ${title}\n${
-          status ? `${status}\n` : '\n'
+          status ? `\n${status}\n\n` : '\n'
         }${simplePreview}\n\n前往阅读：${webUrl}/notes/${nid}`
         await sendToGuild(message)
 
