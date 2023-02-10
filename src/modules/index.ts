@@ -1,6 +1,6 @@
+import fs from 'fs'
 import { readdir } from 'fs/promises'
 import { resolve } from 'path'
-import { fs } from 'zx/.'
 
 import { createNamespaceLogger } from '~/utils/logger'
 import { hook } from '~/utils/plugin'
