@@ -1,7 +1,7 @@
-diff --git a/node_modules/oicq/lib/core/device.js b/node_modules/oicq/lib/core/device.js
+diff --git a/lib/core/device.js b/lib/core/device.js
 index ffadc63..57da54d 100644
---- a/node_modules/oicq/lib/core/device.js
-+++ b/node_modules/oicq/lib/core/device.js
+--- a/lib/core/device.js
++++ b/lib/core/device.js
 @@ -34,7 +34,7 @@ function generateImei(uin) {
      return imei + calcSP(imei);
  }
