@@ -1,3 +1,5 @@
+import 'isomorphic-fetch'
+
 import { ChatGPTAPI } from 'chatgpt'
 import { botConfig } from 'config'
 import type { GroupMessageEvent } from 'oicq'
