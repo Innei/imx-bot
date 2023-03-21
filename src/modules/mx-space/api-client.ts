@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import { botConfig } from 'config'
 
 import { allControllers, createClient } from '@mx-space/api-client'
-import { axiosAdaptor } from '@mx-space/api-client/lib/adaptors/axios'
+import { axiosAdaptor } from '@mx-space/api-client/dist/adaptors/axios'
 
 import { userAgent } from '~/constants/env'
 import { createNamespaceLogger } from '~/utils/logger'

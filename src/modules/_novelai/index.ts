@@ -33,8 +33,8 @@ class NovelAiStatic {
 
   private formulaFilePath = path.join(String(process.cwd()), 'formula.txt')
 
-  // 配方格式： 备注|配方
-  // 如： favor|8k wallpaper,loli,genshin
+  // 配方格式：备注 | 配方
+  // 如：favor|8k wallpaper,loli,genshin
   private async readFormula() {
     const content = await readFile(this.formulaFilePath, {
       encoding: 'utf-8',
@@ -144,7 +144,7 @@ class NovelAiStatic {
     const [tagText, params = ''] = args.split('\n')
     const [realTagText, paramsPostfix = ''] = tagText.split('&')
     const paramsObject = new URLSearchParams(params || paramsPostfix)
-    const count = paramsObject.get('count') || 1
+    const count = +(paramsObject.get('count') || 1)
 
     if (count == 1) event.reply(this.getDrawMessage(), true)
     try {
