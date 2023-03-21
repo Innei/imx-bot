@@ -5,7 +5,7 @@ overrides:
 
 patchedDependencies:
   oicq@2.3.1:
-    hash: zbwhmhjeqcmriyjqd6pbgzt4om
+    hash: e2tynvxnhjpqgu2dopza22wuju
     path: patches/oicq+2.3.1.patch
 
 specifiers:
@@ -49,7 +49,7 @@ dependencies:
   github-webhook-handler: 1.0.0
   isomorphic-fetch: 3.0.0
   lodash: 4.17.21
-  oicq: 2.3.1_zbwhmhjeqcmriyjqd6pbgzt4om
+  oicq: 2.3.1_e2tynvxnhjpqgu2dopza22wuju
   openai: 3.2.1
   randomcolor: 0.6.2
   remove-markdown: 0.5.0
@@ -2393,7 +2393,7 @@ packages:
       es-abstract: 1.21.2
     dev: true
 
-  /oicq/2.3.1_zbwhmhjeqcmriyjqd6pbgzt4om:
+  /oicq/2.3.1_e2tynvxnhjpqgu2dopza22wuju:
     resolution: {integrity: sha512-mRw/GgdRKFMylnrlnnywzCIwvad6fF5E4WZfIlval070wEc3w9yMV49i9epFltWkU/JGNMDS4t5wWdZEYzW0EQ==}
     engines: {node: '>= v14'}
     dependencies:
