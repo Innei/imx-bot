@@ -1,6 +1,7 @@
-import camelcaseKeys from 'camelcase-keys'
 import type { Client } from 'oicq'
 import { io } from 'socket.io-client'
+
+import { simpleCamelcaseKeys } from '@mx-space/api-client'
 
 import type { MxSocketEventTypes } from '~/modules/mx-space/types/mx-socket-types'
 
@@ -53,7 +54,7 @@ export default (client: Client) => {
       if (typeof payload !== 'string') {
         return handleEvent(client)(
           payload.type,
-          camelcaseKeys(payload.data, { deep: true }),
+          simpleCamelcaseKeys(payload.data),
           payload.code,
         )
       }
@@ -62,7 +63,7 @@ export default (client: Client) => {
         type: MxSocketEventTypes
         code?: number
       }
-      handleEvent(client)(type, camelcaseKeys(data, { deep: true }), code)
+      handleEvent(client)(type, simpleCamelcaseKeys(data), code)
     },
   )
 
