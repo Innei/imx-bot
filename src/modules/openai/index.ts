@@ -1,16 +1,15 @@
-import 'isomorphic-fetch'
-
-import { ChatGPTAPI } from 'chatgpt'
 import { botConfig } from 'config'
 import type { GroupMessageEvent } from 'oicq'
+import { Configuration, OpenAIApi } from 'openai'
 
 import { commandRegistry } from '~/registries/command'
 import { mentionRegistry } from '~/registries/mention'
 
 export const register = () => {
-  const chatbot = new ChatGPTAPI({
+  const configuration = new Configuration({
     apiKey: botConfig.chatgpt.token,
   })
+  const openai = new OpenAIApi(configuration)
 
   const userId2ConversationIdMap = new Map<number, string>()
   const conversationId2MessageIdMap = new Map<string, string>()
@@ -30,17 +29,19 @@ export const register = () => {
     }, '')
 
     consola.debug(`Q: ${plainTextMessage}`)
-    const reply = await chatbot.sendMessage(plainTextMessage, {
-      conversationId,
-      parentMessageId,
-      timeoutMs: 10_000,
+    const reply = await openai.createCompletion({
+      model: 'gpt-4-0314',
+
+      temperature: 0.6,
     })
 
-    if (!conversationId && reply.conversationId) {
-      userId2ConversationIdMap.set(userId, reply.conversationId)
-      conversationId2MessageIdMap.set(reply.conversationId, reply.id)
-    }
-    event.reply(reply.text, true)
+    const ans = reply.data.choices[0].text
+
+    // if (!conversationId && reply.conversationId) {
+    //   userId2ConversationIdMap.set(userId, reply.conversationId)
+    //   conversationId2MessageIdMap.set(reply.conversationId, reply.id)
+    // }
+    if (ans) event.reply(ans, true)
   }
   commandRegistry.register('ask', handle)
   commandRegistry.register('chat', (event: GroupMessageEvent) => {
