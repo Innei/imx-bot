@@ -21,6 +21,7 @@
     "chalk": "^4",
     "consola": "2.15.3",
     "cron": "2.3.0",
+    "dayjs": "1.11.7",
     "github-webhook-handler": "1.0.0",
     "isomorphic-fetch": "^3.0.0",
     "lodash": "4.17.21",

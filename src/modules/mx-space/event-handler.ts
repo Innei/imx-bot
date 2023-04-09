@@ -1,4 +1,5 @@
 import { botConfig } from 'config'
+import dayjs from 'dayjs'
 import type { Client, Sendable } from 'oicq'
 import rmd from 'remove-markdown'
 
@@ -82,8 +83,9 @@ export const handleEvent =
         const publishDescription = isNew ? '发布了新生活观察日记' : '更新了日记'
         const { title, text, nid, mood, weather, images, hide, password } =
           payload as NoteModel
+        const isSecret = checkNoteIsSecret(payload as NoteModel)
 
-        if (hide || password) {
+        if (hide || password || isSecret) {
           return
         }
         const simplePreview = getSimplePreview(text)
@@ -257,4 +259,13 @@ export const handleEvent =
 const getSimplePreview = (text: string) => {
   const _text = rmd(text) as string
   return _text.length > 200 ? `${_text.slice(0, 200)}...` : _text
+}
+
+function checkNoteIsSecret(note: NoteModel) {
+  if (!note.secret) {
+    return false
+  }
+  const isSecret = dayjs(note.secret).isAfter(new Date())
+
+  return isSecret
 }
