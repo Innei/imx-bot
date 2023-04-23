@@ -5,7 +5,7 @@ overrides:
 
 patchedDependencies:
   oicq@2.3.1:
-    hash: e2tynvxnhjpqgu2dopza22wuju
+    hash: kgkf7jagxkhyn6ylzh6g7jpuyy
     path: patches/oicq+2.3.1.patch
 
 dependencies:
@@ -50,7 +50,7 @@ dependencies:
     version: 4.17.21
   oicq:
     specifier: 2.3.1
-    version: 2.3.1(patch_hash=e2tynvxnhjpqgu2dopza22wuju)
+    version: 2.3.1(patch_hash=kgkf7jagxkhyn6ylzh6g7jpuyy)
   openai:
     specifier: ^3.2.1
     version: 3.2.1
@@ -2412,7 +2412,7 @@ packages:
       es-abstract: 1.21.2
     dev: true
 
-  /oicq@2.3.1(patch_hash=e2tynvxnhjpqgu2dopza22wuju):
+  /oicq@2.3.1(patch_hash=kgkf7jagxkhyn6ylzh6g7jpuyy):
     resolution: {integrity: sha512-mRw/GgdRKFMylnrlnnywzCIwvad6fF5E4WZfIlval070wEc3w9yMV49i9epFltWkU/JGNMDS4t5wWdZEYzW0EQ==}
     engines: {node: '>= v14'}
     dependencies:
