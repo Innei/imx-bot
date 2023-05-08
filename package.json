@@ -15,10 +15,10 @@
     "@innei/next-async": "0.3.0",
     "@mx-space/api-client": "1.3.5",
     "@types/cron": "2.0.1",
-    "@types/lodash": "4.14.191",
-    "@types/yargs": "17.0.23",
+    "@types/lodash": "4.14.194",
+    "@types/yargs": "17.0.24",
     "axios": "1.3.4",
-    "chalk": "^4",
+    "chalk": "^4.1.2",
     "consola": "2.15.3",
     "cron": "2.3.0",
     "dayjs": "1.11.7",
@@ -30,17 +30,17 @@
     "randomcolor": "0.6.2",
     "remove-markdown": "0.5.0",
     "socket.io-client": "4.6.1",
-    "yargs": "17.7.1"
+    "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@innei/eslint-config-ts": "0.9.8",
-    "@innei/prettier": "0.9.8",
-    "@types/node": "18.15.5",
+    "@innei/eslint-config-ts": "0.9.10",
+    "@innei/prettier": "0.9.11",
+    "@types/node": "18.15.13",
     "@types/randomcolor": "0.5.7",
-    "nodemon": "2.0.21",
+    "nodemon": "2.0.22",
     "tsconfig-paths": "4.1.2",
-    "tsx": "^3.12.6",
-    "typescript": "5.0.2"
+    "tsx": "^3.12.7",
+    "typescript": "5.0.4"
   },
   "resolutions": {
     "axios": "0.27.2"
