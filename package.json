@@ -33,8 +33,8 @@
     "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@innei/eslint-config-ts": "0.9.10",
-    "@innei/prettier": "0.9.11",
+    "@innei/eslint-config-ts": "0.10.0",
+    "@innei/prettier": "0.10.0",
     "@types/node": "18.16.13",
     "@types/randomcolor": "0.5.7",
     "nodemon": "2.0.22",
