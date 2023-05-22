@@ -35,7 +35,7 @@
   "devDependencies": {
     "@innei/eslint-config-ts": "0.10.0",
     "@innei/prettier": "0.10.0",
-    "@types/node": "18.16.13",
+    "@types/node": "18.16.14",
     "@types/randomcolor": "0.5.7",
     "nodemon": "2.0.22",
     "tsconfig-paths": "4.2.0",
