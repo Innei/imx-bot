@@ -19,8 +19,8 @@ dependencies:
     specifier: 2.0.1
     version: 2.0.1
   '@types/lodash':
-    specifier: 4.14.194
-    version: 4.14.194
+    specifier: 4.14.195
+    version: 4.14.195
   '@types/yargs':
     specifier: 17.0.24
     version: 17.0.24
@@ -34,8 +34,8 @@ dependencies:
     specifier: 2.15.3
     version: 2.15.3
   cron:
-    specifier: 2.3.0
-    version: 2.3.0
+    specifier: 2.3.1
+    version: 2.3.1
   dayjs:
     specifier: 1.11.7
     version: 1.11.7
@@ -75,8 +75,8 @@ devDependencies:
     specifier: 0.10.0
     version: 0.10.0
   '@types/node':
-    specifier: 18.16.14
-    version: 18.16.14
+    specifier: 18.16.16
+    version: 18.16.16
   '@types/randomcolor':
     specifier: 0.5.7
     version: 0.5.7
@@ -707,7 +707,7 @@ packages:
     resolution: {integrity: sha512-WHa/1rtNtD2Q/H0+YTTZoty+/5rcE66iAFX2IY+JuUoOACsevYyFkSYu/2vdw+G5LrmO7Lxowrqm0av4k3qWNQ==}
     dependencies:
       '@types/luxon': 3.2.0
-      '@types/node': 18.16.14
+      '@types/node': 18.16.16
     dev: false
 
   /@types/json-schema@7.0.11:
@@ -718,16 +718,16 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
-  /@types/lodash@4.14.194:
-    resolution: {integrity: sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==}
+  /@types/lodash@4.14.195:
+    resolution: {integrity: sha512-Hwx9EUgdwf2GLarOjQp5ZH8ZmblzcbTBC2wtQWNKARBSxM9ezRIAUpeDTgoQRAFB0+8CNWXVA9+MaSOzOF3nPg==}
     dev: false
 
   /@types/luxon@3.2.0:
     resolution: {integrity: sha512-lGmaGFoaXHuOLXFvuju2bfvZRqxAqkHPx9Y9IQdQABrinJJshJwfNCKV+u7rR3kJbiqfTF/NhOkcxxAFrObyaA==}
     dev: false
 
-  /@types/node@18.16.14:
-    resolution: {integrity: sha512-+ImzUB3mw2c5ISJUq0punjDilUQ5GnUim0ZRvchHIWJmOC0G+p0kzhXBqj6cDjK0QdPFwzrHWgrJp3RPvCG5qg==}
+  /@types/node@18.16.16:
+    resolution: {integrity: sha512-NpaM49IGQQAUlBhHMF82QH80J08os4ZmyF9MkpCzWAGuOHqE4gTEbhzd7L3l5LmWuZ6E0OiC1FweQ4tsiW35+g==}
 
   /@types/parse-author@2.0.1:
     resolution: {integrity: sha512-2RNXvvDY+7ITl/Q3znDpW9DxyAckKgLCXpoiBHN9BeLH1aV7z/W657P2+PK3wVUgGWXtc99ZQy3LkJTGlxLsvA==}
@@ -1174,8 +1174,8 @@ packages:
       yaml: 1.10.2
     dev: true
 
-  /cron@2.3.0:
-    resolution: {integrity: sha512-ZN5HP8zDY41sJolMsbc+GksRATcbvkPKF5wR/qc8FrV4NBVi9ORQa1HmYa5GydaysUB80X9XpRlRkooa5uEtTA==}
+  /cron@2.3.1:
+    resolution: {integrity: sha512-1eRRlIT0UfIqauwbG9pkg3J6CX9A6My2ytJWqAXoK0T9oJnUZTzGBNPxao0zjodIbPgf8UQWjE62BMb9eVllSQ==}
     dependencies:
       luxon: 3.3.0
     dev: false
