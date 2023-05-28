@@ -1,5 +1,4 @@
-import type { GroupMessageEvent, MessageElem } from 'oicq'
-
+import type { GroupMessageEvent, MessageElem } from 'icqq'
 import type { CoCallerAction } from '@innei/next-async'
 
 export type GroupCoRoutine = (
@@ -7,7 +6,7 @@ export type GroupCoRoutine = (
   message: GroupMessageEvent,
 ) => void
 
-declare module 'oicq' {
+declare module 'icqq' {
   export interface GroupMessageEvent {
     commandName?: string
     commandArgs?: string

@@ -1,7 +1,6 @@
 import { botConfig } from 'config'
-import type { GroupMessageEvent } from 'oicq'
+import type { GroupMessageEvent } from 'icqq'
 import { Configuration, OpenAIApi } from 'openai'
-
 import { commandRegistry } from '~/registries/command'
 import { mentionRegistry } from '~/registries/mention'
 

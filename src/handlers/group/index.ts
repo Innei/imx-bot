@@ -1,7 +1,5 @@
-import type { GroupMessageEvent } from 'oicq'
-
+import type { GroupMessageEvent } from 'icqq'
 import { Co } from '@innei/next-async'
-
 import { commandMessageRoutine } from './tasks/handleCommand'
 import { mentionRoutine } from './tasks/handleMention'
 import { multiMessageElemRoutine } from './tasks/handleMuti'

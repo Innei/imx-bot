@@ -1,4 +1,4 @@
-import type { GroupMessageEvent, Sendable } from 'oicq'
+import type { GroupMessageEvent, Sendable } from 'icqq'
 
 type CommandReturnValue =
   | Promise<void>

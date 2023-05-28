@@ -1,5 +1,4 @@
-import type { GroupMessageEvent, Sendable } from 'oicq'
-
+import type { GroupMessageEvent, Sendable } from 'icqq'
 import { checkIsSendable } from '~/utils/message'
 
 type MessageReturnValue =

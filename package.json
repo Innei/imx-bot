@@ -25,7 +25,7 @@
     "github-webhook-handler": "1.0.0",
     "isomorphic-fetch": "^3.0.0",
     "lodash": "4.17.21",
-    "oicq": "2.3.1",
+    "icqq": "0.3.14",
     "openai": "^3.2.1",
     "randomcolor": "0.6.2",
     "remove-markdown": "0.5.0",
@@ -44,10 +44,5 @@
   },
   "resolutions": {
     "axios": "0.27.2"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "oicq@2.3.1": "patches/oicq+2.3.1.patch"
-    }
   }
 }

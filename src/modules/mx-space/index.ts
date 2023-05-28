@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { botConfig } from 'config'
 import { CronJob } from 'cron'
+import type { Client } from 'icqq'
 import { sample } from 'lodash'
-import type { Client } from 'oicq'
-
 import { createNamespaceLogger } from '~/utils/logger'
-
 import { healthCheck } from '../health-check'
 import { fetchHitokoto } from './api/hitokoto'
 import { listenMessage } from './message'

@@ -1,4 +1,4 @@
-import type { TextElem } from 'oicq'
+import type { TextElem } from 'icqq'
 import yargs from 'yargs'
 
 export const praseCommandMessage = async (

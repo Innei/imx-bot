@@ -1,13 +1,10 @@
-import { Platform } from 'oicq'
-
 export const botConfig = {
   groupIds: [615052447, 615052525],
 
-  password: '',
-  uid: 926284623,
   ownerId: 1003521738,
 
-  platform: Platform.iMac,
+  uid: 926284623,
+  password: '',
 
   githubHook: {
     secret: '',
@@ -49,5 +46,5 @@ export const botConfig = {
   },
   chatgpt: {
     token: '',
-  }
+  },
 }

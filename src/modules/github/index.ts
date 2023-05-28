@@ -1,8 +1,7 @@
+import http from 'http'
 import { botConfig } from 'config'
 import createHandler from 'github-webhook-handler'
-import http from 'http'
-import type { Client, Sendable } from 'oicq'
-
+import type { Client, Sendable } from 'icqq'
 import { botList } from './constants/bot'
 import type { CheckRun } from './types/check-run'
 import type { IssueEvent } from './types/issue'

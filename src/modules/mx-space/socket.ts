@@ -1,10 +1,7 @@
-import type { Client } from 'oicq'
+import type { Client } from 'icqq'
 import { io } from 'socket.io-client'
-
 import { simpleCamelcaseKeys } from '@mx-space/api-client'
-
 import type { MxSocketEventTypes } from '~/modules/mx-space/types/mx-socket-types'
-
 import { botConfig } from '../../../config'
 import { createNamespaceLogger } from '../../utils/logger'
 import { handleEvent } from './event-handler'

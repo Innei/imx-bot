@@ -1,10 +1,8 @@
 import axios from 'axios'
 import { botConfig } from 'config'
 import { CronJob } from 'cron'
-import type { Client } from 'oicq'
-
+import type { Client } from 'icqq'
 import { userAgent } from '~/constants/env'
-
 import type { BLRoom } from './types/room'
 import type { BLUser } from './types/user'
 

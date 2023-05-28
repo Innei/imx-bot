@@ -1,4 +1,4 @@
-import type { Client } from 'oicq'
+import type { Client } from 'icqq'
 
 class Plugin {
   private _plugins: ((client: Client, ...args: any[]) => any)[]

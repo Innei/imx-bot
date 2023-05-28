@@ -1,8 +1,7 @@
 import { botConfig } from 'config'
 import dayjs from 'dayjs'
-import type { Client, Sendable } from 'oicq'
+import type { Client, Sendable } from 'icqq'
 import rmd from 'remove-markdown'
-
 import type {
   CommentModel,
   LinkModel,
@@ -13,11 +12,9 @@ import type {
   SayModel,
 } from '@mx-space/api-client'
 import { LinkState } from '@mx-space/api-client'
-
 import { isDev } from '~/constants/env'
 import { createNamespaceLogger } from '~/utils/logger'
 import { getShortDateTime, relativeTimeFromNow } from '~/utils/time'
-
 import { apiClient } from './api-client'
 import { aggregateStore } from './store/aggregate'
 import { userStore } from './store/user'

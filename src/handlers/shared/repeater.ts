@@ -1,5 +1,4 @@
-import type { Message } from 'oicq'
-
+import type { Message } from 'icqq'
 import { createNamespaceLogger } from '~/utils/logger'
 
 const idToMessageQueue = new Map<string, string[]>()

@@ -1,7 +1,5 @@
-import type { TextElem } from 'oicq'
-
+import type { TextElem } from 'icqq'
 import { praseCommandMessage } from '~/utils/message'
-
 import type { GroupCoRoutine } from '../types'
 
 export const multiMessageElemRoutine: GroupCoRoutine = async function (event) {

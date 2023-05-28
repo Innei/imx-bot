@@ -1,20 +1,18 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { appendFile, readFile } from 'fs/promises'
+import path from 'path'
 import axios from 'axios'
 import { botConfig } from 'config'
-import { appendFile, readFile } from 'fs/promises'
-import { sample } from 'lodash'
 import type {
   Client,
   GroupMessageEvent,
   ImageElem,
   MessageEvent,
   TextElem,
-} from 'oicq'
-import path from 'path'
-
+} from 'icqq'
+import { sample } from 'lodash'
 import { userAgent } from '~/constants/env'
 import { commandRegistry } from '~/registries/command'
-
 import { aiRequestQueue, getApiImage, getImage2Image } from './api'
 
 const command2Shape: Record<string, 'Portrait' | 'Landscape' | 'Square'> = {

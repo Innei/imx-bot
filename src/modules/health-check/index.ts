@@ -1,5 +1,4 @@
-import type { Client } from 'oicq'
-
+import type { Client } from 'icqq'
 import { commandRegistry } from '~/registries/command'
 
 class HealthCheckStatic {
