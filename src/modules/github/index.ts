@@ -88,7 +88,8 @@ export const register = (client: Client) => {
       }
 
       await sendMessage(
-        `${pusherName} 向 ${repository.full_name} 提交了一个更改\n\n${message}`,
+        `${pusherName} 向 ${repository.full_name} 提交了一个更改\n\n${message}` +
+          `\n\n查看提交更改内容：${commits.url}`,
       )
     }
   })
@@ -158,7 +159,7 @@ export const register = (client: Client) => {
         },
         {
           type: 'text',
-          text: ` ${name} CI 挂了！！！！\n查看原因: ${html_url}`,
+          text: ` ${name} CI 挂了！！！！\n查看原因：${html_url}`,
         },
       ])
     }

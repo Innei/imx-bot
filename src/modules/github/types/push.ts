@@ -1,3 +1,25 @@
+type CommitType = {
+  id: string
+  tree_id: string
+  distinct: boolean
+  message: string
+  timestamp: string
+  url: string
+  author: {
+    name: string
+    email: string
+    username: string
+  }
+  committer: {
+    name: string
+    email: string
+    username: string
+  }
+  added: string[]
+  removed: any[]
+  modified: any[]
+}
+
 export interface PushEvent {
   ref: string
   before: string
@@ -7,27 +29,7 @@ export interface PushEvent {
   forced: boolean
   base_ref: string
   compare: string
-  commits: {
-    id: string
-    tree_id: string
-    distinct: boolean
-    message: string
-    timestamp: string
-    url: string
-    author: {
-      name: string
-      email: string
-      username: string
-    }
-    committer: {
-      name: string
-      email: string
-      username: string
-    }
-    added: string[]
-    removed: any[]
-    modified: any[]
-  }[]
+  commits: CommitType[] | CommitType
   head_commit: Head_commit
   repository: Repository
   pusher: Pusher
