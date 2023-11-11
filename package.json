@@ -17,7 +17,7 @@
     "@types/cron": "2.0.1",
     "@types/lodash": "4.14.195",
     "@types/yargs": "17.0.24",
-    "axios": "1.4.0",
+    "axios": "1.6.0",
     "chalk": "4.1.2",
     "consola": "2.15.3",
     "cron": "2.3.1",
@@ -43,6 +43,6 @@
     "typescript": "5.1.6"
   },
   "resolutions": {
-    "axios": "0.27.2"
+    "axios": "1.6.0"
   }
 }

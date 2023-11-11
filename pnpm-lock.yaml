@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  axios: 0.27.2
+  axios: 1.6.0
 
 dependencies:
   '@innei/next-async':
@@ -24,8 +24,8 @@ dependencies:
     specifier: 17.0.24
     version: 17.0.24
   axios:
-    specifier: 0.27.2
-    version: 0.27.2
+    specifier: 1.6.0
+    version: 1.6.0
   chalk:
     specifier: 4.1.2
     version: 4.1.2
@@ -1005,11 +1005,12 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /axios@0.27.2:
-    resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
+  /axios@1.6.0:
+    resolution: {integrity: sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==}
     dependencies:
       follow-redirects: 1.15.2
       form-data: 4.0.0
+      proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
     dev: false
@@ -1923,7 +1924,7 @@ packages:
     resolution: {integrity: sha512-S1ayfpyJsvMYhQaqh2VJQsDABb/Rx3kPNUHM2kfVPW2omO3C1DCS42f82v2en52V6pzdbRI3xYmkLrhAW+v66w==}
     engines: {node: '>= v14'}
     dependencies:
-      axios: 0.27.2
+      axios: 1.6.0
       log4js: 6.9.1
       long: 4.0.0
       pngjs: 6.0.0
@@ -2391,7 +2392,7 @@ packages:
   /openai@3.3.0:
     resolution: {integrity: sha512-uqxI/Au+aPRnsaQRe8CojU0eCR7I0mBiKjD3sNMzY6DaC1ZVrc85u98mtJW6voDug8fgGN+DIZmTDxTthxb7dQ==}
     dependencies:
-      axios: 0.27.2
+      axios: 1.6.0
       form-data: 4.0.0
     transitivePeerDependencies:
       - debug
@@ -2575,6 +2576,10 @@ packages:
       stream-parser: 0.3.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /proxy-from-env@1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
     dev: false
 
   /pstree.remy@1.1.8:
